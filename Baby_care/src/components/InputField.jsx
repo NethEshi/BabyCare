@@ -1,12 +1,11 @@
-function InputField({ props }) {
-  const dataArr = props;
-  console.log(dataArr);
+function InputField({ dataArr }) {
+console.log(dataArr);
 
   return (
     <>
-      {dataArr.map(function (data) {
+      {dataArr.map(function (data, index) {
         return (
-          <div className="form-item" key={data.id}>
+          <div className="form-item" key={index}>
             <label htmlFor="name">{data.name}</label>
             <br />
             <input
@@ -24,3 +23,5 @@ function InputField({ props }) {
 }
 
 export default InputField;
+//denata ohoma krnn. mn psse blnnm rendering issue ek.
+//css weda krn nane. ek khmd add krnne ? ko css? errors aw hinda ain kraapahu dann
