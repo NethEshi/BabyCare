@@ -5,7 +5,7 @@ console.log(dataArr);
     <>
       {dataArr.map(function (data, index) {
         return (
-          <div className="form-item" key={index}>
+          <div className="form-item " key={index} >
             <label htmlFor="name">{data.name}</label>
             <br />
             <input

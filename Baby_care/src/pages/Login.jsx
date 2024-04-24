@@ -9,7 +9,7 @@ function Login() {
 
   return (
     <>
-      <h1>Sign In for Account</h1>
+      <h1 className = "text-4xl p-60 lm-100">Sign In for Account</h1>
       <form>
         <InputField dataArr={formData} />
       </form>

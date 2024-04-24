@@ -2,7 +2,7 @@ import homeBg from "../assets/home-pic.svg";
 import whoweare_image from "../assets/whoweare_image.png";
 import pediatrics from "../assets/pediatrics 1.svg";
 import Maintain from "../assets/maintain.svg";
-import vaccination from "../assets/vaccination.svg";
+import vaccination from "../assets/vaccination.png";
 import clinics from "../assets/clininc.svg";
 
 function Home() {
@@ -21,8 +21,6 @@ function Home() {
         around your business, polishing your branding, and improving your public
         relations.
       </div>
-
-
 
       <div>
         <h1 className="absolute top-[800px] right-[50%] text-black font-semibold font-inter text-4xl">
@@ -63,8 +61,6 @@ function Home() {
         </div>
       </div>
 
-
-
       <div>
         <h1 className="absolute top-[1750px] right-[50%] text-black font-semibold font-inter text-4xl">
           {" "}
@@ -94,8 +90,6 @@ function Home() {
           </p>
         </div>
       </div>
-
-
 
       <div>
         <div className="flex flex-wrap justify-center mt-80 p-20">
@@ -153,8 +147,6 @@ function Home() {
           </div>
         </div>
       </div>
-
-      
     </div>
   );
 }
