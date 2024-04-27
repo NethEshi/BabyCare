@@ -4,7 +4,6 @@ import homeBg from "../assets/home-pic.svg";
 function NavBar() {
   return (
     <>
-
       <ul className="flex  text-white font-roboto absolute h-[0.51%] w-[16.91%] top-[10%] right-[26.25%] bottom-[97.32%] left-[60%] text-xs space-x-6">
         <li className="top-[74px] right-[629px] inline-block min-w-[38px] z-[1]">
           <Link to="/">Home</Link>

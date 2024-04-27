@@ -4,9 +4,13 @@ import pediatrics from "../assets/pediatrics 1.svg";
 import Maintain from "../assets/maintain.svg";
 import vaccination from "../assets/vaccination.png";
 import clinics from "../assets/clininc.svg";
+import Footer from "../components/Footer";
+import NavBar from "../components/NavBar";
 
 function Home() {
   return (
+    <>
+    <NavBar />
     <div>
       <img className="homeBg" src={homeBg} alt="Home_background" />
 
@@ -148,6 +152,8 @@ function Home() {
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   );
 }
 
