@@ -18,6 +18,7 @@ console.log(dataArr);
           </div>
         );
       })}
+      <button type="submit">Submit</button>
     </>
   );
 }

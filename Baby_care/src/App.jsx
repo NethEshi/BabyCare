@@ -1,11 +1,16 @@
-import Footer from "./components/Footer"
-import NavBar from "./components/NavBar"
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import "./App.css";
+import Footer from "./components/Footer";
+import NavBar from "./components/NavBar";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Services from "./pages/Services";
+import Contact from "./pages/Contact";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 
-
-function App () {
-
-
-
+function App() {
   return (
     <>
       <NavBar />
