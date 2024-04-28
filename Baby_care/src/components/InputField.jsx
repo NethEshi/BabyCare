@@ -24,5 +24,3 @@ console.log(dataArr);
 }
 
 export default InputField;
-//denata ohoma krnn. mn psse blnnm rendering issue ek.
-//css weda krn nane. ek khmd add krnne ? ko css? errors aw hinda ain kraapahu dann

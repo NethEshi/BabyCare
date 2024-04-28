@@ -8,6 +8,7 @@ import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 
+
 function App() {
   return (
     <>
@@ -19,6 +20,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/SignUp" element={<SignUp />} />
       </Routes>
+      <Footer />
     </>
   );
 }
