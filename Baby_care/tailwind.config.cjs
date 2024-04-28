@@ -20,7 +20,8 @@ export default {
         'ATblack' : '#2F2F2F',
         'ATwhite' : '#FFF8E0',
         'NavyBlue': '#0D2B71',
-        'LightBlue' : '#EBF1FF'
+        'LightBlue' : '#EBF1FF',
+        'Blue' : '#2458D2'
       },
       fontFamily: {
         Inter: ["Inter", "sans-serif"],

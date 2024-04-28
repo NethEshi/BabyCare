@@ -19,10 +19,10 @@ function NavBar() {
         </li>
       </ul>
 
-      <button class="text-white top-[64px] right-[170px] py-1 px-[27px] bg-[transparent] w-[100px] absolute rounded-xl box-border flex flex-row items-start justify-start whitespace-nowrap z-[1] border-[1px] border-solid border-white hover:box-border hover:border-[1px] hover:border-solid hover:border-gainsboro-100 cursor-pointer ">
+      <button className="text-white top-[64px] right-[170px] py-1 px-[27px] bg-[transparent] w-[100px] absolute rounded-xl box-border flex flex-row items-start justify-start whitespace-nowrap z-[1] border-[1px] border-solid border-white hover:box-border hover:border-[1px] hover:border-solid hover:border-gainsboro-100 cursor-pointer ">
         <Link to="/Login">Sign In</Link>
       </button>
-      <button class="text-NavyBlue top-[64px] right-[50px] py-1 px-[27px] bg-white w-[100px] absolute rounded-xl box-border flex flex-row items-start justify-start whitespace-nowrap z-[1] border-[1px] border-solid border-white hover:box-border hover:border-[1px] hover:border-solid hover:border-gainsboro-100 cursor-pointer ">
+      <button className="text-NavyBlue top-[64px] right-[50px] py-1 px-[27px] bg-white w-[100px] absolute rounded-xl box-border flex flex-row items-start justify-start whitespace-nowrap z-[1] border-[1px] border-solid border-white hover:box-border hover:border-[1px] hover:border-solid hover:border-gainsboro-100 cursor-pointer ">
         <Link to="/SignUp">Sign Up</Link>
       </button>
     </>
