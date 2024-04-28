@@ -1,7 +1,11 @@
+import profile from "../assets/profile.png";
+
+
+
 function DashboardSearch() {
   return (
     <>
-      <form class="w-80 h-4 mx-auto">
+      <form class="w-96 h-1 mx-auto">
         <label
           for="default-search"
           class="mb-2 text-sm font-medium text-gray-900 sr-only"
@@ -11,7 +15,7 @@ function DashboardSearch() {
         <div class="relative">
           <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
             <svg
-              class="w-4 h-4 text-gray-500 dark:text-gray-400"
+              class="w-4 h-4 text-gray-500"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -29,18 +33,27 @@ function DashboardSearch() {
           <input
             type="search"
             id="default-search"
-            class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-Blue focus:border-Blue"
+            class="block w-full p-4 ps-10 text-sm text-NavyBlue border border-gray-300 rounded-3xl bg-gray-50 focus:ring-Blue focus:border-Blue"
             placeholder="Search"
             required
           />
           <button
             type="submit"
-            class="text-white absolute end-2.5 bottom-2.5 bg-Blue hover:bg-Bluefocus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
+            class="text-white absolute end-2.5 bottom-2.5 bg-Blue hover:bg-Bluefocus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-sm px-4 py-2"
           >
             Search
           </button>
         </div>
       </form>
+
+      <div>
+        <img
+          class="w-10 h-10 p-1 rounded-full ring-2 ring-NavyBlue cursor-pointer"
+          src={profile}
+          alt="profile"
+        />
+      </div>
+
     </>
   );
 }

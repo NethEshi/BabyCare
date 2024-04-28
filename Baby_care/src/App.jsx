@@ -7,6 +7,7 @@ import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import DashboardSearch from "./components/DashboardSearch";
 
 
 
@@ -21,6 +22,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/SignUp" element={<SignUp />} />
       </Routes>
+      <DashboardSearch/>
+
 
     </>
   );

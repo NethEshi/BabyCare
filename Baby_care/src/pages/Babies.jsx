@@ -1,13 +1,16 @@
-
+import DashboardSideBar from "../components/DashboardSideBar";
+import DashboardSearch from "../components/DashboardSearch";
 
 
 function Babies() {
-    return (
- 
+  return (
+    <div>
+      <DashboardSideBar />
       <div>
-        <h1>Babies</h1>
+        <DashboardSearch/>
       </div>
-    );
-  };
-  
-  export default Babies;
+    </div>
+  );
+}
+
+export default Babies;
