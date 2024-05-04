@@ -1,9 +1,95 @@
+import pediatrics from "../assets/pediatrics 1.svg";
+import Maintain from "../assets/maintain.svg";
+import vaccination from "../assets/vaccination.png";
+import clinics from "../assets/clininc.svg";
 
 function Services() {
   return (
-    <div>
-      <h1>Services</h1>
-    </div>
+    <>
+        <div className=" text-center pb-10" id="services">
+          <h1 className="font-semibold font-inter text-4xl">
+            Services
+          </h1>
+
+          <div className=" h-auto w-[80%] text-base leading-8 text-center inline-block ">
+            <p className="m-0">
+              We are a team committed to enhancing the health of infants and
+              young children through innovative technology.
+            </p>
+
+            <p className="m-0">
+              Our user-friendly platform streamlines weight monitoring,
+              vaccination tracking, and appointment scheduling, fostering
+              seamless communication between parents and healthcare providers.
+              Together, let's make a lasting impact on the well-being of our
+              youngest generation and pave the way for a brighter future for all
+              children.
+            </p>
+
+            <p className="m-0">
+              Together, we're shaping a healthier future for children worldwide.
+              Join us on our journey to redefine pediatric healthcare.
+            </p>
+          </div>
+        </div>
+
+        <div className="">
+          <div className="flex justify-center">
+          <div className="p-4 max-w-sm">
+              <div className="flex rounded-lg h-[275px] w-[250px] bg-gray-800 p-8 flex-col">
+                <div className="flex justify-center mb-3">
+                  <img
+                    className="pediactrics"
+                    src={pediatrics}
+                    alt="pediactrics"
+                  />
+                </div>
+                <div className="flex flex-col justify-between flex-grow"></div>
+                <p className="leading-relaxed text-base NavyBlue text-white text-center ">
+                  Weight Monitoring
+                </p>
+              </div>
+            </div>
+            <div className="p-4 max-w-sm">
+              <div className="flex rounded-lg h-[275px] w-[250px] bg-gray-800 p-8 flex-col">
+                <div className="flex justify-center mb-3">
+                  <img
+                    className="vaccination"
+                    src={vaccination}
+                    alt="vaccination"
+                  />
+                </div>
+                <div className="flex flex-col justify-between flex-grow"></div>
+                <p className="leading-relaxed text-base NavyBlue text-white text-center">
+                  Vaccination Tracking
+                </p>
+              </div>
+            </div>
+            <div className="p-4 max-w-sm">
+              <div className="flex rounded-lg h-[275px] w-[250px] bg-gray-800 p-8 flex-col">
+                <div className="flex justify-center mb-3">
+                  <img className="Maintain" src={Maintain} alt="Maintain" />
+                </div>
+                <div className="flex flex-col justify-between flex-grow"></div>
+                <p className="leading-relaxed text-base NavyBlue text-white text-center">
+                  Maintain Health Records
+                </p>
+              </div>
+            </div>
+            <div className="p-4 max-w-sm">
+              <div className="flex rounded-lg h-[275px] w-[250px] bg-gray-800 p-8 flex-col">
+                <div className="flex justify-center mb-3">
+                  <img className="clinics" src={clinics} alt="clinics" />
+                </div>
+                <div className="flex flex-col justify-between flex-grow"></div>
+                <p className="leading-relaxed text-base NavyBlue text-white text-center">
+                  Clinic Scheduling
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+    </>
   );
 };
 

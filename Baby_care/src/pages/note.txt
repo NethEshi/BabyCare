@@ -1,0 +1,124 @@
+
+        <div className="">
+          <h1 className="text-black font-semibold font-inter text-4xl">
+            Who we are
+          </h1>
+
+          <div className=" text-base leading-[177%] font-light text-center">
+            <p className="m-0">
+              We are a team committed to enhancing the health of infants and
+              young children through innovative technology.
+            </p>
+
+            <p className="m-0">
+              Our user-friendly platform streamlines weight monitoring,
+              vaccination tracking, and appointment scheduling, fostering
+              seamless communication between parents and healthcare providers.
+              Together, let's make a lasting impact on the well-being of our
+              youngest generation and pave the way for a brighter future for all
+              children.
+            </p>
+
+            <p className="m-0">
+              Together, we're shaping a healthier future for children worldwide.
+              Join us on our journey to redefine pediatric healthcare.
+            </p>
+          </div>
+
+          <div className="flex justify-center">
+            <img
+              className=" w-[515px] "
+              loading="lazy"
+              alt=""
+              src={whoweare_image}
+            />
+          </div>
+        </div>
+
+        <div className="">
+          <h1 className="text-black font-semibold font-inter text-4xl">
+            Services
+          </h1>
+
+          <div className="h-[139px] text-base leading-[177%] font-light text-center inline-block ">
+            <p className="m-0">
+              We are a team committed to enhancing the health of infants and
+              young children through innovative technology.
+            </p>
+
+            <p className="m-0">
+              Our user-friendly platform streamlines weight monitoring,
+              vaccination tracking, and appointment scheduling, fostering
+              seamless communication between parents and healthcare providers.
+              Together, let's make a lasting impact on the well-being of our
+              youngest generation and pave the way for a brighter future for all
+              children.
+            </p>
+
+            <p className="m-0">
+              Together, we're shaping a healthier future for children worldwide.
+              Join us on our journey to redefine pediatric healthcare.
+            </p>
+          </div>
+        </div>
+
+        <div className="">
+          <div className="flex flex-wrap justify-center mt-80 p-20">
+            <div className="p-4 max-w-sm">
+              <div className="flex rounded-lg h-283px w-331px dark:bg-gray-800 bg-LightBlue p-8 flex-col">
+                <div className="flex items-center mb-3">
+                  <img
+                    className="pediatrics"
+                    src={pediatrics}
+                    alt="pediatrics"
+                  />
+                  <h2 className="text-white dark:text-white text-lg font-medium"></h2>
+                </div>
+                <div className="flex flex-col justify-between flex-grow"></div>
+                <p className="leading-relaxed text-base NavyBlue dark:text-gray-300 ">
+                  Weight Monitoring
+                </p>
+              </div>
+            </div>
+            <div className="p-4 max-w-sm">
+              <div className="flex rounded-lg h-283px w-331px dark:bg-gray-800 bg-LightBlue p-8 flex-col">
+                <div className="flex items-center mb-3">
+                  <img
+                    className="vaccination"
+                    src={vaccination}
+                    alt="vaccination"
+                  />
+                  <h2 className="text-white dark:text-white text-lg font-medium"></h2>
+                </div>
+                <div className="flex flex-col justify-between flex-grow"></div>
+                <p className="leading-relaxed text-base NavyBlue dark:text-gray-300 ">
+                  Vaccination Tracking
+                </p>
+              </div>
+            </div>
+            <div className="p-4 max-w-sm">
+              <div className="flex rounded-lg h-283px w-331px dark:bg-gray-800 bg-LightBlue p-8 flex-col">
+                <div className="flex items-center mb-3">
+                  <img className="Maintain" src={Maintain} alt="Maintain" />
+                  <h2 className="text-white dark:text-white text-lg font-medium"></h2>
+                </div>
+                <div className="flex flex-col justify-between flex-grow"></div>
+                <p className="leading-relaxed text-base NavyBlue dark:text-gray-300 ">
+                  Maintain Health Records
+                </p>
+              </div>
+            </div>
+            <div className="p-4 max-w-sm">
+              <div className="flex rounded-lg h-283px w-331px dark:bg-gray-800 bg-LightBlue p-8 flex-col">
+                <div className="flex items-center mb-3">
+                  <img className="clinics" src={clinics} alt="clinics" />
+                  <h2 className="text-white dark:text-white text-lg font-medium"></h2>
+                </div>
+                <div className="flex flex-col justify-between flex-grow"></div>
+                <p className="leading-relaxed text-base NavyBlue dark:text-gray-300 ">
+                  Clinic Scheduling
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>

@@ -20,14 +20,9 @@ function DashboardSideBar() {
       >
         <div class="h-full px-3 py-4 overflow-y-auto bg-NavyBlue">
           <ul class="space-y-2 font-medium">
-            <li>
-              <a
-                href="#"
-                class="flex items-center p-2 text-white rounded-lg  hover:bg-Blue "
-              >
+            <li className="flex items-center p-2 text-white rounded-lg  hover:bg-Blue ">
                 <img className="Baby" src={Baby} alt="Baby" />
-                <span class="ms-3">Babies</span>
-              </a>
+                <span className="ms-3">Babies</span>
             </li>
 
             <li>

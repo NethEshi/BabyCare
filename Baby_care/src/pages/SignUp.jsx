@@ -42,14 +42,14 @@ function SignUp() {
 
   return (
     <>
-      <div className="flex">
-        <div className=" bg-NavyBlue basis-1/2 h-screen flex items-center justify-center">
-          <img className=" w-[492px] h-[477px]" src={RegisterImg} alt="login" />
+      <div className="lg:flex flex-row">
+        <div className=" bg-NavyBlue lg:basis-1/2 lg:h-screen flex items-center justify-center">
+          <img className=" w-[50%] lg:w-[492px] py-10 " src={RegisterImg} alt="login" />
         </div>
-        <div className=" bg-white basis-1/2 h-screen px-20 py-20">
+        <div className=" bg-white lg:basis-1/2 h-screen px-20 py-20">
           <p className="text-4xl text-center pb-10">Sign Up for Account</p>
-          <form className="pb-10" onSubmit={handlesubmit}>
-            <div className="flex space-x-20">
+          <form className="pb-10 flex-row w-full " onSubmit={handlesubmit}>
+            <div className="flex space-x-10 items-center justify-center">
             <div className="">
             <InputField dataArr={formData1} inputChange = {handleChange}/>
             </div>
@@ -57,7 +57,7 @@ function SignUp() {
             <InputField dataArr={formData2} inputChange = {handleChange}/>
             </div>
             </div>
-          <div className="flex justify-center space-x-5 pb-5">
+            <div className="flex justify-center space-x-5 pb-5">
             <input className="w-[25px] h-[28.99px] border border-neutral-600" type="checkbox" onClick={handleCheck}/>
             <p className="text-neutral-700 text-lg font-medium font-poppins">
             I accept all <span className=" text-LBlue">terms and condition</span>

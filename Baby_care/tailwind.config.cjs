@@ -21,7 +21,7 @@ export default {
         'ATwhite' : '#FFF8E0',
         'NavyBlue': '#0D2B71',
         'LightBlue' : '#EBF1FF',
-        'Blue' : '#2458D2'
+        'LBlue' : '#2458D2'
       },
       fontFamily: {
         Inter: ["Inter", "sans-serif"],
@@ -34,6 +34,7 @@ export default {
       "3xl": ["18px"],
       "4xl": ["32px"],
       "5xl": ["48px"],
+      "6xl": ["58px"],
     },
   },
   plugins: [],
