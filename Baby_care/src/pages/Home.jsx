@@ -2,6 +2,7 @@ import homeBg from "../assets/home pic.png";
 import whoweare_image from "../assets/whoweare_image.png";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
+import ScrollButton from "../components/ScrollButton";
 import About from "./About";
 import Services from "./Services";
 
@@ -9,7 +10,7 @@ function Home() {
   return (
     <>
       <NavBar />
-      <div>
+      <div className="relative">
         <div className="relative">
           <img className="homeBg w-full" src={homeBg} alt="Home_background" />
           <div className=" absolute w-[340px] top-[200px] flex-row ">
@@ -31,6 +32,9 @@ function Home() {
         </div>
         <div className="">
           <Services />
+        </div>
+        <div className=" sticky flex justify-end bottom-10 pr-10">
+          <ScrollButton />
         </div>
       </div>
     </>

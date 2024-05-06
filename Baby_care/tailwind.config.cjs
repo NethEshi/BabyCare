@@ -37,5 +37,8 @@ export default {
       "6xl": ["58px"],
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwindcss-animated'),
+    
+  ],
 };

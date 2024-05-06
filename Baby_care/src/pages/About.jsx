@@ -12,7 +12,7 @@ Our user-friendly platform streamlines weight monitoring, vaccination tracking, 
 Together, we're shaping a healthier future for children worldwide. Join us on our journey to redefine pediatric healthcare.</p>
     </div>
     </div>
-    <img src={Whoweare} alt="Whoweare" className="w-[40%] h-[40%] mx-auto"/>
+    <img src={Whoweare} alt="Whoweare" className="w-[40%] h-[40%] mx-auto animate-fade-up"/>
     </>
   );
 }
