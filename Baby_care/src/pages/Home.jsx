@@ -49,8 +49,9 @@ function Home() {
         <div className=" sticky flex justify-end bottom-10 pr-10">
           <ScrollButton />
         </div>
+        <Footer />
       </div>
-      <Footer />
+ 
     </>
   );
 }
