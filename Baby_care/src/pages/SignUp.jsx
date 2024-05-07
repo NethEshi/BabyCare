@@ -6,7 +6,7 @@ import { useState } from "react";
 function SignUp() {
 
   const [UserInputs, setUserInputs] = useState({
-    hospitalName: "",
+    MOHname: "",
     type: "",
     district: "",
     email: "",
@@ -26,11 +26,13 @@ function SignUp() {
 
   const handlesubmit = (e) => {
     e.preventDefault();
+    
     console.log("Submitted", UserInputs);
+
   };
 
   const formData1 = [
-    { heading: "Hospital Name", placeholder: "Hospital Name", id:"hospitalName", name:"hospitalName", type:"text"},
+    { heading: "MOH Name", placeholder: "MOH Name", id: "MOHname", name:"MOHname", type:"text"},
     { heading: "Type", placeholder: "GOV/PVT", id: "type", name: "type", type: "text"},
     { heading: "Password", placeholder: "Your Password", id: "password", name: "password", type: "password"}
   ];

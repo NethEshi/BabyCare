@@ -29,18 +29,22 @@ function NavBar() {
           <Link to="/Contact">Contact Us</Link>
         </li>
         <li>
+        <Link to="/Login">
           <button className="w-[100px] h-10 relative rounded-[20px] border text-white hover:text-black hover:bg-white border-white">
             <div className="left-[28px] top-[6px] absolute text-sm font-bold font-['Roboto'] leading-7">
-              <Link to="/Login">Sign In</Link>
+              Sign In
             </div>
           </button>
+          </Link>
         </li>
         <li>
+        <Link to="/SignUp">
           <button className="w-[100px] h-10 relative bg-white text-sky-900 hover:text-white hover:bg-transparent rounded-[20px] border border-white">
             <div className="w-14 h-7 left-[22px] top-[6px] absolute text-sm font-bold font-['Roboto'] leading-7">
-              <Link to="/SignUp">Sign Up</Link>
+              Sign Up
             </div>
           </button>
+          </Link>
         </li>
       </ul>
     </>
