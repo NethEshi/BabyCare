@@ -24,11 +24,16 @@ function MidwifeLogin() {
 
   const handlesubmitOTP = (e) => {
     e.preventDefault();
-
-    axios.post("http://localhost:5000/auth/login", { Email, otp })
+    console.log(otp);
+    console.log(Email);
+    axios.post("http://localhost:5000/otp/validateOtp", {Email,otp})
     .then((response) => {
         console.log(response.data);
-        Navigate("/MOHdashboard");
+        const d = new Date();
+        d.setTime(d.getTime() + (7 * 24 * 60 * 60 * 1000));
+        let expires = "expires="+d.toUTCString();
+        document.cookie = `MWtoken=${response.data.token}; ${expires};`;
+        Navigate("/MidwifeDashboard");
     })
     .catch((error) => {
         console.log(error);
@@ -42,7 +47,7 @@ function MidwifeLogin() {
   const handlesubmitEmail = (e) => {
     e.preventDefault();
 
-    axios.post("http://localhost:5000/auth/login", Email)
+    axios.post("http://localhost:5000/otp/sendOtp", Email)
     .then((response) => {
         console.log(response.data);
         toggleVisibility();

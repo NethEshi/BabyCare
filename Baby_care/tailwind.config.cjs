@@ -21,7 +21,8 @@ export default {
         'ATwhite' : '#FFF8E0',
         'NavyBlue': '#0D2B71',
         'LightBlue' : '#EBF1FF',
-        'LBlue' : '#2458D2'
+        'LBlue' : '#2458D2',
+        'Ash' : '#4E4E4E'
       },
       fontFamily: {
         Inter: ["Inter", "sans-serif"],

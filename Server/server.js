@@ -18,6 +18,15 @@ app.use('/auth', authRoute);
 const refRouter = require('./routes/refRoute');
 app.use('/ref', refRouter);
 
+const otpRouter = require('./routes/otpRoute');
+app.use('/otp', otpRouter);
+
+const mohRouter = require('./routes/mohRoute');
+app.use('/moh', mohRouter);
+
+const babyRouter = require('./routes/babyRoute');
+app.use('/baby', babyRouter);
+
 mongoose.connect(url)
 .then(() => console.log("MongoDB is connected..."))
 .catch((err) => console.log(err));

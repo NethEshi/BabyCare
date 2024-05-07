@@ -48,7 +48,7 @@ MOHlogin : async (req, res) => {
             return res.status(400).json({ message: 'Invalid username or password' });
         }
 
-        const token = jwt.sign({ MOH: MOH.Email }, process.env.JWT_SECRET, {
+        const token = jwt.sign({ MOH: MOHexist.Email }, process.env.JWT_SECRET, {
             expiresIn: "7d",
           });
 

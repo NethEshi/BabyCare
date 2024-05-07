@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import MOHdashboard from "./pages/MOHdashboard";
 import MidwifeLogin from "./pages/MidwifeLogin";
+import MidwifeDashboard from "./pages/MidwifeDashboard";
 
 
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/MOHdashboard" element={<MOHdashboard />} />
         <Route path="/MidwifeLogin" element={<MidwifeLogin />} />
+        <Route path="/MidwifeDashboard" element={<MidwifeDashboard />} />
       </Routes>
     </>
   );

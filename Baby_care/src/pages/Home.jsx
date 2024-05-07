@@ -34,7 +34,7 @@ function Home() {
               strive to develop a community around your business, polishing your
               branding, and improving your public relations.
             </p>
-            <button onClick={NavToMidwifeLogin} className="flex justify-center">
+            <button onClick={NavToMidwifeLogin} className="flex justify-center hover:scale-105">
               <img src= {midWlog} alt="midwife Login" className=" w-[318px] h-[67px]" />
             </button>
           </div>
@@ -50,6 +50,7 @@ function Home() {
           <ScrollButton />
         </div>
       </div>
+      <Footer />
     </>
   );
 }

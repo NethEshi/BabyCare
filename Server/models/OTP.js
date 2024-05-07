@@ -1,15 +1,14 @@
-import mongoose from 'mongoose';
-
+const mongoose = require('mongoose');
 
 const otpSchema = new mongoose.Schema({
     otp: {
-        type: String,
+        type: Number,
         required: true
     },
     createdAt: {
         type: Date,
         default: Date.now,
-        expires: 120 
+        expires: 600 
     },
     Email: {
         type: String,

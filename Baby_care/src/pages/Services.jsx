@@ -36,7 +36,7 @@ function Services() {
         <div className="">
           <div className="flex justify-center">
           <div className="p-4 max-w-sm">
-              <div className="flex rounded-lg h-[275px] w-[250px] bg-gray-800 p-8 flex-col">
+              <div className="flex rounded-lg h-[275px] w-[250px] bg-LightBlue p-8 flex-col">
                 <div className="flex justify-center mb-3">
                   <img
                     className="pediactrics"
@@ -45,13 +45,13 @@ function Services() {
                   />
                 </div>
                 <div className="flex flex-col justify-between flex-grow"></div>
-                <p className="leading-relaxed text-base NavyBlue text-white text-center ">
+                <p className="leading-relaxed text-base NavyBlue text-black text-center ">
                   Weight Monitoring
                 </p>
               </div>
             </div>
             <div className="p-4 max-w-sm">
-              <div className="flex rounded-lg h-[275px] w-[250px] bg-gray-800 p-8 flex-col">
+              <div className="flex rounded-lg h-[275px] w-[250px] bg-LightBlue p-8 flex-col">
                 <div className="flex justify-center mb-3">
                   <img
                     className="vaccination"
@@ -60,29 +60,29 @@ function Services() {
                   />
                 </div>
                 <div className="flex flex-col justify-between flex-grow"></div>
-                <p className="leading-relaxed text-base NavyBlue text-white text-center">
+                <p className="leading-relaxed text-base NavyBlue text-black text-center">
                   Vaccination Tracking
                 </p>
               </div>
             </div>
             <div className="p-4 max-w-sm">
-              <div className="flex rounded-lg h-[275px] w-[250px] bg-gray-800 p-8 flex-col">
+              <div className="flex rounded-lg h-[275px] w-[250px] bg-LightBlue p-8 flex-col">
                 <div className="flex justify-center mb-3">
                   <img className="Maintain" src={Maintain} alt="Maintain" />
                 </div>
                 <div className="flex flex-col justify-between flex-grow"></div>
-                <p className="leading-relaxed text-base NavyBlue text-white text-center">
+                <p className="leading-relaxed text-base NavyBlue text-black text-center">
                   Maintain Health Records
                 </p>
               </div>
             </div>
             <div className="p-4 max-w-sm">
-              <div className="flex rounded-lg h-[275px] w-[250px] bg-gray-800 p-8 flex-col">
+              <div className="flex rounded-lg h-[275px] w-[250px] bg-LightBlue p-8 flex-col">
                 <div className="flex justify-center mb-3">
                   <img className="clinics" src={clinics} alt="clinics" />
                 </div>
                 <div className="flex flex-col justify-between flex-grow"></div>
-                <p className="leading-relaxed text-base NavyBlue text-white text-center">
+                <p className="leading-relaxed text-base NavyBlue text-black text-center">
                   Clinic Scheduling
                 </p>
               </div>
