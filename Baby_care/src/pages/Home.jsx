@@ -1,12 +1,20 @@
 import homeBg from "../assets/home pic.png";
-import whoweare_image from "../assets/whoweare_image.png";
 import Footer from "../components/Footer";
+import midWlog from "../assets/midWlog.svg";
 import NavBar from "../components/NavBar";
 import ScrollButton from "../components/ScrollButton";
 import About from "./About";
 import Services from "./Services";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+
+  const Navigate = useNavigate();
+
+  const NavToMidwifeLogin = () => {
+    Navigate("/MidwifeLogin");
+  };
+
   return (
     <>
       <NavBar />
@@ -25,6 +33,9 @@ function Home() {
               strive to develop a community around your business, polishing your
               branding, and improving your public relations.
             </p>
+            <button onClick={NavToMidwifeLogin}>
+              <img src= {midWlog} alt="midwife Login" className=" w-[318px] h-[67px]" />
+            </button>
           </div>
         </div>
         <div className="w-full">

@@ -2,25 +2,40 @@ import InputField from "../components/InputField";
 import loginImg from "../assets/login.svg";
 import Bluebutton from "../components/Bluebutton";
 import { useState } from "react";
+import axios from "axios";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function SignUp() {
 
   const [UserInputs, setUserInputs] = useState({
-    email: "",
+    Email: "",
     password: "",
   });
 
+  const Navigate = useNavigate();
   const handleChange = (e) => {
     setUserInputs({ ...UserInputs, [e.target.name]: e.target.value });
   };
 
   const handlesubmit = (e) => {
     e.preventDefault();
-    console.log("Submitted", UserInputs);
+
+    axios.post("http://localhost:5000/auth/login", UserInputs)
+    .then((response) => {
+      console.log(response.data);
+      const d = new Date();
+      d.setTime(d.getTime() + (7 * 24 * 60 * 60 * 1000));
+      let expires = "expires="+d.toUTCString();
+      document.cookie = `token=${response.data.token}; ${expires};`;
+      Navigate("/MOHdashboard")
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   };
 
   const formData1 = [
-    { heading: "Email Address", placeholder: "Enter Your email Address", name: "email", type: "email", id: "email"},
+    { heading: "Email Address", placeholder: "Enter Your email Address", name: "Email", type: "email", id: "Email"},
     { heading: "Password", placeholder: "Your Password", name: "password", type: "password", id: "password"},
   ];
 

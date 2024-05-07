@@ -15,6 +15,7 @@ MOHregister : async (req, res) => {
         const cfpassword = req.body.cfpassword;
 
         const validEmail = await MOHref.findOne({ Email });
+        console.log(validEmail);
         if (!validEmail) {
             return res.status(400).json({ message: 'Email is invalid' });
         }
@@ -37,12 +38,12 @@ MOHlogin : async (req, res) => {
         const Email = req.body.Email;
         const password = req.body.password;
 
-        const MOH = await MOH.findOne({ Email });
-        if (!MOH) {
+        const MOHexist = await MOH.findOne({ Email });
+        if (!MOHexist) {
             return res.status(400).json({ message: 'Invalid username or password' });
         }
 
-        const isPasswordValid = await bcrypt.compare(password, MOH.password);
+        const isPasswordValid = await bcrypt.compare(password, MOHexist.password);
         if (!isPasswordValid) {
             return res.status(400).json({ message: 'Invalid username or password' });
         }
@@ -53,7 +54,7 @@ MOHlogin : async (req, res) => {
 
         res.status(200).json({ message: 'Login successful', token});
     } catch (error) {
-        res.status(500).json({ message: 'Internal server error' });
+        res.status(500).json({ message: 'Internal server error' ,error});
     }
 },
 }

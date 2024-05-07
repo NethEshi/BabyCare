@@ -7,6 +7,8 @@ import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import MOHdashboard from "./pages/MOHdashboard";
+import MidwifeLogin from "./pages/MidwifeLogin";
 
 
 
@@ -20,6 +22,8 @@ function App() {
         <Route path="/Contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/MOHdashboard" element={<MOHdashboard />} />
+        <Route path="/MidwifeLogin" element={<MidwifeLogin />} />
       </Routes>
     </>
   );

@@ -2,18 +2,22 @@ import InputField from "../components/InputField";
 import RegisterImg from "../assets/register.svg";
 import Bluebutton from "../components/Bluebutton";
 import { useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function SignUp() {
 
   const [UserInputs, setUserInputs] = useState({
-    MOHname: "",
-    type: "",
-    district: "",
-    email: "",
+    MOH_Name: "",
+    Type: "",
+    District: "",
+    Email: "",
     password: "",
     cfpassword: ""
   });
 
+  const Navigate = useNavigate();
   const [check, setCheck] = useState(false);
 
   const handleCheck = () => {
@@ -27,18 +31,30 @@ function SignUp() {
   const handlesubmit = (e) => {
     e.preventDefault();
     
-    console.log("Submitted", UserInputs);
-
+    axios.post("http://localhost:5000/auth/register", UserInputs)
+    .then((response) => {
+      toast.success(response.data.message, {
+        position: "top-center",
+      });
+      console.log(response.data);
+      Navigate("/login")
+    })
+    .catch((error) => {
+      // toast.error(error.response.data.message, {
+      //   position: "top-center",
+      // });
+      console.log(error);
+    });
   };
 
   const formData1 = [
-    { heading: "MOH Name", placeholder: "MOH Name", id: "MOHname", name:"MOHname", type:"text"},
-    { heading: "Type", placeholder: "GOV/PVT", id: "type", name: "type", type: "text"},
+    { heading: "MOH Name", placeholder: "MOH Name", id: "MOH_Name", name:"MOH_Name", type:"text"},
+    { heading: "Type", placeholder: "GOV/PVT", id: "Type", name: "Type", type: "text"},
     { heading: "Password", placeholder: "Your Password", id: "password", name: "password", type: "password"}
   ];
   const formData2 = [
-    { heading: "District", placeholder: "District", id:"district", name:"district", type:"text"},
-    { heading: "Email Address", placeholder: "Enter Your email Address", id: "email", name: "email", type: "email"},
+    { heading: "District", placeholder: "District", id:"District", name:"District", type:"text"},
+    { heading: "Email Address", placeholder: "Enter Your email Address", id: "Email", name: "Email", type: "email"},
     { heading: "Confirm Password", placeholder: "Confirm Your Password", id: "cfpassword", name: "cfpassword", type: "password"}
   ];
 

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 
 const MOHrefSchema = new mongoose.Schema({
-    email: {
+    Email: {
         type: String,
         required: true
     },
