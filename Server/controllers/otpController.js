@@ -61,7 +61,7 @@ const otpController = {
         res.status(500).json({ message: 'Internal server error', error });
         console.log(error);
     }
-    }
-}
+    },
+};
 
 module.exports = otpController;
