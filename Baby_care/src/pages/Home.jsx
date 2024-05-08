@@ -24,15 +24,11 @@ function Home() {
           <div className="flex justify-end pr-[5%]">
           <div className=" absolute w-[40%] top-[200px] flex-row ">
             <h1 className="text-white font-extrabold font-inter flex items-center z-[1] text-3xl xl:text-6xl">
-              We help people to get appointment in online
+            Empowering Parents, Enhancing Care:
             </h1>
 
             <p className=" text-white h-[151.3px] text-xl leading-[175%] font-light font-inter text-justify inline-block">
-              Lorem Media is a full-service social media agency. We offer
-              businesses innovative solutions that deliver the right type of
-              audience to you in the most effective strategies possible. We
-              strive to develop a community around your business, polishing your
-              branding, and improving your public relations.
+            Gain peace of mind and proactive control over child's well-being. Dive deep into their health records effortlessly, ensuring every aspect of their care is optimized. With our platform, child's health becomes a seamless, empowering experience.
             </p>
             <button onClick={NavToMidwifeLogin} className="flex justify-center hover:scale-105">
               <img src= {midWlog} alt="midwife Login" className=" w-[318px] h-[67px]" />
