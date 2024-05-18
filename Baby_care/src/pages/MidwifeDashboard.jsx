@@ -22,6 +22,11 @@ function MidwifeDashboard() {
     setOverlay(!overlay);
   };
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    console.log("searching");
+  };
+
   const calculateAge = (DOB) => {
     const dob = new Date(DOB);
     const diff_ms = Date.now() - dob.getTime();
@@ -40,7 +45,7 @@ function MidwifeDashboard() {
           {!overlay && (
             <>
               <div className="px-5 py-3">
-                <DashNav />
+                <DashNav handleSearch = {handleSearch}/>
               </div>
               <hr />
               <div className=" flex justify-center pt-20">

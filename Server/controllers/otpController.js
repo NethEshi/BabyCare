@@ -25,7 +25,7 @@ const otpController = {
 
             await sendEmail ({
                 to: Email,
-                subject: 'OTP for password reset',
+                subject: 'OTP for user verification',
                 message: `Your OTP is ${otp}`
             });
 
