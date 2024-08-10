@@ -1,6 +1,6 @@
 import axios from "axios";
-import loginImg from "../assets/login.svg";
-import Bluebutton from "../components/Bluebutton";
+import loginImg from "../../assets/login.svg";
+import Bluebutton from "../../components/Bluebutton";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 

@@ -22,12 +22,16 @@ export default {
         'NavyBlue': '#0D2B71',
         'LightBlue' : '#EBF1FF',
         'LBlue' : '#2458D2',
-        'Ash' : '#4E4E4E'
+        'Ash' : '#4E4E4E',
+        'light-pink' : "#F4F7FE",
       },
       fontFamily: {
         Inter: ["Inter", "sans-serif"],
         poppins: ["Poppins", "sans-serif"],
       },
+      animation: {
+        'spinOneRoundClockwise' : 'spin 1s linear 0.25',
+      }
     },
     fontSize: {
       xs: ["14px"],
