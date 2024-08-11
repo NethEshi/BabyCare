@@ -3,7 +3,7 @@
 function HealthReport() {
     return (
         <div>
-            <h1>Health Report</h1>
+            <h1>Health Report1</h1>
         </div>
     )
 }
