@@ -37,7 +37,7 @@ function BMI() {
   }, []);
 
   useEffect(() => {
-    if (ChartLabels.length === 0) {
+    if (!ChartLabels) {
       setChartData(false);
       return;
     }
@@ -49,12 +49,15 @@ function BMI() {
     }
     if (chartInstanceRef3.current) {
       chartInstanceRef3.current.destroy();
-    }      
+    }
 
-    const ctx1 = chartRef1.current.getContext("2d");
-    const ctx2 = chartRef2.current.getContext("2d");
-    const ctx3 = chartRef3.current.getContext("2d");
+    setChartBMI(ChartWeights.map((weight, index) => (weight / 1000) / ((ChartHeights[index] / 100) ** 2)))        
 
+    const ctx1 = chartRef1.current ? chartRef1.current.getContext("2d") : null;
+    const ctx2 = chartRef2.current ? chartRef2.current.getContext("2d") : null;
+    const ctx3 = chartRef3.current ? chartRef3.current.getContext("2d") : null;
+
+    if (!ctx1 || !ctx2 || !ctx3) return;
     chartInstanceRef1.current = new Chart(ctx1, {
       type: "line",
       data: {
