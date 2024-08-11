@@ -20,7 +20,6 @@ import Clinics from "./pages/midWife/Clinics";
 
 function App() {
   return (
-    <BrowserRouter>
       <Routes>
         <Route path="/" Component={Home} />
         <Route path="/About" Component={About} />
@@ -40,7 +39,6 @@ function App() {
           <Route path="Clinics" Component={Clinics} />
         </Route>
       </Routes>
-    </BrowserRouter>
   );
 }
 

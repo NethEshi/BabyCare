@@ -26,6 +26,30 @@ const babySchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    ParentPhone: {
+        type: String,
+        required: false
+    },
+    ParentAddress: {
+        type: String,
+        required: false
+    },
+    MidWife: {
+        type: Object,
+        required: false
+    },
+    ParentAge: {
+        type: Number,
+        required: false
+    },
+    BirthInfo: {
+        type: Object,
+        required: false
+    },
+    MedicalInfo: {
+        type: Object,
+        required: false
+    },
 });
 
 const Baby = mongoose.model('Baby', babySchema);

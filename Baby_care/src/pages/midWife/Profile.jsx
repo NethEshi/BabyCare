@@ -3,7 +3,7 @@ import { useState } from "react";
 function Profile() {
   const selectedBaby = useSelector((state) => state.baby.selectedBaby);
   const [formData, setFormData] = useState({
-    DOB:"test"
+    
   });
 
   return (
