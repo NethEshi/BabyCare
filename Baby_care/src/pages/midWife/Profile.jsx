@@ -7,8 +7,8 @@ function Profile() {
   });
 
   return (
-    <div className=" h-[75%] overflow-scroll">
-      <div className="grid grid-cols-2 px-5 font-poppin space-x-5">
+    <div className=" h-[80%] overflow-scroll">
+      <div className="grid grid-cols-2 px-5 font-poppin space-x-5 rounded-lg">
         <div className="bg-light-pink p-5 ">
           <div className="bg-white rounded-xl flex-row p-2">
             <div className="text-lg font-semibold">Birthday</div>
@@ -118,6 +118,8 @@ function Profile() {
                 id="Normal"
                 name="Health Condition"
                 value="Normal"
+                checked = {formData.HealthCondition === "Normal"}
+                onChange={(e) => setFormData({...formData, HealthCondition: e.target.value})}
               />
             </div>
             <div className=" space-x-5">
@@ -129,6 +131,8 @@ function Profile() {
                 id="Need Special Attention"
                 name="Health Condition"
                 value="Need Special Attention"
+                checked = {formData.HealthCondition === "Need Special Attention"}
+                onChange={(e) => setFormData({...formData, HealthCondition: e.target.value})}
               />
             </div>
             <br />
