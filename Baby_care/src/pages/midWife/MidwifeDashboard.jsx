@@ -80,7 +80,7 @@ function MidwifeDashboard() {
                   <tr className="bg-gray-100">
                     <th className="border px-4 py-2">Index</th>
                     <th className="border px-4 py-2">Name</th>
-                    <th className="border px-4 py-2">Age</th>
+                    <th className="border px-4 py-2">Age (in months)</th>
                     <th className="border px-4 py-2 ">Gender</th>
                     <th className="border px-4 py-2">Mother Name</th>
                   </tr>
