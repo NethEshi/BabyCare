@@ -78,11 +78,11 @@ function MidwifeDashboard() {
               <table className="w-full">
                 <thead>
                   <tr className="bg-gray-100">
-                    <th className="border px-4 py-2">Index</th>
-                    <th className="border px-4 py-2">Name</th>
-                    <th className="border px-4 py-2">Age (in months)</th>
-                    <th className="border px-4 py-2 ">Gender</th>
-                    <th className="border px-4 py-2">Mother Name</th>
+                    <th className="border px-4 py-2 text-left">Index</th>
+                    <th className="border px-4 py-2 text-left">Full Name</th>
+                    <th className="border px-4 py-2 text-left">Age (in months)</th>
+                    <th className="border px-4 py-2 text-left">Gender</th>
+                    <th className="border px-4 py-2 text-left">Mother Name</th>
                   </tr>
                 </thead>
                 <tbody>
