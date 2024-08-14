@@ -1,6 +1,6 @@
 import pediatrics from "../assets/pediatrics 1.svg";
 import Maintain from "../assets/maintain.svg";
-import vaccination from "../assets/vaccination.png";
+import vaccination from "../assets/vaccination 1.svg";
 import clinics from "../assets/clininc.svg";
 
 function Services() {
