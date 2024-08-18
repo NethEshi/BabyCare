@@ -24,6 +24,7 @@ export default {
         'LBlue' : '#2458D2',
         'Ash' : '#4E4E4E',
         'light-pink' : "#F4F7FE",
+        'normal-pink' : "#C9D9FC",
       },
       fontFamily: {
         Inter: ["Inter", "sans-serif"],

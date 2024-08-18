@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSelectedBaby } from "../../actions/baby";
 import * as _ from "underscore";
 import { useNavigate } from "react-router-dom";
+import { useOverlay } from "../../components/context/OverlayContext";
 
 
 function MidwifeDashboard() {
@@ -16,18 +17,22 @@ function MidwifeDashboard() {
   const [overlay, setOverlay] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const {showSpinner, hideSpinner} = useOverlay();
 
   useEffect(() => {
+    showSpinner();
     axios
       .get("http://localhost:5000/baby/getBaby")
       .then((response) => {
-        console.log(response.data);
+        console.log(response);
         setBabyList(response.data);
         setSearchList(response.data);
       })
       .catch((error) => {
         console.log(error);
+        console.log(error.response);
+      }).finally(() => {
+        hideSpinner();
       });
   }, [overlay]);
   const handleOverlay = () => {

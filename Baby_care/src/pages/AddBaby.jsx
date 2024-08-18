@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import cross from "../assets/cross.png";
 import axios from "axios";
 import { customAlphabet, nanoid } from "nanoid";
+import { useOverlay } from "../components/context/OverlayContext";
 
 function AddBaby({ toggleVisibility }) {
   const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ function AddBaby({ toggleVisibility }) {
     ParentName: "",
     ParentEmail: "",
   });
+  const {showSpinner, hideSpinner} = useOverlay();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -32,6 +34,7 @@ function AddBaby({ toggleVisibility }) {
   }
 
   const handlesubmit = (e) => {
+    showSpinner();
     e.preventDefault();
     IdGenerator();
     console.log(formData);
@@ -43,7 +46,10 @@ function AddBaby({ toggleVisibility }) {
       })
       .catch((error) => {
         console.log(error);
-      });
+      })
+      .finally(() => {
+        hideSpinner();
+      })
   };
 
   return (

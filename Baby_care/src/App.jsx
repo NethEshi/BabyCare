@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Router, BrowserRouter } from "react-router-dom";
+import { Routes, Route, Router, BrowserRouter} from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -16,10 +16,18 @@ import BMI from "./pages/midWife/BMI";
 import HealthReport from "./pages/midWife/HealthReport";
 import Vaccination from "./pages/midWife/Vaccination";
 import Clinics from "./pages/midWife/Clinics";
-
+import HReport from "./pages/midWife/healthReport/HReport";
+import Vision from "./pages/midWife/healthReport/Vision";
+import Hearing from "./pages/midWife/healthReport/Hearing";
+import { OverlayProvider } from "./components/context/OverlayContext";
+import SubmitChanges from "./components/SubmitChanges";
+import Spinner from "./components/spinner";
 
 function App() {
   return (
+    <OverlayProvider>
+      <SubmitChanges />
+      <Spinner />
       <Routes>
         <Route path="/" Component={Home} />
         <Route path="/About" Component={About} />
@@ -34,11 +42,17 @@ function App() {
           <Route index Component={Profile} />
           <Route path="Profile" Component={Profile} />
           <Route path="BMI" Component={BMI} />
-          <Route path="HealthReport" Component={HealthReport} />
+          <Route path="HealthReport" Component={HealthReport}>
+            <Route index Component={HReport} />
+            <Route path="HReport" Component={HReport} />
+            <Route path="Vision" Component={Vision} />
+            <Route path="Hearing" Component={Hearing} />
+          </Route>
           <Route path="Vaccination" Component={Vaccination} />
           <Route path="Clinics" Component={Clinics} />
         </Route>
       </Routes>
+    </OverlayProvider>
   );
 }
 

@@ -4,6 +4,7 @@ import Bluebutton from "../components/Bluebutton";
 import { useState } from "react";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
+import { useOverlay } from "../components/context/OverlayContext";
 
 function SignUp() {
 
@@ -11,6 +12,7 @@ function SignUp() {
     Email: "",
     password: "",
   });
+  const {showSpinner, hideSpinner} = useOverlay();
 
   const Navigate = useNavigate();
   const handleChange = (e) => {
@@ -19,7 +21,7 @@ function SignUp() {
 
   const handlesubmit = (e) => {
     e.preventDefault();
-
+    showSpinner();
     axios.post("http://localhost:5000/auth/login", UserInputs)
     .then((response) => {
       console.log(response.data);
@@ -31,7 +33,10 @@ function SignUp() {
     })
     .catch((error) => {
       console.log(error);
-    });
+    })
+    .finally(() => {
+      hideSpinner();
+    })
   };
 
   const formData1 = [

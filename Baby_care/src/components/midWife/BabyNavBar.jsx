@@ -34,7 +34,7 @@ function BabyNavBar() {
         <Link
           to="/MidwifeDashboard/BabyProfile/healthReport"
           className={`text-3xl ${
-            currentPath === "/MidwifeDashboard/BabyProfile/healthReport"
+            currentPath.includes("/MidwifeDashboard/BabyProfile/healthReport")
               ? "border-NavyBlue border-b-2"
               : ""
           }`}

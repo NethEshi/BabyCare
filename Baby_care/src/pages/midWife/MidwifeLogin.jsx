@@ -3,6 +3,7 @@ import loginImg from "../../assets/login.svg";
 import Bluebutton from "../../components/Bluebutton";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useOverlay } from "../../components/context/OverlayContext";
 
 function MidwifeLogin() {
   const Navigate = useNavigate();
@@ -13,19 +14,18 @@ function MidwifeLogin() {
     Email: "",
   });
   const [visiBility, setVisiBility] = useState(false);
-
   const toggleVisibility = () => {
     setVisiBility(!visiBility);
   };
-
   const handleOtpChnage = (e) => {
     setOtp({ ...otp, [e.target.name]: e.target.value });
   };
+  const { showSpinner, hideSpinner } = useOverlay();
+
 
   const handlesubmitOTP = (e) => {
     e.preventDefault();
-    console.log(otp);
-    console.log(Email);
+    showSpinner();
     axios.post("http://localhost:5000/otp/validateOtp", {Email,otp})
     .then((response) => {
         console.log(response.data);
@@ -37,7 +37,9 @@ function MidwifeLogin() {
     })
     .catch((error) => {
         console.log(error);
-    });
+    }).finally(() => {
+      hideSpinner();
+    })
   };
 
   const handleEmailChnage = (e) => {
@@ -46,7 +48,7 @@ function MidwifeLogin() {
 
   const handlesubmitEmail = (e) => {
     e.preventDefault();
-
+    showSpinner();
     axios.post("http://localhost:5000/otp/sendOtp", Email)
     .then((response) => {
         console.log(response.data);
@@ -54,6 +56,9 @@ function MidwifeLogin() {
     })
     .catch((error) => {
       console.log(error);
+    })
+    .finally(() => {
+      hideSpinner();
     });
   };
 

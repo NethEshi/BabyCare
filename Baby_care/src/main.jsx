@@ -10,7 +10,12 @@ import reducer from "./reducers";
 const store = createStore(reducer, {
   baby: {
     selectedBaby:{},
-  }
+  },
+  modules: {
+    submitConfirm: false,
+    submitCancel: false,
+    submit: false,
+  },
 });
 
 ReactDOM.createRoot(document.getElementById("root")).render(

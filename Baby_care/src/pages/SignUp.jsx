@@ -5,7 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Navigate, useNavigate } from "react-router-dom";
-
+import { useOverlay } from "../components/context/OverlayContext";
 function SignUp() {
 
   const [UserInputs, setUserInputs] = useState({
@@ -16,7 +16,7 @@ function SignUp() {
     password: "",
     cfpassword: ""
   });
-
+  const {showSpinner, hideSpinner} = useOverlay();
   const Navigate = useNavigate();
   const [check, setCheck] = useState(false);
 
@@ -30,7 +30,7 @@ function SignUp() {
 
   const handlesubmit = (e) => {
     e.preventDefault();
-    
+    showSpinner();
     axios.post("http://localhost:5000/auth/register", UserInputs)
     .then((response) => {
       toast.success(response.data.message, {
@@ -44,6 +44,9 @@ function SignUp() {
       //   position: "top-center",
       // });
       console.log(error);
+    })
+    .finally(() => {
+      hideSpinner();
     });
   };
 
