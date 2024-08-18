@@ -4,6 +4,8 @@ import Bluebutton from "../../components/Bluebutton";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useOverlay } from "../../components/context/OverlayContext";
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 function MidwifeLogin() {
   const Navigate = useNavigate();
@@ -29,6 +31,9 @@ function MidwifeLogin() {
     axios.post("http://localhost:5000/otp/validateOtp", {Email,otp})
     .then((response) => {
         console.log(response.data);
+          toast.success("Success Notification !", {
+          position: "top-center"
+        });
         const d = new Date();
         d.setTime(d.getTime() + (7 * 24 * 60 * 60 * 1000));
         let expires = "expires="+d.toUTCString();
@@ -36,8 +41,12 @@ function MidwifeLogin() {
         Navigate("/MidwifeDashboard");
     })
     .catch((error) => {
+      toast.error(error.response.data.message, {
+        position: "bottom-right"
+      });
         console.log(error);
-    }).finally(() => {
+    })
+    .finally(() => {
       hideSpinner();
     })
   };
@@ -51,11 +60,17 @@ function MidwifeLogin() {
     showSpinner();
     axios.post("http://localhost:5000/otp/sendOtp", Email)
     .then((response) => {
+      toast.success("Success Notification !", {
+        position: "top-center"
+      });
         console.log(response.data);
         toggleVisibility();
     })
     .catch((error) => {
       console.log(error);
+      toast.error(error.response.data.message, {
+        position: "bottom-right"
+      });
     })
     .finally(() => {
       hideSpinner();
@@ -127,6 +142,7 @@ function MidwifeLogin() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 }

@@ -50,14 +50,9 @@ function SignUp() {
     });
   };
 
-  const formData1 = [
-    { heading: "MOH Name", placeholder: "MOH Name", id: "MOH_Name", name:"MOH_Name", type:"text"},
-    { heading: "Type", placeholder: "GOV/PVT", id: "Type", name: "Type", type: "text"},
-    { heading: "Password", placeholder: "Your Password", id: "password", name: "password", type: "password"}
-  ];
   const formData2 = [
-    { heading: "District", placeholder: "District", id:"District", name:"District", type:"text"},
     { heading: "Email Address", placeholder: "Enter Your email Address", id: "Email", name: "Email", type: "email"},
+    { heading: "Password", placeholder: "Your Password", id: "password", name: "password", type: "password"},
     { heading: "Confirm Password", placeholder: "Confirm Your Password", id: "cfpassword", name: "cfpassword", type: "password"}
   ];
 
@@ -72,7 +67,22 @@ function SignUp() {
           <form className="pb-10 flex-row w-full " onSubmit={handlesubmit}>
             <div className="flex space-x-10 items-center justify-center">
             <div className="">
-            <InputField dataArr={formData1} inputChange = {handleChange}/>
+            <div className="py-3 space-y-3">
+            <label className="text-neutral-700 text-lg font-medium font-poppins" htmlFor="MOH_Name">MOH Name</label><br/>
+            <input type="text" name="MOH_Name" id="MOH_Name" placeholder="MOH Name" className="w-[275px] h-[50px] px-3 bg-neutral-100 border border-zinc-300" onChange={handleChange}/>
+            </div>
+            <div className="py-3 space-y-3">
+            <label className="text-neutral-700 text-lg font-medium font-poppins" htmlFor="District">District</label><br/>
+            <input type="text" name="District" id="District" placeholder="District" className="w-[275px] h-[50px] px-3 bg-neutral-100 border border-zinc-300" onChange={handleChange}/>
+            </div>
+            <div className="py-3 space-y-3">
+            <label className="text-neutral-700 text-lg font-medium font-poppins" htmlFor="Type">Type</label><br/>
+            <select name="Type" id="Type" className="w-[275px] h-[50px] px-3 bg-neutral-100 border border-zinc-300">
+              <option disabled>Select</option>
+              <option value="GOV">GOV</option>
+              <option value="PVT">PVT</option>
+            </select>
+            </div>
             </div>
             <div className="">
             <InputField dataArr={formData2} inputChange = {handleChange}/>
