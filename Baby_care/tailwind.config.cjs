@@ -25,6 +25,7 @@ export default {
         'Ash' : '#4E4E4E',
         'light-pink' : "#F4F7FE",
         'normal-pink' : "#C9D9FC",
+        'disable-gray' : "D1D1D1",
       },
       fontFamily: {
         Inter: ["Inter", "sans-serif"],
