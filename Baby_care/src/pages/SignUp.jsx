@@ -72,10 +72,6 @@ function SignUp() {
             <input type="text" name="MOH_Name" id="MOH_Name" placeholder="MOH Name" className="w-[275px] h-[50px] px-3 bg-neutral-100 border border-zinc-300" onChange={handleChange}/>
             </div>
             <div className="py-3 space-y-3">
-            <label className="text-neutral-700 text-lg font-medium font-poppins" htmlFor="District">District</label><br/>
-            <input type="text" name="District" id="District" placeholder="District" className="w-[275px] h-[50px] px-3 bg-neutral-100 border border-zinc-300" onChange={handleChange}/>
-            </div>
-            <div className="py-3 space-y-3">
             <label className="text-neutral-700 text-lg font-medium font-poppins" htmlFor="Type">Type</label><br/>
             <select name="Type" id="Type" className="w-[275px] h-[50px] px-3 bg-neutral-100 border border-zinc-300">
               <option disabled>Select</option>
@@ -83,9 +79,26 @@ function SignUp() {
               <option value="PVT">PVT</option>
             </select>
             </div>
+            <div className="py-3 space-y-3">
+            <label className="text-neutral-700 text-lg font-medium font-poppins" htmlFor="password">Password</label><br/>
+            <input type="text" name="password" id="password" placeholder="password" className="w-[275px] h-[50px] px-3 bg-neutral-100 border border-zinc-300" onChange={handleChange}/>
             </div>
+            
+            </div>
+
             <div className="">
-            <InputField dataArr={formData2} inputChange = {handleChange}/>
+            <div className="py-3 space-y-3">
+            <label className="text-neutral-700 text-lg font-medium font-poppins" htmlFor="District">District</label><br/>
+            <input type="District" name="District" id="District" placeholder="District" className="w-[275px] h-[50px] px-3 bg-neutral-100 border border-zinc-300" onChange={handleChange}/>
+            </div>
+            <div className="py-3 space-y-3">
+            <label className="text-neutral-700 text-lg font-medium font-poppins" htmlFor="Email">Email</label><br/>
+            <input type="text" name="Email" id="Email" placeholder="Email" className="w-[275px] h-[50px] px-3 bg-neutral-100 border border-zinc-300" onChange={handleChange}/>
+            </div>
+            <div className="py-3 space-y-3">
+            <label className="text-neutral-700 text-lg font-medium font-poppins" htmlFor="cfpassword">Confirm Password</label><br/>
+            <input type="text" name="cfpassword" id="cfpassword" placeholder="cfpassword" className="w-[275px] h-[50px] px-3 bg-neutral-100 border border-zinc-300" onChange={handleChange}/>
+            </div>
             </div>
             </div>
             <div className="flex justify-center space-x-5 pb-5">

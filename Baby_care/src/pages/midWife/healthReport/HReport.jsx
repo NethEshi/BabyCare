@@ -77,7 +77,7 @@ function HReport() {
     <SubmitChanges submitFunction = {handleSubmit} cancelFunction = {handleCancel} />
     </div>
       <div className="font-poppins relative text-Ash px-5 ">
-        <table className=" w-[100%] text-center border-2">
+        <table className=" w-[100%] text-center border-2 ">
           <thead className="bg-wt text-black ">
             <tr className="">
               <th rowSpan={2} colSpan={2} className="w-[20%]"></th>
@@ -105,7 +105,7 @@ function HReport() {
                   name="days10in01"
                   id="days10in01"
                   disabled={!editMode}
-                  value={
+                  placeholder={
                     tableData.days10in01 === null ? "NA" : tableData.days10in01
                   }
                   onChange={handleChange}
@@ -117,7 +117,7 @@ function HReport() {
                   name="days10in02"
                   id="days10in02"
                   disabled={!editMode}
-                  value={
+                  placeholder={
                     tableData.days10in02 === null ? "NA" : tableData.days10in02
                   }
                   onChange={handleChange}
@@ -129,7 +129,7 @@ function HReport() {
                   name="days11to28"
                   id="days11to28"
                   disabled={!editMode}
-                  value={
+                  placeholder={
                     tableData.days11to28 === null ? "NA" : tableData.days11to28
                   }
                   onChange={handleChange}
@@ -141,7 +141,7 @@ function HReport() {
                   name="days42"
                   id="days42"
                   disabled={!editMode}
-                  value={tableData.days42 === null ? "NA" : tableData.days42}
+                  placeholder={tableData.days42 === null ? "NA" : tableData.days42}
                   onChange={handleChange}
                 />
               </td>
@@ -157,7 +157,7 @@ function HReport() {
                   name="skinColor1"
                   id="skinColor1"
                   disabled={!editMode}
-                  value={
+                  placeholder={
                     tableData.skinColor1 === null ? "NA" : tableData.skinColor1
                   }
                   onChange={handleChange}
@@ -170,7 +170,7 @@ function HReport() {
                   name="skinColor2"
                   id="skinColor2"
                   disabled={!editMode}
-                  value={
+                  placeholder={
                     tableData.skinColor2 === null ? "NA" : tableData.skinColor2
                   }
                   onChange={handleChange}
@@ -183,7 +183,7 @@ function HReport() {
                   name="skinColor3"
                   id="skinColor3"
                   disabled={!editMode}
-                  value={
+                  placeholder={
                     tableData.skinColor3 === null ? "NA" : tableData.skinColor3
                   }
                   onChange={handleChange}
@@ -196,7 +196,7 @@ function HReport() {
                   name="skinColor4"
                   id="skinColor4"
                   disabled={!editMode}
-                  value={
+                  placeholder={
                     tableData.skinColor4 === null ? "NA" : tableData.skinColor4
                   }
                   onChange={handleChange}
@@ -214,7 +214,7 @@ function HReport() {
                   name="eyeState1"
                   id="eyeState1"
                   disabled={!editMode}
-                  value={
+                  placeholder={
                     tableData.eyeState1 === null ? "NA" : tableData.eyeState1
                   }
                   onChange={handleChange}
@@ -227,7 +227,7 @@ function HReport() {
                   name="eyeState2"
                   id="eyeState2"
                   disabled={!editMode}
-                  value={
+                  placeholder={
                     tableData.eyeState2 === null ? "NA" : tableData.eyeState2
                   }
                   onChange={handleChange}
@@ -240,7 +240,7 @@ function HReport() {
                   name="eyeState3"
                   id="eyeState3"
                   disabled={!editMode}
-                  value={
+                  placeholder={
                     tableData.eyeState3 === null ? "NA" : tableData.eyeState3
                   }
                   onChange={handleChange}
@@ -253,13 +253,15 @@ function HReport() {
                   name="eyeState4"
                   id="eyeState4"
                   disabled={!editMode}
-                  value={
+                  placeholder={
                     tableData.eyeState4 === null ? "NA" : tableData.eyeState4
                   }
                   onChange={handleChange}
                 />
               </td>
             </tr>
+
+
             <tr className="">
               <td colSpan={2} className="font-semibold py-4 border-2">
                 The nature of umbelical
@@ -333,6 +335,8 @@ function HReport() {
                 </select>
               </td>
             </tr>
+
+
             <tr className="">
               <td colSpan={2} className="font-semibold py-4 border-2">
                 Only breast feeding
@@ -406,6 +410,8 @@ function HReport() {
                 </select>
               </td>
             </tr>
+
+
             <tr className="">
               <td rowSpan={2} className="font-semibold py-2 border-2">
                 Breast Feeding
@@ -551,6 +557,8 @@ function HReport() {
                 </select>
               </td>
             </tr>
+
+
             <tr className="">
               <td colSpan={2} className="font-semibold py-4 border-2">
                 Other
@@ -562,7 +570,7 @@ function HReport() {
                   name="other1"
                   id="other1"
                   disabled={!editMode}
-                  value={tableData.other1 === null ? "NA" : tableData.other1}
+                  placeholder={tableData.other1 === null ? "NA" : tableData.other1}
                   onChange={handleChange}
                 />
               </td>
@@ -573,7 +581,7 @@ function HReport() {
                   name="other2"
                   id="other2"
                   disabled={!editMode}
-                  value={tableData.other2 === null ? "NA" : tableData.other2}
+                  placeholder={tableData.other2 === null ? "NA" : tableData.other2}
                   onChange={handleChange}
                 />
               </td>
@@ -584,7 +592,7 @@ function HReport() {
                   name="other3"
                   id="other3"
                   disabled={!editMode}
-                  value={tableData.other3 === null ? "NA" : tableData.other3}
+                  placeholder={tableData.other3 === null ? "NA" : tableData.other3}
                   onChange={handleChange}
                 />
               </td>
@@ -595,7 +603,7 @@ function HReport() {
                   name="other4"
                   id="other4"
                   disabled={!editMode}
-                  value={tableData.other4 === null ? "NA" : tableData.other4}
+                  placeholder={tableData.other4 === null ? "NA" : tableData.other4}
                   onChange={handleChange}
                 />
               </td>
@@ -611,7 +619,7 @@ function HReport() {
           </button>
           <button
             className={`bg-NavyBlue ${
-              editMode ? "" : "bg-blue-400"
+              editMode ? "" : "bg-blue-200"
             } text-white px-4 py-2 rounded-lg mt-5 ml-5`}
             disabled={!editMode}
             onClick={toggleConfirm}
