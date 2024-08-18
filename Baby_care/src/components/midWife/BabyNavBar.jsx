@@ -9,7 +9,7 @@ function BabyNavBar() {
   }, [location]);
 
   return (
-    <div className=" w-fit">
+    <div className="w-full">
       <div className="flex text-Ash py-3 px-5 text-center space-x-16">
         <Link
           to="/MidwifeDashboard/BabyProfile/Profile"

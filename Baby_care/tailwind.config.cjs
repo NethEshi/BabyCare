@@ -35,7 +35,7 @@ export default {
       }
     },
     fontSize: {
-      xs: ["14px"],
+      "xs" : ["12px"],
       "2xl": ["16px"],
       "3xl": ["18px"],
       "4xl": ["32px"],
