@@ -1,5 +1,5 @@
 import InputField from "../components/InputField";
-import RegisterImg from "../assets/register.svg";
+import RegisterImg from "../assets/RegisterImg.png";
 import Bluebutton from "../components/Bluebutton";
 import { useState } from "react";
 import axios from "axios";
