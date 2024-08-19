@@ -1,5 +1,5 @@
 import InputField from "../components/InputField";
-import loginImg from "../assets/login.svg";
+import loginImg from "../assets/RegisterImg.png";
 import Bluebutton from "../components/Bluebutton";
 import { useState } from "react";
 import axios from "axios";
@@ -48,7 +48,7 @@ function SignUp() {
     <>
       <div className="flex">
         <div className=" bg-NavyBlue basis-1/2 h-screen flex items-center justify-center">
-          <img className=" w-[492px] h-[477px]" src={loginImg} alt="login" />
+          <img className=" w-[50%] lg:w-[492px] py-10 " src={loginImg} alt="login" />
         </div>
         <div className=" bg-white basis-1/2 h-screen px-20 pt-40">
           <h1 className="text-4xl text-center pb-10">Login for Account</h1>
