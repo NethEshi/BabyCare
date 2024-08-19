@@ -3,9 +3,9 @@ import RegisterImg from "../assets/register.svg";
 import Bluebutton from "../components/Bluebutton";
 import { useState } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useOverlay } from "../components/context/OverlayContext";
+import { ToastContainer, toast } from "react-toastify";
 function SignUp() {
 
   const [UserInputs, setUserInputs] = useState({
@@ -40,9 +40,9 @@ function SignUp() {
       Navigate("/login")
     })
     .catch((error) => {
-      // toast.error(error.response.data.message, {
-      //   position: "top-center",
-      // });
+      toast.error(error.response.data.message, {
+        position: "bottom-right",
+      });
       console.log(error);
     })
     .finally(() => {
@@ -58,6 +58,7 @@ function SignUp() {
 
   return (
     <>
+    <ToastContainer />
       <div className="lg:flex flex-row">
         <div className=" bg-NavyBlue lg:basis-1/2 lg:h-screen flex items-center justify-center">
           <img className=" w-[50%] lg:w-[492px] py-10 " src={RegisterImg} alt="login" />

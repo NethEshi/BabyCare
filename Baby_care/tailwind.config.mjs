@@ -19,13 +19,14 @@ export default {
         'ATsilver' : '#6F6C90',
         'ATblack' : '#2F2F2F',
         'ATwhite' : '#FFF8E0',
-        'NavyBlue': '#0D2B71',
+        'NavyBlue': '#0040C1',
         'LightBlue' : '#EBF1FF',
         'LBlue' : '#2458D2',
         'Ash' : '#4E4E4E',
         'light-pink' : "#F4F7FE",
         'normal-pink' : "#C9D9FC",
         'disable-gray' : "D1D1D1",
+        'blueF' : '#0D2B71'
       },
       fontFamily: {
         Inter: ["Inter", "sans-serif"],

@@ -15,6 +15,7 @@ const store = createStore(reducer, {
     submitConfirm: false,
     submitCancel: false,
     submit: false,
+    editMode: false,
   },
 });
 

@@ -42,12 +42,44 @@ const babySchema = new mongoose.Schema({
         type: Number,
         required: false
     },
-    BirthInfo: {
-        type: Object,
+    BirthWeight: {
+        type: Number,
         required: false
     },
-    MedicalInfo: {
-        type: Object,
+    BirthHeight: {
+        type: Number,
+        required: false
+    },
+    BirthHeadCircumference: {
+        type: Number,
+        required: false
+    },
+    MOHSection: {
+        type: String,
+        required: false
+    },
+    FMOHSection: {
+        type: String,
+        required: false
+    },
+    DateOfSettlement: {
+        type: String,
+        required: false
+    },
+    HealthCondition: {
+        type: String,
+        required: false
+    },
+    VitaminK: {
+        type: String,
+        required: false
+    },
+    Posture: {
+        type: String,
+        required: false
+    },
+    Relation: {
+        type: String,
         required: false
     },
 });

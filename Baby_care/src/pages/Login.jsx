@@ -3,8 +3,9 @@ import loginImg from "../assets/login.svg";
 import Bluebutton from "../components/Bluebutton";
 import { useState } from "react";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useOverlay } from "../components/context/OverlayContext";
+import { ToastContainer, toast } from "react-toastify";
 
 function SignUp() {
 
@@ -24,6 +25,9 @@ function SignUp() {
     showSpinner();
     axios.post("http://localhost:5000/auth/login", UserInputs)
     .then((response) => {
+      toast.success(response.data.message, {
+        position: "top-center",
+      });
       console.log(response.data);
       const d = new Date();
       d.setTime(d.getTime() + (7 * 24 * 60 * 60 * 1000));
@@ -32,6 +36,9 @@ function SignUp() {
       Navigate("/MOHdashboard")
     })
     .catch((error) => {
+      toast.error(error.response.data.message, {
+        position: "bottom-right",
+      })
       console.log(error);
     })
     .finally(() => {
@@ -46,6 +53,7 @@ function SignUp() {
 
   return (
     <>
+    <ToastContainer />
       <div className="flex">
         <div className=" bg-NavyBlue basis-1/2 h-screen flex items-center justify-center">
           <img className=" w-[492px] h-[477px]" src={loginImg} alt="login" />

@@ -11,7 +11,6 @@ function BMI() {
   const [ChartWeights, setChartWeights] = useState([]);
   const [ChartHeights, setChartHeights] = useState([]);
   const [ChartBMI, setChartBMI] = useState([]);
-  const [ChartData, setChartData] = useState(true);
   const chartRef1 = useRef(null);
   const chartRef2 = useRef(null);
   const chartRef3 = useRef(null);
@@ -119,7 +118,7 @@ function BMI() {
         chartInstanceRef3.current.destroy();
     };
   };
-  }, [ChartLabels]);
+  }, [ChartLabels, ChartWeights]);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -236,7 +235,7 @@ function BMI() {
             </div>
           </div>
         </form>
-        {ChartData && <div className="">
+        {ChartHeights.length != 0 && <div className="">
         <div className="w-[50%] flex">
           <canvas ref={chartRef1} />
           <canvas ref={chartRef2} />
@@ -245,7 +244,7 @@ function BMI() {
         <canvas ref={chartRef3} />
         </div>
         </div>}
-        {!ChartData && <div className="flex justify-center items-center h-[50vh]">
+        {ChartHeights.length === 0 && <div className="flex justify-center items-center h-[50vh]">
           <h1 className="text-3xl font-semibold text-Ash">No Data Available</h1>
           </div>}
       </div>

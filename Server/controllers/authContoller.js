@@ -23,6 +23,9 @@ MOHregister : async (req, res) => {
         if (existingUser) {
             return res.status(400).json({ message: 'Email already exists' });
         }
+        if (password !== cfpassword) {
+            return res.status(400).json({ message: 'Password does not match' });
+        }
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new MOH({ MOH_Name, District, Type, Email, password: hashedPassword });
         await newUser.save();

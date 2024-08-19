@@ -18,3 +18,10 @@ export const getSubmit = (value) => {
         payload: value
     };
 }
+
+export const getEditMode = (value) => {
+    return {
+        type: 'GET_EDIT_MODE',
+        payload: value
+    };
+}

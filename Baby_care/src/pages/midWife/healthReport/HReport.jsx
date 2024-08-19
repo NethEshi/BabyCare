@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
-import SubmitChanges from "../../../components/SubmitChanges";
-import { useDispatch } from "react-redux";
-import { getSubmit } from "../../../actions/modules";
+import SubmitChanges from "../../../components/overlays/SubmitChanges";
+import { useDispatch, useSelector } from "react-redux";
+import { getEditMode, getSubmit } from "../../../actions/modules";
 import { useOverlay } from "../../../components/context/OverlayContext";
+import EditSave from "../../../components/overlays/EditSave";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 function HReport() {
-  const [editMode, setEditMode] = useState(false);
+  const editMode = useSelector((state) => state.modules.editMode);
   const dispatch = useDispatch();
-  const { showSubmitOverlay, hideSubmitOverlay } = useOverlay();
+  const { showSubmitOverlay, hideSubmitOverlay, showSpinner, hideSpinner, showEditSave, hideEditSave } = useOverlay();
   const [tableData, setTableData] = useState({
     days10in01: null,
     days10in02: null,
@@ -44,28 +47,46 @@ function HReport() {
     other4: null,
   });
 
-  const handleEdit = () => {
-    setEditMode(true);
-    console.log(editMode);
-  };
+  useEffect(() => {
+    showEditSave();
 
-  const toggleConfirm = () => {
+    return () => {
+      hideEditSave();
+      dispatch(getEditMode(false));
+    }
+  }, []);
+
+
+  const onSave = () => {
     showSubmitOverlay();
-    console.log("Toggle Button")
+    console.log("Toggle Button");
   };
 
-  const handleCancel = () => {
-    setEditMode(false);
+  const onCancel = () => {
     hideSubmitOverlay();
-    console.log(editMode);
-    console.log("cancel button")
+    console.log("cancel button");
   };
 
-  const handleSubmit = () => {
-    setEditMode(false);
-    hideSubmitOverlay();
-    console.log("save button")
-  }
+  const onSubmit = () => {
+    showSpinner();
+    axios.put("http://localhost:5000/healthReport/updateHealthReport", tableData)
+    .then((response) => {
+    toast.success("Success Notification !", {
+      position: "bottom-right"
+    });
+      console.log(response.data);
+    })
+    .catch((error) => {
+      toast.error(error.response.data.message, {
+        position: "bottom-right"
+      });
+      console.log(error);
+    })
+    .finally(() => {
+      hideSubmitOverlay();
+      hideSpinner();
+    });
+  };
 
   const handleChange = (e) => {
     setTableData({ ...tableData, [e.target.name]: e.target.value });
@@ -73,9 +94,13 @@ function HReport() {
   };
   return (
     <>
-    <div className=" absolute z-50">
-    <SubmitChanges submitFunction = {handleSubmit} cancelFunction = {handleCancel} />
-    </div>
+      <EditSave submitFunction={onSave}/>
+      <div className=" absolute z-50">
+        <SubmitChanges
+          submitFunction={onSubmit}
+          cancelFunction={onCancel}
+        />
+      </div>
       <div className="font-poppins relative text-Ash px-5 ">
         <table className=" w-[100%] text-center border-2 ">
           <thead className="bg-wt text-black ">
@@ -105,7 +130,7 @@ function HReport() {
                   name="days10in01"
                   id="days10in01"
                   disabled={!editMode}
-                  placeholder={
+                  value={
                     tableData.days10in01 === null ? "NA" : tableData.days10in01
                   }
                   onChange={handleChange}
@@ -117,7 +142,7 @@ function HReport() {
                   name="days10in02"
                   id="days10in02"
                   disabled={!editMode}
-                  placeholder={
+                  value={
                     tableData.days10in02 === null ? "NA" : tableData.days10in02
                   }
                   onChange={handleChange}
@@ -129,7 +154,7 @@ function HReport() {
                   name="days11to28"
                   id="days11to28"
                   disabled={!editMode}
-                  placeholder={
+                  value={
                     tableData.days11to28 === null ? "NA" : tableData.days11to28
                   }
                   onChange={handleChange}
@@ -141,7 +166,9 @@ function HReport() {
                   name="days42"
                   id="days42"
                   disabled={!editMode}
-                  placeholder={tableData.days42 === null ? "NA" : tableData.days42}
+                  value={
+                    tableData.days42 === null ? "NA" : tableData.days42
+                  }
                   onChange={handleChange}
                 />
               </td>
@@ -157,7 +184,7 @@ function HReport() {
                   name="skinColor1"
                   id="skinColor1"
                   disabled={!editMode}
-                  placeholder={
+                  value={
                     tableData.skinColor1 === null ? "NA" : tableData.skinColor1
                   }
                   onChange={handleChange}
@@ -170,7 +197,7 @@ function HReport() {
                   name="skinColor2"
                   id="skinColor2"
                   disabled={!editMode}
-                  placeholder={
+                  value={
                     tableData.skinColor2 === null ? "NA" : tableData.skinColor2
                   }
                   onChange={handleChange}
@@ -183,7 +210,7 @@ function HReport() {
                   name="skinColor3"
                   id="skinColor3"
                   disabled={!editMode}
-                  placeholder={
+                  value={
                     tableData.skinColor3 === null ? "NA" : tableData.skinColor3
                   }
                   onChange={handleChange}
@@ -196,7 +223,7 @@ function HReport() {
                   name="skinColor4"
                   id="skinColor4"
                   disabled={!editMode}
-                  placeholder={
+                  value={
                     tableData.skinColor4 === null ? "NA" : tableData.skinColor4
                   }
                   onChange={handleChange}
@@ -214,7 +241,7 @@ function HReport() {
                   name="eyeState1"
                   id="eyeState1"
                   disabled={!editMode}
-                  placeholder={
+                  value={
                     tableData.eyeState1 === null ? "NA" : tableData.eyeState1
                   }
                   onChange={handleChange}
@@ -227,7 +254,7 @@ function HReport() {
                   name="eyeState2"
                   id="eyeState2"
                   disabled={!editMode}
-                  placeholder={
+                  value={
                     tableData.eyeState2 === null ? "NA" : tableData.eyeState2
                   }
                   onChange={handleChange}
@@ -240,7 +267,7 @@ function HReport() {
                   name="eyeState3"
                   id="eyeState3"
                   disabled={!editMode}
-                  placeholder={
+                  value={
                     tableData.eyeState3 === null ? "NA" : tableData.eyeState3
                   }
                   onChange={handleChange}
@@ -253,14 +280,13 @@ function HReport() {
                   name="eyeState4"
                   id="eyeState4"
                   disabled={!editMode}
-                  placeholder={
+                  value={
                     tableData.eyeState4 === null ? "NA" : tableData.eyeState4
                   }
                   onChange={handleChange}
                 />
               </td>
             </tr>
-
 
             <tr className="">
               <td colSpan={2} className="font-semibold py-4 border-2">
@@ -336,7 +362,6 @@ function HReport() {
               </td>
             </tr>
 
-
             <tr className="">
               <td colSpan={2} className="font-semibold py-4 border-2">
                 Only breast feeding
@@ -410,7 +435,6 @@ function HReport() {
                 </select>
               </td>
             </tr>
-
 
             <tr className="">
               <td rowSpan={2} className="font-semibold py-2 border-2">
@@ -558,7 +582,6 @@ function HReport() {
               </td>
             </tr>
 
-
             <tr className="">
               <td colSpan={2} className="font-semibold py-4 border-2">
                 Other
@@ -570,7 +593,9 @@ function HReport() {
                   name="other1"
                   id="other1"
                   disabled={!editMode}
-                  placeholder={tableData.other1 === null ? "NA" : tableData.other1}
+                  value={
+                    tableData.other1 === null ? "NA" : tableData.other1
+                  }
                   onChange={handleChange}
                 />
               </td>
@@ -581,7 +606,9 @@ function HReport() {
                   name="other2"
                   id="other2"
                   disabled={!editMode}
-                  placeholder={tableData.other2 === null ? "NA" : tableData.other2}
+                  value={
+                    tableData.other2 === null ? "NA" : tableData.other2
+                  }
                   onChange={handleChange}
                 />
               </td>
@@ -592,7 +619,9 @@ function HReport() {
                   name="other3"
                   id="other3"
                   disabled={!editMode}
-                  placeholder={tableData.other3 === null ? "NA" : tableData.other3}
+                  value={
+                    tableData.other3 === null ? "NA" : tableData.other3
+                  }
                   onChange={handleChange}
                 />
               </td>
@@ -603,30 +632,15 @@ function HReport() {
                   name="other4"
                   id="other4"
                   disabled={!editMode}
-                  placeholder={tableData.other4 === null ? "NA" : tableData.other4}
+                  value={
+                    tableData.other4 === null ? "NA" : tableData.other4
+                  }
                   onChange={handleChange}
                 />
               </td>
             </tr>
           </tbody>
         </table>
-        <div className="flex justify-end">
-          <button
-            className={`bg-NavyBlue text-white px-4 py-2 rounded-lg mt-5`}
-            onClick={handleEdit}
-          >
-            Edit
-          </button>
-          <button
-            className={`bg-NavyBlue ${
-              editMode ? "" : "bg-blue-200"
-            } text-white px-4 py-2 rounded-lg mt-5 ml-5`}
-            disabled={!editMode}
-            onClick={toggleConfirm}
-          >
-            Save
-          </button>
-        </div>
       </div>
     </>
   );

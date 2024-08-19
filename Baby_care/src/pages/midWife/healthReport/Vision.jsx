@@ -1,16 +1,81 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import EditSave from "../../../components/overlays/EditSave";
+import SubmitChanges from "../../../components/overlays/SubmitChanges";
+import { useOverlay } from "../../../components/context/OverlayContext";
+import { useSelector, useDispatch } from "react-redux";
+import { getEditMode } from "../../../actions/modules";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 function Vision() {
 
+  const {showSpinner, hideSpinner, showEditSave, hideEditSave, showSubmitOverlay, hideSubmitOverlay} = useOverlay();
+  const editmode = useSelector((state) => state.modules.editMode);
+  const dispatch = useDispatch();
   const[visionData, setVisionData] = useState({
     firstWeekTowardsLight: "",
     firstWeeklookAtFace: "",
-    twoMonthsSounds: ""
+    twoMonthsSounds: "",
+    twoMonthsEyes: "",
+    sixMonthsLookAround: "",
+    sixMonthsReachOut: "",
+    sixMonthsMole: "",
+    tenMonthsPickUp: "",
+    twelveMonthsReachOut: "",
+    twelveMonthsRecognize: "",
   });
+
+  useEffect(() => {
+    showEditSave();
+
+    return () => {
+      hideEditSave();
+      dispatch(getEditMode(false));
+    }
+  }, []);
+
+  const handleChange = (e) => {
+    setVisionData({ ...visionData, [e.target.name]: e.target.value });
+  }
+
+  const onSave = () => {
+    showSubmitOverlay();
+    console.log(visionData);
+  }
+
+  const onSubmit = () => {
+    showSpinner();
+    axios.put("http://localhost:5000/healthReport/updateVision", visionData)
+    .then((response) => {
+      toast.success("Vision data updated successfully", {
+        position: "bottom-right"
+      });
+      console.log(response);
+    })
+    .catch((error) => {
+      toast.error("Failed to update vision data", {
+        position: "bottom-right"
+      });
+      console.log(error);
+    })
+    .finally(() => {
+      hideSpinner();
+      hideSubmitOverlay();
+    });
+  }
+
+  const onCancel = () =>{
+    hideSubmitOverlay();
+  }
+
+
 
   return (
     <>
+    <EditSave submitFunction={onSave}/>
+    <ToastContainer />
+    <SubmitChanges submitFunction={onSubmit} cancelFunction={onCancel}/>
       <div className="w-full font-poppins text-Ash px-5">
-        <section className=" space-y-5">
+        <section className=" space-y-5 pb-5">
           <div>
             <div className=" w-full bg-NavyBlue ">
               <h1 className=" text-white p-1 text-center">
@@ -27,6 +92,9 @@ function Vision() {
                       name="firstWeekTowardsLight"
                       id="yes"
                       value="yes"
+                      disabled={!editmode}
+                      onChange={handleChange}
+                      checked={visionData.firstWeekTowardsLight === "yes"}
                     />
                     <label for="yes">Yes</label>
                   </div>
@@ -36,6 +104,9 @@ function Vision() {
                       name="firstWeekTowardsLight"
                       id="no"
                       value="no"
+                      disabled={!editmode}
+                      onChange={handleChange}
+                      checked={visionData.firstWeekTowardsLight === "no"}
                     />
                     <label for="no">No</label>
                   </div>
@@ -50,6 +121,9 @@ function Vision() {
                       name="firstWeeklookAtFace"
                       id="yes"
                       value="yes"
+                      disabled={!editmode}
+                      onChange={handleChange}
+                      checked={visionData.firstWeeklookAtFace === "yes"}
                     />
                     <label for="yes">Yes</label>
                   </div>
@@ -59,6 +133,9 @@ function Vision() {
                       name="firstWeeklookAtFace"
                       id="no"
                       value="no"
+                      disabled={!editmode}
+                      onChange={handleChange}
+                      checked={visionData.firstWeeklookAtFace === "no"}
                     />
                     <label for="no">No</label>
                   </div>
@@ -81,18 +158,24 @@ function Vision() {
                   <div className="space-x-5">
                     <input
                       type="radio"
-                      name="firstWeekTowardsLight"
+                      name="twoMonthsSounds"
                       id="yes"
                       value="yes"
+                      disabled={!editmode}
+                      onChange={handleChange}
+                      checked={visionData.twoMonthsSounds === "yes"}
                     />
                     <label for="yes">Yes</label>
                   </div>
                   <div className="space-x-5">
                     <input
                       type="radio"
-                      name="firstWeekTowardsLight"
+                      name="twoMonthsSounds"
                       id="no"
                       value="no"
+                      disabled={!editmode}
+                      onChange={handleChange}
+                      checked={visionData.twoMonthsSounds === "no"}
                     />
                     <label for="no">No</label>
                   </div>
@@ -104,18 +187,24 @@ function Vision() {
                   <div className="space-x-5">
                     <input
                       type="radio"
-                      name="firstWeeklookAtFace"
+                      name="twoMonthsEyes"
                       id="yes"
                       value="yes"
+                      disabled={!editmode}
+                      onChange={handleChange}
+                      checked={visionData.twoMonthsEyes === "yes"}
                     />
                     <label for="yes">Yes</label>
                   </div>
                   <div className="space-x-5">
                     <input
                       type="radio"
-                      name="firstWeeklookAtFace"
+                      name="twoMonthsEyes"
                       id="no"
                       value="no"
+                      disabled={!editmode}
+                      onChange={handleChange}
+                      checked={visionData.twoMonthsEyes === "no"}
                     />
                     <label for="no">No</label>
                   </div>
@@ -138,18 +227,24 @@ function Vision() {
                   <div className="space-x-5">
                     <input
                       type="radio"
-                      name="firstWeekTowardsLight"
+                      name="sixMonthsLookAround"
                       id="yes"
                       value="yes"
+                      disabled={!editmode}
+                      onChange={handleChange}
+                      checked={visionData.sixMonthsLookAround === "yes"}
                     />
                     <label for="yes">Yes</label>
                   </div>
                   <div className="space-x-5">
                     <input
                       type="radio"
-                      name="firstWeekTowardsLight"
+                      name="sixMonthsLookAround"
                       id="no"
                       value="no"
+                      disabled={!editmode}
+                      onChange={handleChange}
+                      checked={visionData.sixMonthsLookAround === "no"}
                     />
                     <label for="no">No</label>
                   </div>
@@ -161,18 +256,24 @@ function Vision() {
                   <div className="space-x-5">
                     <input
                       type="radio"
-                      name="firstWeeklookAtFace"
+                      name="sixMonthsReachOut"
                       id="yes"
                       value="yes"
+                      disabled={!editmode}
+                      onChange={handleChange}
+                      checked={visionData.sixMonthsReachOut === "yes"}
                     />
                     <label for="yes">Yes</label>
                   </div>
                   <div className="space-x-5">
                     <input
                       type="radio"
-                      name="firstWeeklookAtFace"
+                      name="sixMonthsReachOut"
                       id="no"
                       value="no"
+                      disabled={!editmode}
+                      onChange={handleChange}
+                      checked={visionData.sixMonthsReachOut === "no"}
                     />
                     <label for="no">No</label>
                   </div>
@@ -184,18 +285,24 @@ function Vision() {
                   <div className="space-x-5">
                     <input
                       type="radio"
-                      name="firstWeeklookAtFace"
+                      name="sixMonthsMole"
                       id="yes"
                       value="yes"
+                      disabled={!editmode}
+                      onChange={handleChange}
+                      checked={visionData.sixMonthsMole === "yes"}
                     />
                     <label for="yes">Yes</label>
                   </div>
                   <div className="space-x-5">
                     <input
                       type="radio"
-                      name="firstWeeklookAtFace"
+                      name="sixMonthsMole"
                       id="no"
                       value="no"
+                      disabled={!editmode}
+                      onChange={handleChange}
+                      checked={visionData.sixMonthsMole === "no"}
                     />
                     <label for="no">No</label>
                   </div>
@@ -219,18 +326,24 @@ function Vision() {
                   <div className="space-x-5">
                     <input
                       type="radio"
-                      name="twoMonthsSounds"
+                      name="tenMonthsPickUp"
                       id="yes"
                       value="yes"
+                      disabled={!editmode}
+                      onChange={handleChange}
+                      checked={visionData.tenMonthsPickUp === "yes"}
                     />
                     <label for="yes">Yes</label>
                   </div>
                   <div className="space-x-5">
                     <input
                       type="radio"
-                      name="twoMonthsSounds"
+                      name="tenMonthsPickUp"
                       id="no"
                       value="no"
+                      disabled={!editmode}
+                      onChange={handleChange}
+                      checked={visionData.tenMonthsPickUp === "no"}
                     />
                     <label for="no">No</label>
                   </div>
@@ -253,18 +366,24 @@ function Vision() {
                   <div className="space-x-5">
                     <input
                       type="radio"
-                      name="firstWeekTowardsLight"
+                      name="twelveMonthsReachOut"
                       id="yes"
                       value="yes"
+                      disabled={!editmode}
+                      onChange={handleChange}
+                      checked={visionData.twelveMonthsReachOut === "yes"}
                     />
                     <label for="yes">Yes</label>
                   </div>
                   <div className="space-x-5">
                     <input
                       type="radio"
-                      name="firstWeekTowardsLight"
+                      name="twelveMonthsReachOut"
                       id="no"
                       value="no"
+                      disabled={!editmode}
+                      onChange={handleChange}
+                      checked={visionData.twelveMonthsReachOut === "no"}
                     />
                     <label for="no">No</label>
                   </div>
@@ -276,18 +395,25 @@ function Vision() {
                   <div className="space-x-5">
                     <input
                       type="radio"
-                      name="firstWeeklookAtFace"
+                      name="twelveMonthsRecognize"
                       id="yes"
                       value="yes"
+                      disabled={!editmode}
+                      onChange={handleChange}
+                      checked={visionData.twelveMonthsRecognize === "yes"}
                     />
                     <label for="yes">Yes</label>
                   </div>
                   <div className="space-x-5">
                     <input
                       type="radio"
-                      name="firstWeeklookAtFace"
+                      name="twelveMonthsRecognize"
                       id="no"
                       value="no"
+                      disabled={!editmode}
+                      onChange={handleChange}
+                      checked={visionData.twelveMonthsRecognize === "no"}
+
                     />
                     <label for="no">No</label>
                   </div>

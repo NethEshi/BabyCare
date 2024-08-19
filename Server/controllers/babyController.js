@@ -34,17 +34,47 @@ const babyController = {
       const DOB = req.body.DOB;
       const ParentName = req.body.ParentName;
       const ParentEmail = req.body.ParentEmail;
+      const ParentPhone = req.body.ParentPhone;
+      const ParentAddress = req.body.ParentAddress;
+      const MidWife = req.body.MidWife;
+      const ParentAge = req.body.ParentAge; 
+      const BirthWeight = req.body.BirthWeight;
+      const BirthHeight = req.body.BirthHeight;
+      const BirthHeadCircumference = req.body.BirthHeadCircumference;
+      const MOHSection = req.body.MOHSection;
+      const FMOHSection = req.body.FMOHSection;
+      const DateOfSettlement = req.body.DateOfSettlement;
+      const HealthCondition = req.body.HealthCondition;
+      const VitaminK = req.body.VitaminK;
+      const Relation = req.body.Relation;
+      const Posture = req.body.Posture;
 
-      await Baby.findByIdAndUpdate(ID, {
+      console.log(BirthHeadCircumference, BirthHeight, BirthWeight, DateOfSettlement, FMOHSection)
+
+      let baby = await Baby.findOneAndUpdate({ID : ID}, {$set: {
         Name,
         Gender,
         DOB,
         ParentName,
         ParentEmail,
-      });
-      res.status(200).json({ message: "Baby updated successfully" });
+        ParentPhone,
+        ParentAddress,
+        MidWife,
+        ParentAge,
+        BirthWeight,
+        BirthHeight,
+        BirthHeadCircumference,
+        MOHSection,
+        FMOHSection,
+        DateOfSettlement,
+        HealthCondition,
+        VitaminK,
+        Posture,
+        Relation,
+      }},{new: true});
+      res.status(200).json({ message: "Baby updated successfully", baby  });
     } catch (error) {
-      res.status(500).json({ message: "Internal server error", error });
+      res.status(500).json({ message: "Internal server error!", error });
       console.log(error);
     }
   },

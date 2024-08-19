@@ -1,7 +1,7 @@
 
 import React from "react";
-import spinner from "../assets/spinner.svg";
-import { useOverlay } from "./context/OverlayContext";
+import spinner from "../../assets/spinner.svg";
+import { useOverlay } from "../context/OverlayContext";
 function Spinner() {
 
     const { isSpinnerVisible } = useOverlay();

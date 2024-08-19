@@ -20,14 +20,18 @@ import HReport from "./pages/midWife/healthReport/HReport";
 import Vision from "./pages/midWife/healthReport/Vision";
 import Hearing from "./pages/midWife/healthReport/Hearing";
 import { OverlayProvider } from "./components/context/OverlayContext";
-import SubmitChanges from "./components/SubmitChanges";
-import Spinner from "./components/spinner";
+import SubmitChanges from "./components/overlays/SubmitChanges";
+import Spinner from "./components/overlays/spinner";
+import EditSave from "./components/overlays/EditSave";
+import ClinicSchedule from "./components/overlays/ClinicSchedule";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
     <OverlayProvider>
       <SubmitChanges />
       <Spinner />
+      <EditSave />
       <Routes>
         <Route path="/" Component={Home} />
         <Route path="/About" Component={About} />

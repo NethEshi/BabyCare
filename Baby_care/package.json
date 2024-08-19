@@ -14,6 +14,7 @@
     "baby-care": "file:",
     "chart.js": "^4.4.3",
     "feather-icons-react": "^0.7.0",
+    "framer-motion": "^11.3.28",
     "nanoid": "^5.0.7",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
