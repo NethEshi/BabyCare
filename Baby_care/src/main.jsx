@@ -10,6 +10,7 @@ import reducer from "./reducers";
 const store = createStore(reducer, {
   baby: {
     selectedBaby:{},
+    selectedVaccine:{},
   },
   modules: {
     submitConfirm: false,

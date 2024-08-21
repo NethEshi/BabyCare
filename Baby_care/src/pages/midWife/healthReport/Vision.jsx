@@ -10,8 +10,11 @@ function Vision() {
 
   const {showSpinner, hideSpinner, showEditSave, hideEditSave, showSubmitOverlay, hideSubmitOverlay} = useOverlay();
   const editmode = useSelector((state) => state.modules.editMode);
+  const babyID = useSelector((state) => state.baby.selectedBaby.ID);
+  const [isNewData, setIsNewData] = useState(false);
   const dispatch = useDispatch();
   const[visionData, setVisionData] = useState({
+    ID: babyID,
     firstWeekTowardsLight: "",
     firstWeeklookAtFace: "",
     twoMonthsSounds: "",
@@ -26,6 +29,18 @@ function Vision() {
 
   useEffect(() => {
     showEditSave();
+    showSpinner();
+
+    axios.get(`http://localhost:5000/healthReport/getVisionData/${babyID}`)
+    .then((response) => {
+      setVisionData(response.data);
+    })
+    .catch((error) => {
+      setIsNewData(true);
+    })
+    .finally(()=> {
+      hideSpinner();
+    })
 
     return () => {
       hideEditSave();
@@ -44,7 +59,27 @@ function Vision() {
 
   const onSubmit = () => {
     showSpinner();
-    axios.put("http://localhost:5000/healthReport/updateVision", visionData)
+    if(isNewData){
+      axios.post("http://localhost:5000/healthReport/addVisionData", visionData)
+      .then((response) => {
+        toast.success("Vision data add successfully", {
+          position: "bottom-right"
+        });
+        console.log(response);
+        setIsNewData(false);
+      })
+      .catch((error) => {
+        toast.error("Failed to add vision data", {
+          position: "bottom-right"
+        });
+        console.log(error);
+      })
+      .finally(() => {
+        hideSpinner();
+        hideSubmitOverlay();
+      });
+    }else{
+    axios.put("http://localhost:5000/healthReport/updateVisionData", visionData)
     .then((response) => {
       toast.success("Vision data updated successfully", {
         position: "bottom-right"
@@ -61,6 +96,7 @@ function Vision() {
       hideSpinner();
       hideSubmitOverlay();
     });
+  }
   }
 
   const onCancel = () =>{

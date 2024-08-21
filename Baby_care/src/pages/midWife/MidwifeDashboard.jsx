@@ -7,7 +7,7 @@ import PageNumber from "../../components/PageNumber";
 import { useDispatch, useSelector } from "react-redux";
 import { getSelectedBaby } from "../../actions/baby";
 import * as _ from "underscore";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useOverlay } from "../../components/context/OverlayContext";
 
 
@@ -17,6 +17,7 @@ function MidwifeDashboard() {
   const [overlay, setOverlay] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const loaction = useLocation();
   const {showSpinner, hideSpinner} = useOverlay();
 
   useEffect(() => {
@@ -70,13 +71,13 @@ function MidwifeDashboard() {
   return (
     <>
       <div className="flex relative h-screen">
-        <div className="w-1/6">
+        {!location.pathname.includes("MOHhome") && <div className="w-1/6">
           <DashboardSideBar />
-        </div>
+        </div>}
         <div className=" w-5/6 ">
-          <div className="px-5 py-3">
+          {!location.pathname.includes("MOHhome") && <div className="px-5 py-3">
             <DashNav handleSearch={handleSearch} serachEnable={true} />
-          </div>
+          </div>}
           <>
             <hr />
             <div className=" flex justify-center pt-20 px-20">

@@ -6,13 +6,16 @@ import { getEditMode, getSubmit } from "../../../actions/modules";
 import { useOverlay } from "../../../components/context/OverlayContext";
 import EditSave from "../../../components/overlays/EditSave";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 function HReport() {
   const editMode = useSelector((state) => state.modules.editMode);
+  const babyID = useSelector((state) => state.baby.selectedBaby.ID);
+  const [isNewData, setIsNewData] = useState(false);
   const dispatch = useDispatch();
   const { showSubmitOverlay, hideSubmitOverlay, showSpinner, hideSpinner, showEditSave, hideEditSave } = useOverlay();
   const [tableData, setTableData] = useState({
+    ID:babyID,
     days10in01: null,
     days10in02: null,
     days11to28: null,
@@ -48,6 +51,19 @@ function HReport() {
   });
 
   useEffect(() => {
+    showSpinner();
+    axios.get(`http://localhost:5000/healthReport/getHealthReport/${babyID}`)
+    .then((response) => {
+      console.log(response.data);
+      setTableData(response.data);
+    })
+    .catch((error) => {
+      setIsNewData(true);
+      console.log(error);
+    })
+    .finally(() => {
+      hideSpinner();
+    });
     showEditSave();
 
     return () => {
@@ -69,6 +85,27 @@ function HReport() {
 
   const onSubmit = () => {
     showSpinner();
+    if (isNewData) {
+      axios.post("http://localhost:5000/healthReport/addHealthReport", tableData)
+      .then((response) => {
+      toast.success("Success Notification !", {
+        position: "bottom-right"
+      });
+        console.log(response.data);
+        setIsNewData(false);
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message, {
+          position: "bottom-right"
+        });
+        console.log(error);
+      })
+      .finally(() => {
+        hideSubmitOverlay();
+        hideSpinner();
+      });
+
+  }else{
     axios.put("http://localhost:5000/healthReport/updateHealthReport", tableData)
     .then((response) => {
     toast.success("Success Notification !", {
@@ -86,6 +123,8 @@ function HReport() {
       hideSubmitOverlay();
       hideSpinner();
     });
+  }
+
   };
 
   const handleChange = (e) => {
@@ -94,6 +133,7 @@ function HReport() {
   };
   return (
     <>
+    <ToastContainer/>
       <EditSave submitFunction={onSave}/>
       <div className=" absolute z-50">
         <SubmitChanges
@@ -460,8 +500,8 @@ function HReport() {
               </td>
               <td className="border-2">
                 <select
-                  name="breastFeedingPosture1"
-                  id="breastFeedingPosture1"
+                  name="breastFeedingPosture2"
+                  id="breastFeedingPosture2"
                   disabled={!editMode}
                   value={
                     tableData.breastFeedingPosture2 === null
@@ -477,8 +517,8 @@ function HReport() {
               </td>
               <td className="border-2">
                 <select
-                  name="breastFeedingPosture1"
-                  id="breastFeedingPosture1"
+                  name="breastFeedingPosture3"
+                  id="breastFeedingPosture3"
                   disabled={!editMode}
                   value={
                     tableData.breastFeedingPosture3 === null
@@ -494,8 +534,8 @@ function HReport() {
               </td>
               <td className="border-2">
                 <select
-                  name="breastFeedingPosture1"
-                  id="breastFeedingPosture1"
+                  name="breastFeedingPosture4"
+                  id="breastFeedingPosture4"
                   disabled={!editMode}
                   value={
                     tableData.breastFeedingPosture4 === null

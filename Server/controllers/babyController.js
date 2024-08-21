@@ -1,5 +1,6 @@
 const { get } = require("mongoose");
 const Baby = require("../models/Baby");
+const Clinic = require("../models/Clinic");
 
 const babyController = {
   addBaby: async (req, res) => {
@@ -99,6 +100,61 @@ const babyController = {
         console.log(error);
         }
     },
+
+    addClinic: async (req, res) => {
+      try {
+          const ID = req.params.ID;
+          const { Date, SpecialNotes } = req.body;
+  
+          let clinic = await Clinic.findOne({ ID });
+          if (clinic) {
+              clinic.Clinics.push({ Date, SpecialNotes });
+          } else {
+              clinic = new Clinic({
+                  ID,
+                  Clinics: [{ Date, SpecialNotes }],
+              });
+          }
+  
+          await clinic.save();
+          res.status(201).json({ message: "Clinic added successfully", clinic });
+      } catch (error) {
+          res.status(500).json({ message: "Internal server error", error });
+          console.log(error);
+      }
+  },
+
+    updateClinic: async (req, res) => {
+        try {
+        const ID = req.params.ID;
+        const Date = req.body.Date;
+        const SpecialNotes = req.body.SpecialNotes;
+        let clinic = await Clinic.findOneAndUpdate({ID : ID}, {$set: {
+            Date,
+            SpecialNotes,
+        }},{new: true});
+        res.status(200).json({ message: "Clinic updated successfully", clinic  });
+        } catch (error) {
+        res.status(500).json({ message: "Internal server error!", error });
+        console.log(error);
+        }
+    },
+
+    getClinic: async (req, res) => {
+        try {
+        const ID = req.params.ID;
+        const clinic = await Clinic.findOne({ID});
+        if(!clinic) {
+            return res.status(404).json({ message: "No clinic found" });
+        }
+        res.status(200).json(clinic);
+        } catch (error) {
+        res.status(500).json({ message: "Internal server error", error });
+        console.log(error);
+        }
+    },
+
+
 };
 
 module.exports = babyController;

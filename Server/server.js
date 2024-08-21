@@ -27,6 +27,9 @@ app.use('/moh', mohRouter);
 const babyRouter = require('./routes/babyRoute');
 app.use('/baby', babyRouter);
 
+const HealthReportRouter = require('./routes/healthReportRoute');
+app.use('/healthReport', HealthReportRouter);
+
 const weight_heightRouter = require('./routes/weight_heightRoute');
 app.use('/weight_height', weight_heightRouter);
 

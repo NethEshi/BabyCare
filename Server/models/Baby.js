@@ -35,7 +35,7 @@ const babySchema = new mongoose.Schema({
         required: false
     },
     MidWife: {
-        type: Object,
+        type: String,
         required: false
     },
     ParentAge: {
