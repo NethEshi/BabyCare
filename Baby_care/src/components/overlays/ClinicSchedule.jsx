@@ -4,20 +4,28 @@ import { useState, useEffect } from "react";
 
 function ClinicSchedule(props) {
   const { isClinicScheduleVisible, hideClinicSchedule } = useOverlay();
-  const [newClinic, setNewClinic] = useState({});
+  const [newClinic, setNewClinic] = useState({
+    Date: "",
+    SpecialNotes: "",
+  });
 
   useEffect(() => {
-    if (props.clinicData) {
-      setNewClinic(props.clinicData); // Initialize state with selected clinic data
+    if (props.clinicData && !props.newData) {
+      setNewClinic({
+        Date: props.clinicData.Date || "",
+        SpecialNotes: props.clinicData.SpecialNotes || "",
+      });
     } else {
-      setNewClinic({}); // Clear state if no clinic data
+      setNewClinic({
+        Date: "",
+        SpecialNotes: "",
+      });
     }
   }, [props.clinicData]);
 
   if (!isClinicScheduleVisible) {
     return null;
   }
-
   const newAdd = props.newData;
   const editMode = props.editMode;
   const handleConfirm = props.submitFunction;
@@ -79,7 +87,7 @@ function ClinicSchedule(props) {
                 </div>
               </div>
             }
-            {editMode || newAdd && (
+            {(editMode || newAdd) && (
               <div className="flex justify-between px-10 pt-5">
                 <button
                   className="bg-NavyBlue border-2 w-[40%] py-1 text-white rounded-lg"

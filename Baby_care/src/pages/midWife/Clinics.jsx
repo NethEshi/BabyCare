@@ -19,28 +19,38 @@ function Clinics() {
   const [clinics, setClinics] = useState([]);
   const [isEditMode, setIsEditMode] = useState(false);
   const [IsNewData, setIsNewData] = useState(false);
-  const [IsNewClinic, setIsNewClinic] = useState(false);
-  const [selectedClinic, setSelectedClinic] = useState(null);
+  const [selectedClinic, setSelectedClinic] = useState({
+    Date: "",
+    SpecialNotes: "",
+});
+  const [selectedClinicIndex, setSelectedClinicIndex] = useState(null);
   const babyID = useSelector((state) => state.baby.selectedBaby.ID);
 
   useEffect(()=> {
+    showSpinner();
     axios.get(`http://localhost:5000/baby/getClinic/${babyID}`)
     .then((response) => {
       console.log(response.data);
       setClinics(response.data.Clinics);
     }).catch((error) => {
       console.log(error);
-      if(error.response.status === 404) {
-      setIsNewClinic(true);
-    }
+  })
+  .finally(() => {
+    hideSpinner();
   });
   },[]);
 
   const onSubmit = (data) => {
+    showSpinner();
+    let payload = {
+      ...data,
+      index: selectedClinicIndex,
+    };
+    if (IsNewData){
       axios.post(`http://localhost:5000/baby/addClinic/${babyID}`, data)
       .then((response) => {
         console.log(response);
-        setClinics([...clinics, response.data.clinic]);
+        setClinics(response.data.clinic.Clinics);
       })
       .catch((error) => {
         console.log(error);
@@ -49,7 +59,24 @@ function Clinics() {
         hideClinicSchedule();
         setIsEditMode(false);
         setIsNewData(false);
+        hideSpinner();
       });
+    } else {
+      axios.put(`http://localhost:5000/baby/updateClinic/${babyID}`, payload)
+      .then((response) => {
+        console.log(response);
+        setClinics(response.data.clinic.Clinics);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        hideClinicSchedule();
+        setIsEditMode(false);
+        setIsNewData(false);
+        hideSpinner();
+      });
+    }
 
     console.log(data);
   };
@@ -65,8 +92,11 @@ function Clinics() {
     showClinicSchedule();
   }
 
-  const onEdit = () => {
+  const onEdit = (clinic, index) => {
+    setSelectedClinic(clinic);
+    setSelectedClinicIndex(index);
     setIsEditMode(true);
+    setIsNewData(false);
     showClinicSchedule();
   }
 
@@ -89,7 +119,7 @@ function Clinics() {
           </div>
           <table className="border-2 w-full">
             <thead>
-              <tr>
+              <tr className="bg-gray-100">
                 <th className="w-[20%] border-2 p-2">Date</th>
                 <th>Special Notes</th>
               </tr>
@@ -98,13 +128,13 @@ function Clinics() {
               {clinics.map((clinic, index) => (
                 <tr key={index} className="border-2 hover:bg-gray-200">
                   <td className="border-2 p-2">{clinic.Date}</td>
-                  <td className="flex justify-between items-center">
+                  <td className="p-2 flex justify-between items-center">
                     <div className="flex-1 text-center">
                       <p>{clinic.SpecialNotes}</p>
                     </div>
-                    <div className="space-x-5 pr-5">
-                      <button className="" onClick={() => onView(clinic)}><FeatherIcon icon="eye" /></button>
-                      {/* <button className="" onClick={() => onEdit()}><FeatherIcon icon="edit" /></button> */}
+                    <div className=" space-x-5 pr-5">
+                      <button className="" onClick={() => onView(clinic, index)}><FeatherIcon icon="eye" /></button>
+                      <button className="" onClick={() => onEdit(clinic, index)}><FeatherIcon icon="edit-3" /></button>
                     </div>
                   </td>
                 </tr>

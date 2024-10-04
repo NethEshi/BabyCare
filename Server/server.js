@@ -33,6 +33,9 @@ app.use('/healthReport', HealthReportRouter);
 const weight_heightRouter = require('./routes/weight_heightRoute');
 app.use('/weight_height', weight_heightRouter);
 
+const vaccinationRouter = require('./routes/vaccinationRoute');
+app.use('/vaccination', vaccinationRouter);
+
 mongoose.connect(url)
 .then(() => console.log("MongoDB is connected..."))
 .catch((err) => console.log(err));

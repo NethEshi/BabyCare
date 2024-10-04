@@ -1,17 +1,32 @@
 import FeatherIcon from "feather-icons-react";
 import { useOverlay } from "../context/OverlayContext";
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function VaccineView(props) {
   const { isVaccineVisible, showVaccine, hideVaccine } = useOverlay();
   const selectedVaccine = useSelector((state) => state.baby.selectedVaccine);
-  const [newVaccine, setNewVaccine] = useState(selectedVaccine);
+  const [newVaccine, setNewVaccine] = useState({
+    name: "",
+    date: "",
+    batchNo: "",
+    adverseEffects: "",
+  });
+
+  useEffect(() => {
+    if (selectedVaccine.selectedVaccine) {
+      setNewVaccine({
+        name: selectedVaccine.selectedVaccine.name || "",
+        date: selectedVaccine.selectedVaccine.date || "",
+        batchNo: selectedVaccine.selectedVaccine.batchNo || "",
+        adverseEffects: selectedVaccine.selectedVaccine.adverseEffects || "",
+      });
+    }
+  }, [selectedVaccine]);
 
   if (!isVaccineVisible) {
     return null;
   }
-
   const editMode = props.editMode;
   const handleConfirm = props.submitFunction;
   const handleCancel = props.cancelFunction;
@@ -25,7 +40,7 @@ function VaccineView(props) {
   };
 
   const onSubmit = () => {
-    handleConfirm(newVaccine);
+    handleConfirm(selectedVaccine.arrayName, selectedVaccine.index, newVaccine);
   }
 
   return (
@@ -35,7 +50,7 @@ function VaccineView(props) {
           <div className="flex justify-between p-4">
             {!editMode && (
               <p className="text-2xl text-ATblack font-semibold">
-                {selectedVaccine.name}
+                {newVaccine.name}
               </p>
             )}
             {!editMode && (
@@ -46,16 +61,16 @@ function VaccineView(props) {
           <div className="p-5">
             <div>
               <form>
-                <label className="text-Ash font-bold text-xl">Name</label>
-                <input
+                {editMode && (<label className="text-Ash font-bold text-xl">Name</label>)}
+                {editMode &&(<input
                   type="text"
                   name="name"
                   disabled={!editMode}
                   className="w-full h-10 border-2 border-gray-300 rounded-lg p-2"
                   value={newVaccine.name}
                   onChange={handleChange}
-                />
-                <label className="text-Ash font-bold text-xl">Date</label>
+                />)}
+                <label classame="text-Ash font-bold text-xl">Date</label>
                 <input
                   type="date"
                   name="date"

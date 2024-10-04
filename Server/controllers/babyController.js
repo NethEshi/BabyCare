@@ -128,10 +128,13 @@ const babyController = {
         try {
         const ID = req.params.ID;
         const Date = req.body.Date;
+        const index = req.body.index;
         const SpecialNotes = req.body.SpecialNotes;
+        let clinic1 = await Clinic.findOne({ID});
+        clinic1.Clinics[index].Date = Date;
+        clinic1.Clinics[index].SpecialNotes = SpecialNotes;
         let clinic = await Clinic.findOneAndUpdate({ID : ID}, {$set: {
-            Date,
-            SpecialNotes,
+            Clinics: clinic1.Clinics
         }},{new: true});
         res.status(200).json({ message: "Clinic updated successfully", clinic  });
         } catch (error) {

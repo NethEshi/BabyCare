@@ -1,12 +1,15 @@
 import FeatherIcon from "feather-icons-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useOverlay } from "../../components/context/OverlayContext";
 import { useDispatch, useSelector } from "react-redux";
 import VaccineView from "../../components/overlays/VaccineView";
 import { getSelectedVaccine } from "../../actions/baby";
+import axios from "axios";
 function Vaccination() {
   const [isEditMode, setIsEditMode] = useState(false);
   const [isSave, setIsSave] = useState(false);
+  const [newBaby, setNewBaby] = useState(false);
+  const [sendData, setSendData] = useState(false);
   const dispatch = useDispatch();
   const babyID = useSelector((state) => state.baby.selectedBaby.ID);
   const {
@@ -57,6 +60,25 @@ function Vaccination() {
     JapaneseEncephalitis: false,
     Other: false,
   });
+
+  useEffect (() => {
+    showSpinner();
+    axios.get(`http://localhost:5000/vaccination/getVaccinationData/${babyID}`)
+    .then((response) => {
+      console.log(response);
+      setVaccinationData(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+      if (error.response.status === 404) {
+        setNewBaby(true);
+      }
+    })
+    .finally(() => {
+      hideSpinner();
+    })
+  }, []);
+
   const handleToggleVisibility = (e) => {
     const { name } = e.currentTarget;
     setToggleVisibility((prevState) => ({
@@ -79,11 +101,6 @@ function Vaccination() {
     });
   };
 
-  const editVaccineData = () => {
-    updateVaccineData("AtBirth", 0, { date: "2022-10-10", code: "E35465" });
-    console.log(vaccinationData);
-  };
-
   const addNewVaccine = (e) => {
     const { name } = e.currentTarget;
     setVaccinationData((prevState) => ({
@@ -92,10 +109,13 @@ function Vaccination() {
     }));
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = (arrayName, index, data) => {
     console.log(data);
+    updateVaccineData(arrayName, index, data);
     hideVaccine();
     setIsEditMode(false);
+    setIsSave(true);
+    setSendData(!sendData);
   };
 
   const onCancel = () => {
@@ -103,16 +123,53 @@ function Vaccination() {
     setIsEditMode(false);
   };
 
-  const onView = (vaccination,index) => {
+  const onView = (vaccination) => {
     dispatch(getSelectedVaccine(vaccination));
     showVaccine();
   }
 
-  const onEdit = (vaccination) => {
-    dispatch(getSelectedVaccine(vaccination));
+  const onEdit = (vaccination, e, index) => {
+    dispatch(getSelectedVaccine(vaccination, e.currentTarget.name, index));
     setIsEditMode(true);
     showVaccine();
   }
+
+  useEffect(() => {
+    if (!isSave) {
+      return;
+    }
+
+    showSpinner();
+    const payload = {
+      ID: babyID,
+      ...vaccinationData,
+    }
+    console.log(payload);
+    if (newBaby) {
+      axios.post("http://localhost:5000/vaccination/addVaccination", payload)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        hideSpinner();
+      })
+    } else {
+      axios.put("http://localhost:5000/vaccination/updateVaccinationData", payload)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        hideSpinner();
+      })
+    }
+
+  }, [sendData]);
   return (
     <>
     <VaccineView submitFunction = {onSubmit} cancelFunction = {onCancel} editMode = {isEditMode}/>
@@ -160,7 +217,7 @@ function Vaccination() {
                         <button name="AtBirth" id="AtBirth" onClick={() => onView(vaccination)}>
                           <FeatherIcon icon="eye" className={""} />
                         </button>
-                        <button name="AtBirth" id="AtBirth" onClick={() => onEdit(vaccination)}>
+                        <button name="AtBirth" id="AtBirth" onClick={(e) => onEdit(vaccination, e, index)}>
                           <FeatherIcon icon="edit-3" className={""} />
                         </button>
                       </div>
@@ -213,7 +270,7 @@ function Vaccination() {
                         <button name="TwoMonth" id="TwoMonth" onClick={() => onView(vaccination)}>
                           <FeatherIcon icon="eye" className={""} />
                         </button>
-                        <button name="TwoMonth" id="TwoMonth" onClick={() => onEdit(vaccination)}>
+                        <button name="TwoMonth" id="TwoMonth" onClick={(e) => onEdit(vaccination, e, index)}>
                           <FeatherIcon icon="edit-3" className={``} />
                         </button>
                       </div>
@@ -263,10 +320,10 @@ function Vaccination() {
                         </h1>
                       </div>
                       <div className=" space-x-3">
-                        <button name="FourMonth" id="FourMonth" onClick={onView}>
-                          <FeatherIcon icon="eye" className={onEdit} />
+                        <button name="FourMonth" id="FourMonth" onClick={() => onView(vaccination)}>
+                          <FeatherIcon icon="eye" className={''} />
                         </button>
-                        <button name="FourMonth" id="FourMonth" onClick={""}>
+                        <button name="FourMonth" id="FourMonth" onClick={(e) => onEdit(vaccination, e, index)}>
                           <FeatherIcon icon="edit-3" className={``} />
                         </button>
                       </div>
@@ -316,10 +373,10 @@ function Vaccination() {
                         </h1>
                       </div>
                       <div className=" space-x-3">
-                        <button name="SixMonth" id="SixMonth" onClick={onView}>
+                        <button name="SixMonth" id="SixMonth" onClick={() => onView(vaccination)}>
                           <FeatherIcon icon="eye" className={""} />
                         </button>
-                        <button name="SixMonth" id="SixMonth" onClick={onEdit}>
+                        <button name="SixMonth" id="SixMonth" onClick={(e) => onEdit(vaccination, e, index)}>
                           <FeatherIcon icon="edit-3" className={``} />
                         </button>
                       </div>
@@ -369,10 +426,10 @@ function Vaccination() {
                         </h1>
                       </div>
                       <div className=" space-x-3">
-                        <button name="NineMonth" id="NineMonth" onClick={""}>
+                        <button name="NineMonth" id="NineMonth" onClick={() => onView(vaccination)}>
                           <FeatherIcon icon="eye" className={""} />
                         </button>
-                        <button name="NineMonth" id="NineMonth" onClick={""}>
+                        <button name="NineMonth" id="NineMonth" onClick={(e) => onEdit(vaccination, e, index)}>
                           <FeatherIcon icon="edit-3" className={``} />
                         </button>
                       </div>
@@ -427,14 +484,14 @@ function Vaccination() {
                         <button
                           name="EighteenMonth"
                           id="EighteenMonth"
-                          onClick={""}
+                          onClick={() => onView(vaccination)}
                         >
                           <FeatherIcon icon="eye" className={""} />
                         </button>
                         <button
                           name="EighteenMonth"
                           id="EighteenMonth"
-                          onClick={""}
+                          onClick={(e) => onEdit(vaccination, e, index)}
                         >
                           <FeatherIcon icon="edit-3" className={``} />
                         </button>
@@ -485,10 +542,10 @@ function Vaccination() {
                         </h1>
                       </div>
                       <div className=" space-x-3">
-                        <button name="ThreeYeares" id="ThreeYeares" onClick={""}>
-                          <FeatherIcon icon="eye" className={""} />
+                        <button name="ThreeYeares" id="ThreeYeares" onClick={() => onView(vaccination)}>
+                          <FeatherIcon icon="eye" className={''} />
                         </button>
-                        <button name="ThreeYeares" id="ThreeYeares" onClick={""}>
+                        <button name="ThreeYeares" id="ThreeYeares" onClick={(e) => onEdit(vaccination, e, index)}>
                           <FeatherIcon icon="edit-3" className={``} />
                         </button>
                       </div>
@@ -538,10 +595,10 @@ function Vaccination() {
                         </h1>
                       </div>
                       <div className=" space-x-3">
-                        <button name="FiveYeares" id="FiveYeares" onClick={""}>
+                        <button name="FiveYeares" id="FiveYeares" onClick={() => onView(vaccination)}>
                           <FeatherIcon icon="eye" className={""} />
                         </button>
-                        <button name="FiveYeares" id="FiveYeares" onClick={""}>
+                        <button name="FiveYeares" id="FiveYeares" onClick={(e) => onEdit(vaccination, e, index)}>
                           <FeatherIcon icon="edit-3" className={``} />
                         </button>
                       </div>
@@ -591,10 +648,10 @@ function Vaccination() {
                         </h1>
                       </div>
                       <div className=" space-x-3">
-                        <button name="TenYeares" id="TenYeares" onClick={""}>
+                        <button name="TenYeares" id="TenYeares" onClick={() => onView(vaccination)}>
                           <FeatherIcon icon="eye" className={""} />
                         </button>
-                        <button name="TenYeares" id="TenYeares" onClick={""}>
+                        <button name="TenYeares" id="TenYeares" onClick={(e) => onEdit(vaccination, e, index)}>
                           <FeatherIcon icon="edit-3" className={``} />
                         </button>
                       </div>
@@ -615,9 +672,9 @@ function Vaccination() {
                   <button
                     name="JapaneseEncephalitis"
                     id="JapaneseEncephalitis"
-                    onClick={""}
+                    onClick={addNewVaccine}
                   >
-                    <FeatherIcon icon="plus" className={addNewVaccine} />
+                    <FeatherIcon icon="plus" />
                   </button>
                 )}
                 <button
@@ -654,16 +711,16 @@ function Vaccination() {
                           <button
                             name="JapaneseEncephalitis"
                             id="JapaneseEncephalitis"
-                            onClick={""}
+                            onClick={() => onView(vaccination)}
                           >
                             <FeatherIcon icon="eye" className={""} />
                           </button>
                           <button
                             name="JapaneseEncephalitis"
                             id="JapaneseEncephalitis"
-                            onClick={""}
+                            onClick={(e) => onEdit(vaccination, e, index)}
                           >
-                            <FeatherIcon icon="edit-3" className={``} />
+                            <FeatherIcon icon="edit-3" className={''} />
                           </button>
                         </div>
                       </div>
@@ -713,10 +770,10 @@ function Vaccination() {
                         </h1>
                       </div>
                       <div className=" space-x-3">
-                        <button name="Other" id="Other" onClick={""}>
+                        <button name="Other" id="Other" onClick={() => onView(vaccination)}>
                           <FeatherIcon icon="eye" className={""} />
                         </button>
-                        <button name="Other" id="Other" onClick={""}>
+                        <button name="Other" id="Other" onClick={(e) => onEdit(vaccination, e, index)}>
                           <FeatherIcon icon="edit-3" className={``} />
                         </button>
                       </div>

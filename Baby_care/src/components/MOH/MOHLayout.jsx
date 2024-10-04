@@ -11,7 +11,7 @@ function MOHLayout(props) {
         </div>
         <div className=" w-5/6 ">
           <div className="px-5 py-3">
-            <MOHDashNav handleSearch={""} serachEnable={true} />
+            <MOHDashNav serachEnable={true} />
           </div>
           <>
             <hr />

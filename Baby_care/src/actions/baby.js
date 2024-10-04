@@ -5,9 +5,9 @@ export const getSelectedBaby = (selectedBaby) => {
     };
 };
 
-export const getSelectedVaccine = (selectedVaccine) => {
+export const getSelectedVaccine = (selectedVaccine, arrayName, index) => {
     return {
         type: 'GET_SELECTED_VACCINE',
-        payload: selectedVaccine
+        payload: { selectedVaccine , arrayName, index}
     };
 }
