@@ -6,39 +6,33 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 
 function Clinics() {
-  const {
-    showVaccine,
-    hideVaccine,
-    showSpinner,
-    hideSpinner,
-    showEditSave,
-    hideEditSave,
-    showClinicSchedule,
-    hideClinicSchedule,
-  } = useOverlay();
+  const { showSpinner, hideSpinner, showClinicSchedule, hideClinicSchedule } =
+    useOverlay();
   const [clinics, setClinics] = useState([]);
   const [isEditMode, setIsEditMode] = useState(false);
   const [IsNewData, setIsNewData] = useState(false);
   const [selectedClinic, setSelectedClinic] = useState({
     Date: "",
     SpecialNotes: "",
-});
+  });
   const [selectedClinicIndex, setSelectedClinicIndex] = useState(null);
   const babyID = useSelector((state) => state.baby.selectedBaby.ID);
 
-  useEffect(()=> {
+  useEffect(() => {
     showSpinner();
-    axios.get(`http://localhost:5000/baby/getClinic/${babyID}`)
-    .then((response) => {
-      console.log(response.data);
-      setClinics(response.data.Clinics);
-    }).catch((error) => {
-      console.log(error);
-  })
-  .finally(() => {
-    hideSpinner();
-  });
-  },[]);
+    axios
+      .get(`http://localhost:5000/baby/getClinic/${babyID}`)
+      .then((response) => {
+        console.log(response.data);
+        setClinics(response.data.Clinics);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        hideSpinner();
+      });
+  }, []);
 
   const onSubmit = (data) => {
     showSpinner();
@@ -46,36 +40,38 @@ function Clinics() {
       ...data,
       index: selectedClinicIndex,
     };
-    if (IsNewData){
-      axios.post(`http://localhost:5000/baby/addClinic/${babyID}`, data)
-      .then((response) => {
-        console.log(response);
-        setClinics(response.data.clinic.Clinics);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        hideClinicSchedule();
-        setIsEditMode(false);
-        setIsNewData(false);
-        hideSpinner();
-      });
+    if (IsNewData) {
+      axios
+        .post(`http://localhost:5000/baby/addClinic/${babyID}`, data)
+        .then((response) => {
+          console.log(response);
+          setClinics(response.data.clinic.Clinics);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          hideClinicSchedule();
+          setIsEditMode(false);
+          setIsNewData(false);
+          hideSpinner();
+        });
     } else {
-      axios.put(`http://localhost:5000/baby/updateClinic/${babyID}`, payload)
-      .then((response) => {
-        console.log(response);
-        setClinics(response.data.clinic.Clinics);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        hideClinicSchedule();
-        setIsEditMode(false);
-        setIsNewData(false);
-        hideSpinner();
-      });
+      axios
+        .put(`http://localhost:5000/baby/updateClinic/${babyID}`, payload)
+        .then((response) => {
+          console.log(response);
+          setClinics(response.data.clinic.Clinics);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          hideClinicSchedule();
+          setIsEditMode(false);
+          setIsNewData(false);
+          hideSpinner();
+        });
     }
 
     console.log(data);
@@ -90,7 +86,7 @@ function Clinics() {
   const onView = (clinic) => {
     setSelectedClinic(clinic);
     showClinicSchedule();
-  }
+  };
 
   const onEdit = (clinic, index) => {
     setSelectedClinic(clinic);
@@ -98,26 +94,35 @@ function Clinics() {
     setIsEditMode(true);
     setIsNewData(false);
     showClinicSchedule();
-  }
+  };
 
   const onNewData = () => {
     setSelectedClinic(null);
     setIsNewData(true);
     showClinicSchedule();
-    console.log(clinics)
-  }
+    console.log(clinics);
+  };
 
-  return (<>
-
-    <ClinicSchedule submitFunction = {onSubmit} cancelFunction = {onCancel} editMode = {isEditMode} newData = {IsNewData} clinicData = {selectedClinic}/>
-    <div className="w-full text-Ash font-poppins">
-    <div>
+  return (
+    <>
+      <ClinicSchedule
+        submitFunction={onSubmit}
+        cancelFunction={onCancel}
+        editMode={isEditMode}
+        newData={IsNewData}
+        clinicData={selectedClinic}
+      />
+      <div className="w-full px-[5%] text-Ash font-poppins">
+        <div>
           <div className="pb-5">
-            <button className="bg-NavyBlue text-white p-2 rounded-xl" onClick={onNewData}>
+            <button
+              className="bg-NavyBlue text-white p-2 rounded-xl"
+              onClick={onNewData}
+            >
               Schedule a new date
             </button>
           </div>
-          <table className="border-2 w-full">
+          {clinics.length > 0 ? (<table className="border-2 w-full">
             <thead>
               <tr className="bg-gray-100">
                 <th className="w-[20%] border-2 p-2">Date</th>
@@ -133,14 +138,28 @@ function Clinics() {
                       <p>{clinic.SpecialNotes}</p>
                     </div>
                     <div className=" space-x-5 pr-5">
-                      <button className="" onClick={() => onView(clinic, index)}><FeatherIcon icon="eye" /></button>
-                      <button className="" onClick={() => onEdit(clinic, index)}><FeatherIcon icon="edit-3" /></button>
+                      <button
+                        className=""
+                        onClick={() => onView(clinic, index)}
+                      >
+                        <FeatherIcon icon="eye" />
+                      </button>
+                      <button
+                        className=""
+                        onClick={() => onEdit(clinic, index)}
+                      >
+                        <FeatherIcon icon="edit-3" />
+                      </button>
                     </div>
                   </td>
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table>) : (
+            <div className="text-center">
+              <p>No data to display</p>
+            </div>
+          )}
         </div>
       </div>
     </>

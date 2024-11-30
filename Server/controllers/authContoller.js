@@ -13,6 +13,7 @@ MOHregister : async (req, res) => {
         const Email = req.body.Email;
         const password = req.body.password;
         const cfpassword = req.body.cfpassword;
+        const RoleId = 1;
 
         const validEmail = await MOHref.findOne({ Email });
         console.log(validEmail);
@@ -27,7 +28,7 @@ MOHregister : async (req, res) => {
             return res.status(400).json({ message: 'Password does not match' });
         }
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new MOH({ MOH_Name, District, Type, Email, password: hashedPassword });
+        const newUser = new MOH({ MOH_Name, District, Type, Email, Password: hashedPassword, RoleId });
         await newUser.save();
 
         res.status(201).json({ message: 'User registered successfully' });
@@ -46,7 +47,7 @@ MOHlogin : async (req, res) => {
             return res.status(400).json({ message: 'Invalid username or password' });
         }
 
-        const isPasswordValid = await bcrypt.compare(password, MOHexist.password);
+        const isPasswordValid = await bcrypt.compare(password, MOHexist.Password);
         if (!isPasswordValid) {
             return res.status(400).json({ message: 'Invalid username or password' });
         }

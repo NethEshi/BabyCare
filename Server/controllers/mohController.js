@@ -10,13 +10,14 @@ const mohController = {
             const Designation = req.body.Designation;
             const Area = req.body.Area;
             const Contact = req.body.Contact;
+            const RoleId = 2;
 
             const isEmailExist = await MidWife.findOne({ Email });
             if (isEmailExist) {
                 return res.status(400).json({ message: 'Email already exists' });
             }
 
-            const newMidWife = new MidWife({ Email, reg_ID, License_NO, Name, Designation, Area, Contact });
+            const newMidWife = new MidWife({ Email, reg_ID, License_NO, Name, Designation, Area, Contact, RoleId });
             await newMidWife.save();
             res.status(201).json({ message: 'MidWife added successfully' });
 

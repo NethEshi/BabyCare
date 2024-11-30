@@ -30,6 +30,10 @@ const midWifeSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    RoleId: {
+        type: Number,
+        required: true
+    }
 });
 
 const MidWife = mongoose.model('MidWife', midWifeSchema);
