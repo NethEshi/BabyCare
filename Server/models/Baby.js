@@ -82,6 +82,10 @@ const babySchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    MOHId: {
+        type: String,
+        required: false
+    },
 });
 
 const Baby = mongoose.model('Baby', babySchema);

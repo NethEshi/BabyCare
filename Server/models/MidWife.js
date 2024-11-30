@@ -33,7 +33,16 @@ const midWifeSchema = new mongoose.Schema({
     RoleId: {
         type: Number,
         required: true
-    }
+    },
+    Password: {
+        type: String,
+        required: true
+    },
+    MOHId : {
+        type: String,
+        required: true
+    },
+
 });
 
 const MidWife = mongoose.model('MidWife', midWifeSchema);

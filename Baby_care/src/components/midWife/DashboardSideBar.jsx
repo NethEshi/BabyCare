@@ -4,6 +4,7 @@ import Setting from "../../assets/Setting.svg";
 import LogOut from "../../assets/LogOut.svg";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import FeatherIcon from "feather-icons-react";
 
 function DashboardSideBar() {
   const[currentPath, setCurrentPath] = useState("");
@@ -20,22 +21,28 @@ function DashboardSideBar() {
           <div className="flex justify-center">
             <img src={Logo} alt="logo" className="w-[100px] h-[100px]" />
           </div>
-          <Link to={"midWifeHome"} className="px-5 w-[100%] hover:scale-110">
-            <div className= {`flex justify-start space-x-2 rounded-lg py-1 w-[100%] px-5 ${currentPath.includes("dashboard") ? "bg-LBlue" : ""}`}>
-              <img src={Baby} alt="Baby" className="w-[25px] h-[25px]" />
+          <Link to={"dashHome"} className="px-5 w-[100%] hover:scale-110">
+            <div className= {`flex justify-start space-x-2 rounded-lg py-1 w-[100%] px-5 ${currentPath.includes("dashHome") ? "bg-LBlue" : ""}`}>
+              <FeatherIcon icon="home" className="w-[25px] h-[25px] text-white" />
               <span className="text-white font-semibold">Dashboard</span>
             </div>
           </Link>
           <Link to={"midWifeHome"} className="px-5 w-[100%] hover:scale-110">
             <div className= {`flex justify-start space-x-2 rounded-lg py-1 w-[100%] px-5 ${currentPath.includes("midWifeHome") ? "bg-LBlue" : ""}`}>
-              <img src={Baby} alt="Baby" className="w-[25px] h-[25px]" />
+              <FeatherIcon icon="user" className="w-[25px] h-[25px] text-white" />
               <span className="text-white font-semibold">Babies</span>
             </div>
           </Link>
-          <Link to={"midWifeHome"} className="px-5 w-[100%] hover:scale-110">
-            <div className= {`flex justify-start space-x-2 rounded-lg py-1 w-[100%] px-5 ${currentPath.includes("MidWife") ? "bg-LBlue" : ""}`}>
-              <img src={Baby} alt="Baby" className="w-[25px] h-[25px]" />
-              <span className="text-white font-semibold">MidWwife</span>
+          <Link to={"midWifes"} className="px-5 w-[100%] hover:scale-110">
+            <div className= {`flex justify-start space-x-2 rounded-lg py-1 w-[100%] px-5 ${currentPath.includes("midWifes") ? "bg-LBlue" : ""}`}>
+              <FeatherIcon icon="users" className="w-[25px] h-[25px] text-white" />
+              <span className="text-white font-semibold">MidWifes</span>
+            </div>
+          </Link>
+          <Link to={"locations"} className="px-5 w-[100%] hover:scale-110">
+            <div className= {`flex justify-start space-x-2 rounded-lg py-1 w-[100%] px-5 ${currentPath.includes("locations") ? "bg-LBlue" : ""}`}>
+              <FeatherIcon icon="map-pin" className="w-[25px] h-[25px] text-white" />
+              <span className="text-white font-semibold">Locations</span>
             </div>
           </Link>
         </div>

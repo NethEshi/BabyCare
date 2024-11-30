@@ -32,6 +32,9 @@ import "react-toastify/dist/ReactToastify.css";
 import VaccineView from "./components/overlays/VaccineView";
 import ClinicSchedule from "./components/overlays/ClinicSchedule";
 import MidWifeHome from "./pages/midWife/midWifeHome";
+import DashboardHome from "./components/DashboardHome";
+import MidWifes from "./components/midWifes";
+import Locations from "./components/locations";
 
 function App() {
   return (
@@ -50,6 +53,10 @@ function App() {
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/MidwifeLogin" element={<MidwifeLogin />} />
         <Route path="/Dashboard" element={<Dashboard />}>
+          <Route index element={<Navigate to="dashHome" />} />
+          <Route path="dashHome" element={<DashboardHome />}/>
+          <Route path="midWifes" element={<MidWifes />}/>
+          <Route path="locations" element={<Locations />}/>
           <Route path="midWifeHome" element={<MidWifeHome />}>
             <Route path="BabyProfile" element={<BabyProfile />}>
               <Route index element={<Navigate to="Profile" />} />
