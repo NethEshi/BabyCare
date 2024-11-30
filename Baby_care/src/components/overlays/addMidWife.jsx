@@ -1,70 +1,68 @@
-import React, { useState } from "react";
-import cross from "../assets/cross.png";
-import axios from "axios";
-import { customAlphabet, nanoid } from "nanoid";
-import { useOverlay } from "../components/context/OverlayContext";
+ import React, { useState } from "react";
+import { customAlphabet } from "nanoid";
+import { useOverlay } from "../context/OverlayContext";
+import FeatherIcon from "feather-icons-react";
 
-function AddBaby({ toggleVisibility }) {
-  const [formData, setFormData] = useState({
-    ID: "",
-    Name: "",
-    Gender: "",
-    DOB: "",
-    ParentName: "",
-    ParentEmail: "",
-  });
-  const {showSpinner, hideSpinner} = useOverlay();
+function AddMidWife(props) {
+    const [formData, setFormData] = useState({
+        ID: "",
+        Name: "",
+        Gender: "",
+        DOB: "",
+        ParentName: "",
+        ParentEmail: "",
+      });
+      const {showSpinner, hideSpinner} = useOverlay();
+    
+      const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+      };
+    
+      const IdGenerator = () => {
+        const nanoid = customAlphabet("1234567890", 10);
+        let id = nanoid(10);
+        if (formData.Gender === "Male"){
+            id = "M" + id;
+        }else if (formData.Gender === "Female"){
+            id = "F" + id;
+        }else{
+            id = "O" + id;
+        }
+    
+        setFormData({ ...formData, ID: id });
+      }
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const IdGenerator = () => {
-    const nanoid = customAlphabet("1234567890", 10);
-    let id = nanoid(10);
-    if (formData.Gender === "Male"){
-        id = "M" + id;
-    }else if (formData.Gender === "Female"){
-        id = "F" + id;
-    }else{
-        id = "O" + id;
-    }
-
-    setFormData({ ...formData, ID: id });
-  }
-
-  const handlesubmit = (e) => {
-    showSpinner();
-    e.preventDefault();
-    IdGenerator();
-    console.log(formData);
-    axios
-      .post("http://localhost:5000/baby/addBaby", formData)
-      .then((response) => {
-        console.log(response.data);
-        toggleVisibility();
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        hideSpinner();
-      })
-  };
-
+      const handlesubmit = (e) => {
+        showSpinner();
+        e.preventDefault();
+        IdGenerator();
+        console.log(formData);
+        axios
+          .post("http://localhost:5000/baby/addBaby", formData)
+          .then((response) => {
+            console.log(response.data);
+            toggleVisibility();
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            hideSpinner();
+          })
+      };
   return (
     <>
-      <div className=" w-screen h-screen bg-black bg-opacity-60">
+       <div className="text-Ash font-poppins z-50 fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center">
         <div className="flex justify-center items-center">
-          <div className="grid grid-cols-1 bg-white w-[25%] top-[3%] absolute rounded-xl">
-          <div className=" absolute right-[2%] top-[2%]">
-            <button className="" onClick={toggleVisibility}>
-                <div className="w-[20px] hover:animate-spinOneRoundClockwise">
-                <img src={cross} alt="close" />
+          <div className="grid grid-cols-1 bg-white rounded-xl">
+          <div className="flex justify-end mr-5 mt-5">
+            <button className="" onClick={props.toggleVisibility}>
+                <div className="w-[20px] hover:scale-110 hover:text-NavyBlue">
+                <FeatherIcon icon="x" />
                 </div>
             </button>
         </div>
-            <h1 className=" font-bold text-center text-4xl py-4">Register a New Baby</h1>
+            <h1 className=" font-bold text-center text-4xl py-4">Register a New Midwife</h1>
 
             <form className="px-10 space-y-4" onSubmit={handlesubmit}>
               <div>
@@ -160,4 +158,4 @@ function AddBaby({ toggleVisibility }) {
   );
 }
 
-export default AddBaby;
+export default AddMidWife;

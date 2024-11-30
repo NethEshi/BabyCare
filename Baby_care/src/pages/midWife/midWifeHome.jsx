@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import AddBaby from "../AddBaby";
+import AddBaby from "../../components/overlays/AddBaby";
 import axios from "axios";
 import PageNumber from "../../components/PageNumber";
 import { useDispatch } from "react-redux";
@@ -57,7 +57,15 @@ const MidWifeHome = () => {
       {!location.pathname.includes("BabyProfile") && (
         <>
           <hr />
-          <div className=" flex justify-center pt-20 px-20">
+          <div className="pt-20 px-20">
+          <div className="flex justify-end font-semibold pb-5">
+            <button
+              className=" rounded-full bg-NavyBlue text-white font-bold font-poppins p-3 hover:scale-105 "
+              onClick={handleOverlay}
+            >
+              Register a New Baby
+            </button>
+          </div>
             <table className="w-full">
               <thead>
                 <tr className="bg-gray-100">
@@ -90,14 +98,6 @@ const MidWifeHome = () => {
                 })}
               </tbody>
             </table>
-          </div>
-          <div className=" absolute top-[10%] right-[5%]">
-            <button
-              className=" rounded-full bg-NavyBlue text-white font-bold font-poppins p-3 hover:scale-105 "
-              onClick={handleOverlay}
-            >
-              Register a New Baby
-            </button>
           </div>
           <div className=" absolute bottom-[5%] right-[5%]">
             <PageNumber />

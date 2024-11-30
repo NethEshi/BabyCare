@@ -35,10 +35,11 @@ const midWifeSchema = new mongoose.Schema({
         required: true
     },
     Password: {
+        deault: "passwordNotSet",
         type: String,
-        required: true
+        required: false
     },
-    MOHId : {
+    MOHId: {
         type: String,
         required: true
     },
