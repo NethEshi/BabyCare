@@ -18,11 +18,14 @@ const mohSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    password: {
+    Password: {
         type: String,
         required: true
     },
-
+    RoleId: {
+        type: Number,
+        required: true
+    }
 });
 
 

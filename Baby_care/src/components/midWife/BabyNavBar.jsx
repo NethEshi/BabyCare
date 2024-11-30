@@ -12,9 +12,9 @@ function BabyNavBar() {
     <div className="w-full">
       <div className="flex text-Ash py-3 px-5 text-center space-x-16">
         <Link
-          to="/MidwifeDashboard/BabyProfile/Profile"
+          to="Profile"
           className={`text-3xl ${
-            currentPath === "/MidwifeDashboard/BabyProfile/Profile" || currentPath === "/MidwifeDashboard/BabyProfile"
+            currentPath.includes("BabyProfile/Profile")
               ? "border-NavyBlue border-b-2"
               : ""
           }`}
@@ -22,9 +22,9 @@ function BabyNavBar() {
           Profile
         </Link>
         <Link
-          to="/MidwifeDashboard/BabyProfile/BMI"
+          to="BMI"
           className={`text-3xl ${
-            currentPath === "/MidwifeDashboard/BabyProfile/BMI"
+            currentPath.includes("BMI")
               ? "border-NavyBlue border-b-2"
               : ""
           }`}
@@ -32,9 +32,9 @@ function BabyNavBar() {
           BMI
         </Link>
         <Link
-          to="/MidwifeDashboard/BabyProfile/healthReport"
+          to="healthReport"
           className={`text-3xl ${
-            currentPath.includes("/MidwifeDashboard/BabyProfile/healthReport")
+            currentPath.includes("healthReport")
               ? "border-NavyBlue border-b-2"
               : ""
           }`}
@@ -42,9 +42,9 @@ function BabyNavBar() {
           Health Report
         </Link>
         <Link
-          to="/MidwifeDashboard/BabyProfile/vaccination"
+          to="vaccination"
           className={`text-3xl ${
-            currentPath === "/MidwifeDashboard/BabyProfile/vaccination"
+            currentPath.includes("vaccination")
               ? "border-NavyBlue border-b-2"
               : ""
           }`}
@@ -52,9 +52,9 @@ function BabyNavBar() {
           Vaccination
         </Link>
         <Link
-          to="/MidwifeDashboard/BabyProfile/clinics"
+          to="clinics"
           className={`text-3xl ${
-            currentPath === "/MidwifeDashboard/BabyProfile/clinics"
+            currentPath.includes("clinics")
               ? "border-NavyBlue border-b-2"
               : ""
           }`}

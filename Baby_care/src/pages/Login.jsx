@@ -33,7 +33,7 @@ function SignUp() {
       d.setTime(d.getTime() + (7 * 24 * 60 * 60 * 1000));
       let expires = "expires="+d.toUTCString();
       document.cookie = `token=${response.data.token}; ${expires};`;
-      Navigate("/MOHdashboard")
+      Navigate("/Dashboard");
     })
     .catch((error) => {
       toast.error(error.response.data.message, {

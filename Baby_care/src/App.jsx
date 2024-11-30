@@ -1,5 +1,11 @@
 import React from "react";
-import { Routes, Route, Router, BrowserRouter} from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Router,
+  BrowserRouter,
+  Navigate,
+} from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -7,9 +13,8 @@ import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
-import MOHdashboard from "./pages/MOHdashboard";
 import MidwifeLogin from "./pages/midWife/MidwifeLogin";
-import MidwifeDashboard from "./pages/midWife/MidwifeDashboard";
+import Dashboard from "./pages/midWife/Dashboard";
 import BabyProfile from "./pages/midWife/BabyProfile";
 import Profile from "./pages/midWife/Profile";
 import BMI from "./pages/midWife/BMI";
@@ -23,8 +28,13 @@ import { OverlayProvider } from "./components/context/OverlayContext";
 import SubmitChanges from "./components/overlays/SubmitChanges";
 import Spinner from "./components/overlays/spinner";
 import EditSave from "./components/overlays/EditSave";
-import ClinicSchedule from "./components/overlays/ClinicSchedule";
 import "react-toastify/dist/ReactToastify.css";
+import VaccineView from "./components/overlays/VaccineView";
+import ClinicSchedule from "./components/overlays/ClinicSchedule";
+import MidWifeHome from "./pages/midWife/midWifeHome";
+import DashboardHome from "./components/DashboardHome";
+import MidWifes from "./components/midWifes";
+import Locations from "./components/locations";
 
 function App() {
   return (
@@ -32,28 +42,36 @@ function App() {
       <SubmitChanges />
       <Spinner />
       <EditSave />
+      <VaccineView />
+      <ClinicSchedule />
       <Routes>
-        <Route path="/" Component={Home} />
-        <Route path="/About" Component={About} />
-        <Route path="/Services" Component={Services} />
-        <Route path="/Contact" Component={Contact} />
-        <Route path="/login" Component={Login} />
-        <Route path="/SignUp" Component={SignUp} />
-        <Route path="/MOHdashboard" Component={MOHdashboard} />
-        <Route path="/MidwifeLogin" Component={MidwifeLogin} />
-        <Route path="/MidwifeDashboard" Component={MidwifeDashboard} />
-        <Route path="/MidwifeDashboard/BabyProfile/*" Component={BabyProfile}>
-          <Route index Component={Profile} />
-          <Route path="Profile" Component={Profile} />
-          <Route path="BMI" Component={BMI} />
-          <Route path="HealthReport" Component={HealthReport}>
-            <Route index Component={HReport} />
-            <Route path="HReport" Component={HReport} />
-            <Route path="Vision" Component={Vision} />
-            <Route path="Hearing" Component={Hearing} />
+        <Route path="/" element={<Home />} />
+        <Route path="/About" element={<About />} />
+        <Route path="/Services" element={<Services />} />
+        <Route path="/Contact" element={<Contact />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/MidwifeLogin" element={<MidwifeLogin />} />
+        <Route path="/Dashboard" element={<Dashboard />}>
+          <Route index element={<Navigate to="dashHome" />} />
+          <Route path="dashHome" element={<DashboardHome />}/>
+          <Route path="midWifes" element={<MidWifes />}/>
+          <Route path="locations" element={<Locations />}/>
+          <Route path="midWifeHome" element={<MidWifeHome />}>
+            <Route path="BabyProfile" element={<BabyProfile />}>
+              <Route index element={<Navigate to="Profile" />} />
+              <Route path="Profile" element={<Profile />} />
+              <Route path="BMI" element={<BMI />} />
+              <Route path="HealthReport" element={<HealthReport />}>
+                <Route index element={<Navigate to="HReport" />} />
+                <Route path="HReport" element={<HReport />} />
+                <Route path="Vision" element={<Vision />} />
+                <Route path="Hearing" element={<Hearing />} />
+              </Route>
+              <Route path="Vaccination" element={<Vaccination />} />
+              <Route path="Clinics" element={<Clinics />} />
+            </Route>
           </Route>
-          <Route path="Vaccination" Component={Vaccination} />
-          <Route path="Clinics" Component={Clinics} />
         </Route>
       </Routes>
     </OverlayProvider>

@@ -35,7 +35,7 @@ const babySchema = new mongoose.Schema({
         required: false
     },
     MidWife: {
-        type: Object,
+        type: String,
         required: false
     },
     ParentAge: {
@@ -79,6 +79,10 @@ const babySchema = new mongoose.Schema({
         required: false
     },
     Relation: {
+        type: String,
+        required: false
+    },
+    MOHId: {
         type: String,
         required: false
     },

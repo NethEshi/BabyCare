@@ -10,6 +10,7 @@ import reducer from "./reducers";
 const store = createStore(reducer, {
   baby: {
     selectedBaby:{},
+    selectedVaccine:{},
   },
   modules: {
     submitConfirm: false,
@@ -21,10 +22,8 @@ const store = createStore(reducer, {
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-  <React.StrictMode>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </React.StrictMode>
   </Provider>
 );

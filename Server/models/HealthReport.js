@@ -6,19 +6,19 @@ const healthReportSchema = new mongoose.Schema({
         required: true
     },
     days10in01: {
-        type: date,
+        type: String,
         required: false
     },
     days10in02: {
-        type: date,
+        type: String,
         required: false
     },
     days11to28: {
-        type: date,
+        type: String,
         required: false
     },
     days42: {
-        type: date,
+        type: String,
         required: false
     },
     skinColor1: {

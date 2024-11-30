@@ -4,3 +4,10 @@ export const getSelectedBaby = (selectedBaby) => {
         payload: selectedBaby
     };
 };
+
+export const getSelectedVaccine = (selectedVaccine, arrayName, index) => {
+    return {
+        type: 'GET_SELECTED_VACCINE',
+        payload: { selectedVaccine , arrayName, index}
+    };
+}

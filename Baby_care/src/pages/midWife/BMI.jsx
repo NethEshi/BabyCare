@@ -10,7 +10,6 @@ function BMI() {
   const [ChartLabels, setChartLabels] = useState([]);
   const [ChartWeights, setChartWeights] = useState([]);
   const [ChartHeights, setChartHeights] = useState([]);
-  const [ChartBMI, setChartBMI] = useState([]);
   const chartRef1 = useRef(null);
   const chartRef2 = useRef(null);
   const chartRef3 = useRef(null);
@@ -48,9 +47,7 @@ function BMI() {
     }
     if (chartInstanceRef3.current) {
       chartInstanceRef3.current.destroy();
-    }
-
-    setChartBMI(ChartWeights.map((weight, index) => (weight / 1000) / ((ChartHeights[index] / 100) ** 2)))        
+    }       
 
     const ctx1 = chartRef1.current ? chartRef1.current.getContext("2d") : null;
     const ctx2 = chartRef2.current ? chartRef2.current.getContext("2d") : null;
@@ -96,7 +93,7 @@ function BMI() {
         datasets: [
           {
             label: "BMI",
-            data: ChartBMI,
+            data: ChartHeights.map((height, index) => { return ChartWeights[index] / (height * height) }),
             fill: false,
             borderColor: "rgb(75, 192, 192)",
             tension: 0.1,
@@ -204,6 +201,7 @@ function BMI() {
                   name="Weights"
                   id="Weights"
                   onChange={handleAddWeight_Height}
+                  className="w-full"
                 />
               </div>
             </div>
@@ -216,6 +214,7 @@ function BMI() {
                   name="Heights"
                   id="Heights"
                   onChange={handleAddWeight_Height}
+                  className="w-full"
                 />
               </div>
             </div>
@@ -240,7 +239,7 @@ function BMI() {
           <canvas ref={chartRef1} />
           <canvas ref={chartRef2} />
         </div>
-        <div className="w-[50%] flex justify-center items-center ">
+        <div className="w-full flex justify-center items-center ">
         <canvas ref={chartRef3} />
         </div>
         </div>}

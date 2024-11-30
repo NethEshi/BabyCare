@@ -8,7 +8,13 @@ import axios from "axios";
 import { getEditMode } from "../../../actions/modules";
 
 function Hearing() {
+  const editMode = useSelector((state) => state.modules.editMode);
+  const dispatch = useDispatch();
+  const babyID = useSelector((state) => state.baby.selectedBaby.ID);
+  const [isNewData, setIsNewData] = useState(false);
+  const {showSpinner, hideSpinner, showEditSave, hideEditSave, showSubmitOverlay, hideSubmitOverlay} = useOverlay();
   const [hearingData, setHearingData] = useState({
+    ID:babyID,
     blinkAtLoudNoises: "",
     twoMonthsSounds: "",
     laughALittle: "",
@@ -20,9 +26,6 @@ function Hearing() {
     respondToFamiliarSounds: "",
     respondToWords: "",
   });
-  const editMode = useSelector((state) => state.modules.editMode);
-  const dispatch = useDispatch();
-  const {showSpinner, hideSpinner, showEditSave, hideEditSave, showSubmitOverlay, hideSubmitOverlay} = useOverlay();
 
   const handleChange = (e) => {
     setHearingData({
@@ -32,6 +35,17 @@ function Hearing() {
   };
   useEffect(() => {
     showEditSave();
+    showSpinner();
+    axios.get(`http://localhost:5000/healthReport/getHearingData/${babyID}`)
+    .then((response) => {
+      setHearingData(response.data);
+    })
+    .catch((error) => {
+      setIsNewData(true);
+    })
+    .finally(()=> {
+      hideSpinner();
+    })
 
     return () => {
       hideEditSave();
@@ -43,7 +57,28 @@ function Hearing() {
     showSubmitOverlay();
   }
   const onSubmit = () =>{
-    axios.put("http://localhost:5000/healthReport/updateHearing", hearingData)
+    showSpinner();
+    if(isNewData){
+    axios.post("http://localhost:5000/healthReport/addHearingData", hearingData)
+    .then((response) => {
+      toast.success("Success Notification !", {
+        position: "bottom-right"
+      });
+      console.log(response);
+      setIsNewData(false);
+    })
+    .catch((error) => {
+      toast.error("Error Notification !", {
+        position: "bottom-right"
+      });
+      console.log(error);
+    })
+    .finally(() => {
+      hideSpinner();
+      hideSubmitOverlay();
+    })
+  }else{
+    axios.put("http://localhost:5000/healthReport/updateHearingData", hearingData)
     .then((response) => {
       toast.success("Success Notification !", {
         position: "bottom-right"
@@ -60,6 +95,7 @@ function Hearing() {
       hideSpinner();
       hideSubmitOverlay();
     })
+  }
   }
 
   const onCancel = () =>{
