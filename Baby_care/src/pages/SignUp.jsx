@@ -14,7 +14,8 @@ function SignUp() {
     District: "",
     Email: "",
     password: "",
-    cfpassword: ""
+    cfpassword: "",
+    RoleId : 1
   });
   const {showSpinner, hideSpinner} = useOverlay();
   const Navigate = useNavigate();

@@ -18,6 +18,9 @@ const store = createStore(reducer, {
     submit: false,
     editMode: false,
   },
+  midwife: {
+    selectedMidwife: {},
+  },
 });
 
 ReactDOM.createRoot(document.getElementById("root")).render(

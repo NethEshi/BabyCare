@@ -8,6 +8,7 @@ export const OverlayProvider = ({ children }) => {
   const [isEditSaveVisible, setEditSaveVisible] = useState(false);
   const [isClinicScheduleVisible, setClinicScheduleVisible] = useState(false);
   const [isVaccineVisible, setVaccineVisible] = useState(false);
+  const [isLogoutVisible, setLogoutVisible] = useState(false);
 
   const showSubmitOverlay = () => {
     setSubmitOverlayVisible(true);
@@ -39,6 +40,12 @@ export const OverlayProvider = ({ children }) => {
   const hideVaccine = () => {
     setVaccineVisible(false);
   };
+  const showLogout = () => {
+    setLogoutVisible(true);
+  };
+  const hideLogout = () => {
+    setLogoutVisible(false);
+  }
 
   return (
     <OverlayContext.Provider
@@ -58,6 +65,9 @@ export const OverlayProvider = ({ children }) => {
         isVaccineVisible,
         showVaccine,
         hideVaccine,
+        isLogoutVisible,
+        showLogout,
+        hideLogout
       }}
     >
       {children}

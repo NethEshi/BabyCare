@@ -35,6 +35,7 @@ import MidWifeHome from "./pages/midWife/midWifeHome";
 import DashboardHome from "./components/DashboardHome";
 import MidWifes from "./components/midWifes";
 import Locations from "./components/locations";
+import MidwifeProfile from "./components/MidwifeProfile";
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
           <Route index element={<Navigate to="dashHome" />} />
           <Route path="dashHome" element={<DashboardHome />}/>
           <Route path="midWifes" element={<MidWifes />}/>
+          <Route path="midwifeProfile" element={<MidwifeProfile />} />
           <Route path="locations" element={<Locations />}/>
           <Route path="midWifeHome" element={<MidWifeHome />}>
             <Route path="BabyProfile" element={<BabyProfile />}>

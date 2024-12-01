@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 const MOH = require('../models/MOH.js');
 const MOHref = require('../models/MOHref.js');
+const MidWife = require("../models/MidWife.js");
 
 
 const authController = {
@@ -13,7 +14,7 @@ MOHregister : async (req, res) => {
         const Email = req.body.Email;
         const password = req.body.password;
         const cfpassword = req.body.cfpassword;
-        const RoleId = 1;
+        const RoleId = req.body.RoleId;
 
         const validEmail = await MOHref.findOne({ Email });
         console.log(validEmail);
@@ -46,6 +47,7 @@ MOHlogin : async (req, res) => {
         if (!MOHexist) {
             return res.status(400).json({ message: 'Invalid username or password' });
         }
+        console.log(MOHexist._id);
 
         const isPasswordValid = await bcrypt.compare(password, MOHexist.Password);
         if (!isPasswordValid) {
@@ -54,12 +56,87 @@ MOHlogin : async (req, res) => {
 
         const token = jwt.sign({ MOH: MOHexist.Email }, process.env.JWT_SECRET, {
             expiresIn: "7d",
-          });
+        });
 
-        res.status(200).json({ message: 'Login successful', token});
+        res.status(200).json({ message: 'Login successful', token: token, MOHId: MOHexist._id, RoleId: MOHexist.RoleId });
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' ,error});
     }
 },
+
+MidwifeRegister : async (req, res) => {
+    try {
+        const reg_ID = req.body.reg_ID;
+        const License_NO = req.body.License_NO;
+        const Name = req.body.Name;
+        const Designation = req.body.Designation;
+        const Email = req.body.Email;
+        const Contact = req.body.Contact;
+        const RoleId = req.body.RoleId;
+        const MOHId = req.body.MOHId;
+
+        const existingUser = await MidWife.findOne({ reg_ID });
+        if (existingUser) {
+            return res.status(400).json({ message: 'Email already exists' });
+        }
+        const newUser = new MidWife({ reg_ID, License_NO, Name, Designation, Email, Contact, RoleId, MOHId });
+        await newUser.save();
+
+        res.status(201).json({ message: 'User registered successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error', error });
+    }
+},
+
+MidwifePassSet : async (req, res) => {
+    try {
+        const Email = req.body.Email;
+        const Password = req.body.Password;
+        const cfPassword = req.body.cfPassword;
+
+        const existingUser = await MidWife.findOne({ Email });
+        if (!existingUser) {
+            return res.status(400).json({ message: 'Email does not exist' });
+        }
+        if (Password !== cfPassword) {
+            return res.status(400).json({ message: 'Password does not match' });
+        }
+        const hashedPassword = await bcrypt.hash(Password, 10);
+        await MidWife.updateOne({ Email }, { Password: hashedPassword });
+
+        res.status(201).json({ message: 'Password set successfully' });
+
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error', error });
+    }
+},
+
+MidWifeLogin : async (req, res) => {
+    try {
+        const Email = req.body.Email;
+        const Password = req.body.Password;
+
+        const MidWifeexist = await MidWife.findOne({ Email });
+        if (!MidWifeexist) {
+            return res.status(400).json({ message: 'Invalid username or password' });
+        }
+
+        const isPasswordValid = bcrypt.compare(Password, MidWifeexist.Password);
+        if (!isPasswordValid) {
+            return res.status(400).json({ message: 'Invalid username or password' });
+        }
+
+        const token = jwt.sign({ MidWife: MidWifeexist.Email }, process.env.JWT_SECRET, {
+            expiresIn: "7d",
+          });
+        
+        res.status(200).json({ message: 'Login successful', token: token, midwifeId: MidWifeexist._id, RoleId: MidWifeexist.RoleId, MOHId: MidWifeexist.MOHId });
+
+        } catch (error) {
+            res.status(500).json({ message: 'Internal server error' ,error});
+        }
+},
+
+
 }
 module.exports = authController;

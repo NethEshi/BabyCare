@@ -6,8 +6,9 @@ import { useOverlay } from "../context/OverlayContext";
 import FeatherIcon from "feather-icons-react";
 
 function AddBaby({ toggleVisibility }) {
+  const MOHId = JSON.parse(localStorage.getItem("MOHId"));
   const [formData, setFormData] = useState({
-    
+    MOHId: MOHId,
   });
   const { showSpinner, hideSpinner } = useOverlay();
 
@@ -15,7 +16,8 @@ function AddBaby({ toggleVisibility }) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const IdGenerator = () => {
+  const IdGenerator = (e) => {
+    e.preventDefault();
     const nanoid = customAlphabet("1234567890", 10);
     let id = nanoid(10);
     if (formData.Gender === "Male") {
@@ -26,16 +28,15 @@ function AddBaby({ toggleVisibility }) {
       id = "O" + id;
     }
 
-    setFormData({ ...formData, ID: id });
+    const updatedFormData = { ...formData, ID: id };
+    handlesubmit(updatedFormData);
   };
 
-  const handlesubmit = (e) => {
+  const handlesubmit = (data) => {
     showSpinner();
-    e.preventDefault();
-    IdGenerator();
-    console.log(formData);
+    console.log(data);
     axios
-      .post("http://localhost:5000/baby/addBaby", formData)
+      .post("http://localhost:5000/baby/addBaby", data)
       .then((response) => {
         console.log(response.data);
         toggleVisibility();
@@ -64,7 +65,7 @@ function AddBaby({ toggleVisibility }) {
               Register a New Baby
             </h1>
 
-            <form className="px-10 space-y-4" onSubmit={handlesubmit}>
+            <form className="px-10 space-y-4" onSubmit={IdGenerator}>
               <div>
                 <label
                   className="text-neutral-700 text-lg font-medium font-poppins" 

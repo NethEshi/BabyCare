@@ -33,6 +33,8 @@ function SignUp() {
       d.setTime(d.getTime() + (7 * 24 * 60 * 60 * 1000));
       let expires = "expires="+d.toUTCString();
       document.cookie = `token=${response.data.token}; ${expires};`;
+      localStorage.setItem("MOHId", JSON.stringify(response.data.MOHId));
+      localStorage.setItem("RoleId", JSON.stringify(response.data.RoleId));
       Navigate("/Dashboard");
     })
     .catch((error) => {

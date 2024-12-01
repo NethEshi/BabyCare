@@ -1,154 +1,181 @@
- import React, { useState } from "react";
+ import React, { useEffect, useState } from "react";
 import { customAlphabet } from "nanoid";
 import { useOverlay } from "../context/OverlayContext";
 import FeatherIcon from "feather-icons-react";
+import { toast, ToastContainer } from "react-toastify";
+import axios from "axios";
 
 function AddMidWife(props) {
+    const MOHId = JSON.parse(localStorage.getItem("MOHId"));
     const [formData, setFormData] = useState({
-        ID: "",
-        Name: "",
-        Gender: "",
-        DOB: "",
-        ParentName: "",
-        ParentEmail: "",
+    reg_ID: "",
+    License_NO: "",
+    Designation: "",
+    Name:"",
+    Email: "",
+    Contact: "",
+    RoleId: 2,
+    MOHId: MOHId,
       });
       const {showSpinner, hideSpinner} = useOverlay();
     
       const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
       };
-    
-      const IdGenerator = () => {
-        const nanoid = customAlphabet("1234567890", 10);
-        let id = nanoid(10);
-        if (formData.Gender === "Male"){
-            id = "M" + id;
-        }else if (formData.Gender === "Female"){
-            id = "F" + id;
-        }else{
-            id = "O" + id;
-        }
-    
-        setFormData({ ...formData, ID: id });
-      }
 
       const handlesubmit = (e) => {
         showSpinner();
         e.preventDefault();
-        IdGenerator();
         console.log(formData);
         axios
-          .post("http://localhost:5000/baby/addBaby", formData)
+          .post("http://localhost:5000/auth/midwiferegister", formData)
           .then((response) => {
             console.log(response.data);
-            toggleVisibility();
+            toast.success(response.data.message, {
+                position: "bottom-right",
+            })
+            setTimeout(() => {
+            props.toggleVisibility();
+            }, 500);
           })
           .catch((error) => {
             console.log(error);
+            toast.error(error.response.data.message, {
+                position: "bottom-right",
+            })
           })
           .finally(() => {
             hideSpinner();
           })
       };
+
   return (
     <>
-       <div className="text-Ash font-poppins z-50 fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center">
+    <ToastContainer/>
+      <div className="text-Ash font-poppins z-50 fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center">
         <div className="flex justify-center items-center">
           <div className="grid grid-cols-1 bg-white rounded-xl">
-          <div className="flex justify-end mr-5 mt-5">
-            <button className="" onClick={props.toggleVisibility}>
+            <div className="flex justify-end mr-5 mt-5">
+              <button className="" onClick={props.toggleVisibility}>
                 <div className="w-[20px] hover:scale-110 hover:text-NavyBlue">
-                <FeatherIcon icon="x" />
+                  <FeatherIcon icon="x" />
                 </div>
-            </button>
-        </div>
-            <h1 className=" font-bold text-center text-4xl py-4">Register a New Midwife</h1>
+              </button>
+            </div>
+            <h1 className=" font-bold text-center text-4xl py-4">
+              Register a New Midwife
+            </h1>
 
             <form className="px-10 space-y-4" onSubmit={handlesubmit}>
               <div>
                 <label
                   className="text-neutral-700 text-lg font-medium font-poppins"
-                  htmlFor="name"
+                  htmlFor="reg_ID"
                 >
-                  Full Name
+                  Register ID
+                </label>
+                <input
+                  className="w-[100%] px-3 bg-neutral-100 border border-zinc-300 rounded-lg py-2"
+                  type="text"
+                  id="reg_ID"
+                  name="reg_ID"
+                  placeholder="Enter Register ID"
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label
+                  className="text-neutral-700 text-lg font-medium font-poppins"
+                  htmlFor="License_NO"
+                >
+                  License Number
+                </label>
+                <input
+                  className="w-[100%] px-3 bg-neutral-100 border border-zinc-300 rounded-lg py-2"
+                  type="text"
+                  id="License_NO"
+                  name="License_NO"
+                  placeholder="Enter License Number"
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label
+                  className="text-neutral-700 text-lg font-medium font-poppins"
+                  htmlFor="Name"
+                >
+                  Name
                 </label>
                 <input
                   className="w-[100%] px-3 bg-neutral-100 border border-zinc-300 rounded-lg py-2"
                   type="text"
                   id="Name"
                   name="Name"
-                  placeholder="Enter full name"
+                  placeholder="Enter Name"
                   onChange={handleChange}
                 />
               </div>
               <div>
                 <label
                   className="text-neutral-700 text-lg font-medium font-poppins"
-                  htmlFor="Gender"
+                  htmlFor="Designation"
                 >
-                  Gender
+                  Designation
                 </label>
                 <select
                   className="w-[100%] px-3 bg-neutral-100 border border-zinc-300 rounded-lg py-2"
-                  id="Gender"
-                  name="Gender"
+                  id="Designation"
+                  name="Designation"
                   defaultValue=""
                   onChange={handleChange}
-                ><option value="" disabled>Select Gender</option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Other">Other</option>
+                >
+                  <option value="" disabled>
+                    Select Designation
+                  </option>
+                  <option value={"super visionary public health midwife"}>super visionary public health midwife</option>
+                  <option value={"public health midwife"}>public health midwife</option>
+                  <option value={"special grade midwife"}>special grade midwife </option>
                 </select>
               </div>
               <div>
                 <label
                   className="text-neutral-700 text-lg font-medium font-poppins"
-                  htmlFor="DOB"
+                  htmlFor="Email"
                 >
-                  Date of Birth
-                </label>
-                <input
-                  className="w-[100%] px-3 bg-neutral-100 border border-zinc-300 rounded-lg py-2"
-                  type="date"
-                  id="DOB"
-                  name="DOB"
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                <label
-                  className="text-neutral-700 text-lg font-medium font-poppins"
-                  htmlFor="ParentName"
-                >
-                  Parent Name
-                </label>
-                <input
-                  className="w-[100%] px-3 bg-neutral-100 border border-zinc-300 rounded-lg py-2"
-                  type="text"
-                  id="ParentName"
-                  name="ParentName"
-                  placeholder="Enter parent name"
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                <label
-                  className="text-neutral-700 text-lg font-medium font-poppins"
-                  htmlFor="ParentEmail"
-                >
-                  Parent Email
+                  Email
                 </label>
                 <input
                   className="w-[100%] px-3 bg-neutral-100 border border-zinc-300 rounded-lg py-2"
                   type="email"
-                  id="ParentEmail"
-                  name="ParentEmail"
-                  placeholder="Enter parent email"
+                  id="Email"
+                  name="Email"
+                  placeholder="Enter Email"
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label
+                  className="text-neutral-700 text-lg font-medium font-poppins"
+                  htmlFor="Contact"
+                >
+                    Contact
+                </label>
+                <input
+                  className="w-[100%] px-3 bg-neutral-100 border border-zinc-300 rounded-lg py-2"
+                  type="text"
+                  id="Contact"
+                  name="Contact"
+                  placeholder="Enter Contact"
                   onChange={handleChange}
                 />
               </div>
               <div className=" pb-8">
-                <button className="bg-NavyBlue rounded-full w-[100%] text-white py-2" type="submit">Register</button>
+                <button
+                  className="bg-NavyBlue rounded-full w-[100%] text-white py-2"
+                  type="submit"
+                >
+                  Register
+                </button>
               </div>
             </form>
           </div>

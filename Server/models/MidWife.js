@@ -18,24 +18,20 @@ const midWifeSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    Area: {
-        type: String,
-        required: true
-    },
     Email: {
         type: String,
         required: true
     },
     Contact: {
-        type: Number,
+        type: String,
         required: true
     },
     RoleId: {
-        type: Number,
+        type: String,
         required: true
     },
     Password: {
-        deault: "passwordNotSet",
+        default: "passwordNotSet",
         type: String,
         required: false
     },

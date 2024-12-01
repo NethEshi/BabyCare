@@ -12,6 +12,7 @@ import { useOverlay } from "../../components/context/OverlayContext";
 const MidWifeHome = () => {
   const [babyList, setBabyList] = useState([]);
   const [overlay, setOverlay] = useState(false);
+  const MOHId = JSON.parse(localStorage.getItem("MOHId"));
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { showSpinner, hideSpinner } = useOverlay();
@@ -19,7 +20,7 @@ const MidWifeHome = () => {
   useEffect(() => {
     showSpinner();
     axios
-      .get("http://localhost:5000/baby/getBaby")
+      .get(`http://localhost:5000/baby/getBabyByMOH/${MOHId}`)
       .then((response) => {
         console.log(response);
         setBabyList(response.data);
@@ -38,10 +39,9 @@ const MidWifeHome = () => {
 
   const calculateAge = (DOB) => {
     const dob = new Date(DOB);
-    const diff_ms = Date.now() - dob.getTime();
-    const age_dt = new Date(diff_ms);
-    const months = age_dt.getUTCMonth() + 1;
-    return months;
+    const now = new Date();
+    const months = (now.getFullYear() - dob.getFullYear()) * 12 + (now.getMonth() - dob.getMonth());
+    return months >= 0 ? months : 0;
   };
 
   const viewBaby = (baby) => {

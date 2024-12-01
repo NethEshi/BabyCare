@@ -11,6 +11,7 @@ const babyController = {
       const DOB = req.body.DOB;
       const ParentName = req.body.ParentName;
       const ParentEmail = req.body.ParentEmail;
+      const MOHId = req.body.MOHId;
 
       const newBaby = new Baby({
         ID,
@@ -19,6 +20,7 @@ const babyController = {
         DOB,
         ParentName,
         ParentEmail,
+        MOHId
       });
       await newBaby.save();
       res.status(201).json({ message: "Baby added successfully" });
@@ -83,6 +85,17 @@ const babyController = {
   getBaby: async (req, res) => {
     try {
       const baby = await Baby.find();
+      res.status(200).json(baby);
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error", error });
+      console.log(error);
+    }
+  },
+
+  getBabyByMOH: async (req, res) => {
+    try {
+      const MOHId = req.params.MOHId;
+      const baby = await Baby.find({MOHId});
       res.status(200).json(baby);
     } catch (error) {
       res.status(500).json({ message: "Internal server error", error });
