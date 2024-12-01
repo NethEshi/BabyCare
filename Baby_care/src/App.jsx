@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Routes,
-  Route,
-  Router,
-  BrowserRouter,
-  Navigate,
-} from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -37,6 +31,16 @@ import MidWifes from "./components/midWifes";
 import Locations from "./components/locations";
 import MidwifeProfile from "./components/MidwifeProfile";
 import Doctors from "./components/Doctors";
+import ParentLogin from "./components/ParentSide/LoginParent";
+import ParentDashboard from "./components/ParentSide/DashboardParent";
+import DashHome from "./components/ParentSide/DashHome";
+import Baby from "./components/ParentSide/Baby";
+import Guidlines from "./components/ParentSide/Guidlines";
+import ParentDoc from "./components/ParentSide/Doctors";
+import Appoinment from "./components/ParentSide/Appoinment";
+import CareNewBorn from "./components/ParentSide/CareNewBorn";
+import Feeding from "./components/ParentSide/Feeding";
+import MentalHealth from "./components/ParentSide/MentalHealth";
 
 function App() {
   return (
@@ -56,10 +60,10 @@ function App() {
         <Route path="/MidwifeLogin" element={<MidwifeLogin />} />
         <Route path="/Dashboard" element={<Dashboard />}>
           <Route index element={<Navigate to="dashHome" />} />
-          <Route path="dashHome" element={<DashboardHome />}/>
-          <Route path="midWifes" element={<MidWifes />}/>
+          <Route path="dashHome" element={<DashboardHome />} />
+          <Route path="midWifes" element={<MidWifes />} />
           <Route path="midwifeProfile" element={<MidwifeProfile />} />
-          <Route path="locations" element={<Locations />}/>
+          <Route path="locations" element={<Locations />} />
           <Route path="doctors" element={<Doctors />} />
           <Route path="midWifeHome" element={<MidWifeHome />}>
             <Route path="BabyProfile" element={<BabyProfile />}>
@@ -76,6 +80,20 @@ function App() {
               <Route path="Clinics" element={<Clinics />} />
             </Route>
           </Route>
+        </Route>
+        <Route path="/ParentLogin" element={<ParentLogin />} />
+        <Route path="/parentDashboard" element={<ParentDashboard />}>
+          <Route index element={<Navigate to="dashHome" />} />
+          <Route path="dashHome" element={<DashHome />} />
+          <Route path="Baby" element={<Baby />} />
+          <Route path="guidelines" element={<Guidlines />}>
+            <Route index element={<Navigate to="careNewborn" />} />
+            <Route path="careNewborn" element={<CareNewBorn />} />
+            <Route path="feeding" element={<Feeding />} />
+            <Route path="mentalHealth" element={<MentalHealth />} />
+          </Route>
+          <Route path="doctors" element={<ParentDoc />} />
+          <Route path="appoinments" element={<Appoinment />} />
         </Route>
       </Routes>
     </OverlayProvider>

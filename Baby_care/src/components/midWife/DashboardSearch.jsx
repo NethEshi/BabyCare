@@ -13,7 +13,6 @@ function DashboardSearch (props) {
       <form className="flex space-x-2" onSubmit={props.handleSearch}>
       <input type="text" onChange={props.handleSearch} placeholder="&#x1F50D; Search" className="w-[400px] h-10 border border-gray-300 rounded-[20px] px-5"/>
       <button type="submit" onClick={props.handleSearch}>
-        
       </button>
       </form>
       </div>
