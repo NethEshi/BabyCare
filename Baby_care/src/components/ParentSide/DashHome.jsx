@@ -1,16 +1,23 @@
 import Baby from "../../assets/baby.png";
 import Midwife from "../../assets/Midwife.png";
 import Location from "../../assets/Location.png";
-import HosDashImg from "../../assets/HosDashImg.png";
+import HosDashImg from "../../assets/prentDash.svg";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useOverlay } from "../../components/context/OverlayContext";
 import { useSelector } from "react-redux";
 import Chart from "chart.js/auto";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { getSelectedBaby } from "../../actions/baby";
 
 function DashHome() {
     const MOHType = JSON.parse(localStorage.getItem("MOHType"));
+    const BabyId = JSON.parse(localStorage.getItem("BabyId"));
+    console.log(BabyId)
     const { showSpinner, hideSpinner } = useOverlay();
+    const dispatch = useDispatch();
+    const [ID, setID] = useState("");
     const [chartLabels, setChartLabels] = useState([
       "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"
     ]);
@@ -20,8 +27,7 @@ function DashHome() {
     const chartRef2 = useRef(null);
     const chartInstanceRef1 = useRef(null);
     const chartInstanceRef2 = useRef(null);
-  
-  
+
     useEffect(() => {
       if (chartInstanceRef1.current) {
         chartInstanceRef1.current.destroy();
@@ -40,7 +46,7 @@ function DashHome() {
             labels: chartLabels,
             datasets: [
               {
-                label: "count",
+                label: "weight (g)",
                 data: birthWeightData,
                 backgroundColor: "rgb(75, 192, 192)",
                 fill: false,
@@ -59,7 +65,7 @@ function DashHome() {
             labels: chartLabels,
             datasets: [
               {
-                label:"Male",
+                label:"height (cm)",
                 data: birthHeightData,
                 backgroundColor: "rgb(75, 192, 192)",
                 fill: false,
@@ -82,29 +88,47 @@ function DashHome() {
     }, [chartLabels, birthHeightData]);
   
     useEffect(() => {
-      //showSpinner();
-    //   axios
-    //     .get(`http://localhost:5000/moh/getDashboardData/${MOHId}`)
-    //     .then((response) => {
-    //       console.log(response);
-    //       setDashHeadData(response.data);
-    //       setChartData1(response.data.birthMonthData);
-    //       setBirthHeadCircumferenceData(response.data.birthHeadCircumferenceData);
-    //       setBirthWeightData(response.data.birthWeightData);
-    //       setBirthHeightData(response.data.birthHeightData);
-    //       setMaleBirthData(response.data.maleBirthData);
-    //       setFemaleBirthData(response.data.femaleBirthData);
-  
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     })
-    //     .finally(() => {
-    //       hideSpinner();
-    //     });
+      showSpinner();
+      axios
+        .get(`http://localhost:5000/baby/getBabyByID/${BabyId}`)
+        .then((response) => {
+          console.log(response.data);
+          dispatch(getSelectedBaby(response.data));
+          setID(response.data.ID);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          hideSpinner();
+        });
     }, []);
+
+    useEffect(() => {
+        if (!ID) {
+            return;
+        }
+        showSpinner();
+        console.log(ID)
+        axios.get(`http://localhost:5000/baby/getBabyData/${ID}`)
+        .then((response) =>{
+            console.log(response.data);
+            setBirthWeightData(response.data.weightsByMonth);
+            setBirthHeightData(response.data.heightsByMonth);
+
+        })
+        .catch((error) => {
+            console.log(error);
+            toast.error(error.response.data.message, {
+                position: "bottom-right",
+            })
+        })
+        .finally(() => {
+            hideSpinner();
+        })
+    }, [ID])
   return (
-    <div className="bg-white p-8">
+    <div className="bg-white p-8 space-y-20">
 
     <div className="grid grid-cols-2 gap-8 mb-8">
       <div className="bg-light-pink border border-margin-blue rounded-lg w-[100%] h-[300px] p-2 shadow-md col-span-1">
@@ -118,12 +142,12 @@ function DashHome() {
       </div>
     </div>
 
-    <div className="grid grid-cols-1 gap-6">
+    <div className="">
       <div className="bg-white border border-white rounded-lg w-[100%] h-[300px] flex items-center justify-center col-span-1">
         <img
           src={HosDashImg}
           alt="HosDashImg"
-          className="w-[240px] h-[260px]"
+          className="w-[540px] h-[560px] flex justify-center items-center"
         />
       </div>
     </div>

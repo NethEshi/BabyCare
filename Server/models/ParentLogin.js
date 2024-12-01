@@ -17,6 +17,10 @@ const parentLoginSchema = new mongoose.Schema({
     Email:{
         type: String,
         required: true
+    },
+    MOHId: {
+        type: String,
+        required: true
     }
 });
 

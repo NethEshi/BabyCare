@@ -50,7 +50,13 @@ function HReport() {
     other4: null,
   });
 
+
   useEffect(() => {
+    if (location.pathname.includes("parentDashboard")) {
+      hideEditSave()
+    } else {
+      showEditSave();
+    }
     showSpinner();
     axios.get(`http://localhost:5000/healthReport/getHealthReport/${babyID}`)
     .then((response) => {
@@ -64,7 +70,6 @@ function HReport() {
     .finally(() => {
       hideSpinner();
     });
-    showEditSave();
 
     return () => {
       hideEditSave();

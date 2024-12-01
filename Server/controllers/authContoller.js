@@ -183,7 +183,7 @@ parentLogin : async (req, res) => {
             expiresIn: "7d",
           });
 
-        res.status(200).json({ message: 'Login successful', token: token, BabyId: parentexist.BabyId, MOHType: parentexist.MOHType });
+        res.status(200).json({ message: 'Login successful', token: token, BabyId: parentexist.BabyId, MOHType: parentexist.MOHType, MOHId: parentexist.MOHId });
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' ,error});
 
@@ -194,6 +194,7 @@ getParentEmail : async (req, res) => {
     try {
         const ParentEmail = req.body.Email;
         const validEmail = await Baby.findOne({ParentEmail});
+        console.log(validEmail);
         if (!validEmail) {
             return res.status(400).json({message: 'Email is invalid'});
         } else {
@@ -202,10 +203,12 @@ getParentEmail : async (req, res) => {
                 return res.status(200).json({message: 'Account Found', parentAcc});
             } else {
                 const MOHDetails = await MOH.findOne({_id : validEmail.MOHId});
-                parentAcc = await ParentLogin({BabyId: validEmail.ID, MOHType: MOHDetails.Type, Email: ParentEmail});
-                await parentAcc.save();
+                console.log(MOHDetails);
+                const newparentAcc = await ParentLogin({BabyId: validEmail._id, MOHType: MOHDetails.Type, Email: ParentEmail, MOHId: MOHDetails._id});
+                await newparentAcc.save();
+                console.log(parentAcc);
 
-                return res.status(200).json({message: 'Account Created', parentAcc});
+                return res.status(200).json({message: 'Account Created', parentAcc : newparentAcc});
             }
         }
     } catch (error) {

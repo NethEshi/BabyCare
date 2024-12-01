@@ -21,6 +21,9 @@ const store = createStore(reducer, {
   midwife: {
     selectedMidwife: {},
   },
+  doctor: {
+    selectedDoctor: {},
+  }
 });
 
 ReactDOM.createRoot(document.getElementById("root")).render(

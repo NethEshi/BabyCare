@@ -164,6 +164,7 @@ function ParentLogin() {
       document.cookie = `token=${response.data.token}; ${expires};`;
       localStorage.setItem("BabyId", JSON.stringify(response.data.BabyId));
       localStorage.setItem("MOHType", JSON.stringify(response.data.MOHType));
+      localStorage.setItem("MOHId", JSON.stringify(response.data.MOHId));
       Navigate("/parentDashboard");
     })
     .catch((error) => {

@@ -44,7 +44,9 @@ function Profile() {
   useEffect(() => {
     showEditSave();
     setFormData(selectedBaby);
-
+    if (location.pathname.includes("parentDashboard")) {
+      hideEditSave()
+    }
     return () => {
       hideEditSave();
       dispatch(getEditMode(false));
@@ -90,7 +92,7 @@ function Profile() {
   return (
     <div className="">
       <ToastContainer/>
-      <EditSave submitFunction={onSave}/>
+      {<EditSave submitFunction={onSave}/>}
       <SubmitChanges submitFunction={onsubmit} cancelFunction={onCancel}/>
       <div className="relative w-full">
         <div className="grid grid-cols-2 px-5 font-poppin space-x-5 rounded-lg">

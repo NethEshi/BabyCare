@@ -1,6 +1,10 @@
 const MidWife = require("../models/MidWife");
 const Location = require("../models/Location");
 const Baby = require("../models/Baby");
+const Doctor = require ("../models/Doctor")
+const Session = require ("../models/Sessions")
+const Appointment = require ("../models/Appointments")
+const sendEmail = require("../utils/sendEmail");
 
 const mohController = {
   getMidWife: async (req, res) => {
@@ -209,6 +213,163 @@ const mohController = {
       console.log(error);
     }
   },
+
+  addNewDoctor : async (req, res) => {
+    try {
+      const { SLMCNo, Name, Designation, Email, Contact, RoleId, MOHId } = req.body;
+
+      const doctor = await Doctor.findOne({ SLMCNo });
+      if (doctor) {
+        return res.status(400).json({ message: "Doctor already exists" });
+      }
+
+      const newDoctor = new Doctor({
+        SLMCNo,
+        Name,
+        Designation,
+        Email,
+        Contact,
+        RoleId,
+        MOHId,
+      });
+
+      await newDoctor.save();
+      res.status(201).json({ message: "Doctor added successfully", doctor: newDoctor });
+    }
+    catch (error) {
+      res.status(500).json({ message: "Internal server error", error });
+      console.log(error);
+    }
+  },
+
+  getDoctor: async (req, res) => {
+    try {
+      const doctor = await Doctor.find({ MOHId: req.params.MOHId });
+      res.status(200).json(doctor);
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error", error });
+      console.log(error);
+    }
+  },
+
+  updateDoctor : async (req, res) => {
+    try {
+      const { SLMCNo, Name, Designation, Email, Contact, RoleId, MOHId, Address } = req.body;
+
+      const doctorEx = await Doctor.findOne({ SLMCNo });
+      if (!doctorEx) {
+        return res.status(400).json({ message: "Doctor not found" });
+      }
+
+      const doctor = await Doctor.findOneAndUpdate(
+        { SLMCNo },
+        { Name, Designation, Email, Contact, RoleId, MOHId, Address },
+        { new: true }
+      );
+
+      res.status(200).json({ message: "Doctor updated successfully", doctor });
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error", error });
+      console.log(error);
+    }
+  },
+
+  addSession : async (req, res) => {
+    try {
+      const { SLMCNo, Date, StartTime, EndTime, MOHId, maxPatients } = req.body;
+
+      const newSession = new Session({
+      SLMCNo,
+      Date,
+      StartTime,
+      EndTime,
+      MOHId,
+      maxPatients
+      });
+
+      await newSession.save();
+      res.status(201).json({ message: "Session added successfully", session: newSession });
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error", error });
+      console.log(error);
+    }
+  },
+
+  getSession : async (req, res) => {
+    try {
+      const session = await Session.find({ MOHId: req.params.MOHId, SLMCNo: req.params.SLMCNo });
+      res.status(200).json(session);
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error", error });
+      console.log(error);
+    }
+  },
+
+  makeAppointment : async (req, res) => {
+    try {
+      const { SessionId, BabyId } = req.body;
+
+      const exApp = await Appointment.findOne({SessionId: SessionId, BabyId: BabyId})
+      if (exApp) {
+        return res.status(400).json({ message: "Appointment already exists" });
+      }
+
+      const appointments = await Appointment.find({SessionId: SessionId});
+      const session = await Session.findOne({_id: SessionId})
+      if (appointments.length >= session.maxPatients){
+        return res.status(400).json({message: "No available slots"})
+      }
+      const PatientNumber = appointments.length > 0 ? Math.max(...appointments.map(app => app.PatientNumber)) + 1 : 1;
+
+      const newAppointment = new Appointment({
+        SessionId,
+        BabyId,
+        PatientNumber,
+      });
+
+      await newAppointment.save();
+      const baby = await Baby.findById(BabyId);
+      if (!baby) {
+        return res.status(400).json({ message: "Baby not found" });
+      }
+
+      const parentEmail = baby.ParentEmail;
+      if (!parentEmail) {
+        return res.status(400).json({ message: "Parent email not found" });
+      }
+      await sendEmail({
+        to: parentEmail,
+        subject: "Appointment Confirmation",
+        text: `Your appointment has been confirmed. Appointment details: Session ID: ${SessionId}, Baby ID: ${BabyId}, Patient Number: ${PatientNumber}.`,
+      });
+      res.status(201).json({ message: "Appointment made successfully", appointment: newAppointment });
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error", error });
+      console.log(error);
+    }
+  },
+
+  getAppointmentBySessionId : async (req, res) => {
+    try {
+      const appointments = await Appointment.find({SessionId: req.params.SessionId});
+      res.status(200).json(appointments);
+    const detailedAppointments = await Promise.all(
+      appointments.map(async (appointment) => {
+        const baby = await Baby.findById(appointment.BabyId);
+        return { ...appointment.toObject(), baby };
+      })
+    );
+    const sessionDetails = await Session.findById(req.params.SessionId);
+    res.status(200).json({ appointments: detailedAppointments, sessionDetails });
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error", error });
+      console.log(error);
+    }
+  },
+
+  getAppointmentsByBabyId : async (req, res) => {
+    
+  }
 };
 
 module.exports = mohController;

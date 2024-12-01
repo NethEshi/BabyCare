@@ -14,7 +14,7 @@ function BabyNavBar() {
         <Link
           to="Profile"
           className={`text-3xl ${
-            currentPath.includes("BabyProfile/Profile")
+            currentPath.includes("Profile")
               ? "border-NavyBlue border-b-2"
               : ""
           }`}

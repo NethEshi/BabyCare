@@ -1,11 +1,12 @@
 
 import React, { useEffect, useState } from "react";
-import AddMidWife from "./overlays/addMidWife";
 import axios from "axios";
 import { useOverlay } from "./context/OverlayContext";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getSelectedMidwife } from "../actions/midwife";
+import { getSelectedDoctor } from "../actions/doctor";
+import AddDoctor from "./overlays/addDoctor";
+import { useSelector } from "react-redux";
 
 function Doctors() {
   const MOHId = JSON.parse(localStorage.getItem("MOHId"));
@@ -19,15 +20,15 @@ function Doctors() {
     setOverlay(!overlay);
   };
 
-  const viewProfile = (midwife) => {
-    dispatch(getSelectedMidwife(midwife));
-    navigate("/Dashboard/midwifeProfile");
+  const viewProfile = (doctor) => {
+    dispatch(getSelectedDoctor(doctor));
+    navigate("doctorProfile");
   };
 
   useEffect(() => {
     showSpinner();
     axios
-      .get(`http://localhost:5000/moh/getMidWife/${MOHId}`)
+      .get(`http://localhost:5000/moh/getDoctor/${MOHId}`)
       .then((response) => {
         console.log(response);
         setMidWifeList(response.data);
@@ -41,21 +42,20 @@ function Doctors() {
   }, [overlay]);
   return (
     <>
-      {overlay && <AddMidWife toggleVisibility={handleOverlay} />}
+      {overlay && <AddDoctor toggleVisibility={handleOverlay} />}
       <div className="pt-16 px-20">
         <div className="flex justify-end font-semibold pb-5">
           <button
             className=" rounded-full bg-NavyBlue text-white font-bold font-poppins p-3 hover:scale-105 "
             onClick={handleOverlay}
           >
-            Register a New Midwife
+            Register a New Doctor
           </button>
         </div>
         <table className="w-full">
           <thead>
             <tr className="bg-gray-100">
-              <th className="border px-4 py-2 text-left">Register ID</th>
-              <th className="border px-4 py-2 text-left">License No</th>
+              <th className="border px-4 py-2 text-left">SLMC No</th>
               <th className="border px-4 py-2 text-left">Name</th>
               <th className="border px-4 py-2 text-left">Designation</th>
               <th className="border px-4 py-2 text-left">Email</th>
@@ -66,8 +66,7 @@ function Doctors() {
             {midWifeList.map((item, index) => {
               return (
                 <tr className="hover:bg-gray-200" onClick={() => (viewProfile(item))} key={index}>
-                  <td className="border px-4 py-2">{item.reg_ID}</td>
-                  <td className="border px-4 py-2">{item.License_NO}</td>
+                  <td className="border px-4 py-2">{item.SLMCNo}</td>
                   <td className="border px-4 py-2">{item.Name}</td>
                   <td className="border px-4 py-2">{item.Designation}</td>
                   <td className="border px-4 py-2">{item.Email}</td>

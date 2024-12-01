@@ -72,6 +72,20 @@ function Vaccination() {
       console.log(error);
       if (error.response.status === 404) {
         setNewBaby(true);
+        const payload = {
+          ID: babyID,
+          ...vaccinationData,
+        }
+        axios.post("http://localhost:5000/vaccination/addVaccination", payload)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          hideSpinner();
+        })
       }
     })
     .finally(() => {
@@ -145,18 +159,6 @@ function Vaccination() {
       ...vaccinationData,
     }
     console.log(payload);
-    if (newBaby) {
-      axios.post("http://localhost:5000/vaccination/addVaccination", payload)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        hideSpinner();
-      })
-    } else {
       axios.put("http://localhost:5000/vaccination/updateVaccinationData", payload)
       .then((response) => {
         console.log(response);
@@ -167,7 +169,6 @@ function Vaccination() {
       .finally(() => {
         hideSpinner();
       })
-    }
 
   }, [sendData]);
   return (
@@ -182,7 +183,7 @@ function Vaccination() {
               </div>
               <div className="space-x-5">
                 {toggleVisibility.AtBirth && (
-                  <button name="AtBirth" id="AtBirth" onClick={addNewVaccine}>
+                  <button name="AtBirth" id="AtBirth" onClick={addNewVaccine} disabled={location.pathname.includes("parentDashboard")}>
                     <FeatherIcon icon="plus" className={""} />
                   </button>
                 )}
@@ -217,7 +218,7 @@ function Vaccination() {
                         <button name="AtBirth" id="AtBirth" onClick={() => onView(vaccination)}>
                           <FeatherIcon icon="eye" className={""} />
                         </button>
-                        <button name="AtBirth" id="AtBirth" onClick={(e) => onEdit(vaccination, e, index)}>
+                        <button name="AtBirth" id="AtBirth" onClick={(e) => onEdit(vaccination, e, index)} disabled={location.pathname.includes("parentDashboard")}>
                           <FeatherIcon icon="edit-3" className={""} />
                         </button>
                       </div>
@@ -235,7 +236,7 @@ function Vaccination() {
               </div>
               <div className="space-x-5">
                 {toggleVisibility.TwoMonth && (
-                  <button name="TwoMonth" id="TwoMonth" onClick={addNewVaccine}>
+                  <button name="TwoMonth" id="TwoMonth" onClick={addNewVaccine} disabled={location.pathname.includes("parentDashboard")}>
                     <FeatherIcon icon="plus" className={""} />
                   </button>
                 )}
@@ -270,7 +271,7 @@ function Vaccination() {
                         <button name="TwoMonth" id="TwoMonth" onClick={() => onView(vaccination)}>
                           <FeatherIcon icon="eye" className={""} />
                         </button>
-                        <button name="TwoMonth" id="TwoMonth" onClick={(e) => onEdit(vaccination, e, index)}>
+                        <button name="TwoMonth" id="TwoMonth" onClick={(e) => onEdit(vaccination, e, index)} disabled={location.pathname.includes("parentDashboard")}>
                           <FeatherIcon icon="edit-3" className={``} />
                         </button>
                       </div>
@@ -288,7 +289,7 @@ function Vaccination() {
               </div>
               <div className="space-x-5">
                 {toggleVisibility.FourMonth && (
-                  <button name="FourMonth" id="FourMonth" onClick={addNewVaccine}>
+                  <button name="FourMonth" id="FourMonth" onClick={addNewVaccine} disabled={location.pathname.includes("parentDashboard")}>
                     <FeatherIcon icon="plus" className={""} />
                   </button>
                 )}
@@ -323,7 +324,7 @@ function Vaccination() {
                         <button name="FourMonth" id="FourMonth" onClick={() => onView(vaccination)}>
                           <FeatherIcon icon="eye" className={''} />
                         </button>
-                        <button name="FourMonth" id="FourMonth" onClick={(e) => onEdit(vaccination, e, index)}>
+                        <button name="FourMonth" id="FourMonth" onClick={(e) => onEdit(vaccination, e, index)} disabled={location.pathname.includes("parentDashboard")}>
                           <FeatherIcon icon="edit-3" className={``} />
                         </button>
                       </div>
@@ -341,7 +342,7 @@ function Vaccination() {
               </div>
               <div className="space-x-5">
                 {toggleVisibility.SixMonth && (
-                  <button name="SixMonth" id="SixMonth" onClick={addNewVaccine}>
+                  <button name="SixMonth" id="SixMonth" onClick={addNewVaccine} disabled={location.pathname.includes("parentDashboard")}>
                     <FeatherIcon icon="plus" className={""} />
                   </button>
                 )}
@@ -376,7 +377,7 @@ function Vaccination() {
                         <button name="SixMonth" id="SixMonth" onClick={() => onView(vaccination)}>
                           <FeatherIcon icon="eye" className={""} />
                         </button>
-                        <button name="SixMonth" id="SixMonth" onClick={(e) => onEdit(vaccination, e, index)}>
+                        <button name="SixMonth" id="SixMonth" onClick={(e) => onEdit(vaccination, e, index)} disabled={location.pathname.includes("parentDashboard")}>
                           <FeatherIcon icon="edit-3" className={``} />
                         </button>
                       </div>
@@ -394,7 +395,7 @@ function Vaccination() {
               </div>
               <div className="space-x-5">
                 {toggleVisibility.NineMonth && (
-                  <button name="NineMonth" id="NineMonth" onClick={addNewVaccine}>
+                  <button name="NineMonth" id="NineMonth" onClick={addNewVaccine} disabled={location.pathname.includes("parentDashboard")}>
                     <FeatherIcon icon="plus" className={""} />
                   </button>
                 )}
@@ -429,7 +430,7 @@ function Vaccination() {
                         <button name="NineMonth" id="NineMonth" onClick={() => onView(vaccination)}>
                           <FeatherIcon icon="eye" className={""} />
                         </button>
-                        <button name="NineMonth" id="NineMonth" onClick={(e) => onEdit(vaccination, e, index)}>
+                        <button name="NineMonth" id="NineMonth" onClick={(e) => onEdit(vaccination, e, index)} disabled={location.pathname.includes("parentDashboard")}>
                           <FeatherIcon icon="edit-3" className={``} />
                         </button>
                       </div>
@@ -447,7 +448,7 @@ function Vaccination() {
               </div>
               <div className="space-x-5">
                 {toggleVisibility.EighteenMonth && (
-                  <button name="EighteenMonth" id="EighteenMonth" onClick={addNewVaccine}>
+                  <button name="EighteenMonth" id="EighteenMonth" onClick={addNewVaccine} disabled={location.pathname.includes("parentDashboard")}>
                     <FeatherIcon icon="plus" className={""} />
                   </button>
                 )}
@@ -491,7 +492,7 @@ function Vaccination() {
                         <button
                           name="EighteenMonth"
                           id="EighteenMonth"
-                          onClick={(e) => onEdit(vaccination, e, index)}
+                          onClick={(e) => onEdit(vaccination, e, index)} disabled={location.pathname.includes("parentDashboard")}
                         >
                           <FeatherIcon icon="edit-3" className={``} />
                         </button>
@@ -510,7 +511,7 @@ function Vaccination() {
               </div>
               <div className="space-x-5">
                 {toggleVisibility.ThreeYeares && (
-                  <button name="ThreeYeares" id="ThreeYeares" onClick={addNewVaccine}>
+                  <button name="ThreeYeares" id="ThreeYeares" onClick={addNewVaccine} disabled={location.pathname.includes("parentDashboard")}>
                     <FeatherIcon icon="plus" className={""} />
                   </button>
                 )}
@@ -542,10 +543,10 @@ function Vaccination() {
                         </h1>
                       </div>
                       <div className=" space-x-3">
-                        <button name="ThreeYeares" id="ThreeYeares" onClick={() => onView(vaccination)}>
+                        <button name="ThreeYeares" id="ThreeYeares" onClick={() => onView(vaccination)} >
                           <FeatherIcon icon="eye" className={''} />
                         </button>
-                        <button name="ThreeYeares" id="ThreeYeares" onClick={(e) => onEdit(vaccination, e, index)}>
+                        <button name="ThreeYeares" id="ThreeYeares" onClick={(e) => onEdit(vaccination, e, index)} disabled={location.pathname.includes("parentDashboard")}>
                           <FeatherIcon icon="edit-3" className={``} />
                         </button>
                       </div>
@@ -563,7 +564,7 @@ function Vaccination() {
               </div>
               <div className="space-x-5">
                 {toggleVisibility.FiveYeares && (
-                  <button name="FiveYeares" id="FiveYeares" onClick={addNewVaccine}>
+                  <button name="FiveYeares" id="FiveYeares" onClick={addNewVaccine} disabled={location.pathname.includes("parentDashboard")}>
                     <FeatherIcon icon="plus" className={""} />
                   </button>
                 )}
@@ -598,7 +599,7 @@ function Vaccination() {
                         <button name="FiveYeares" id="FiveYeares" onClick={() => onView(vaccination)}>
                           <FeatherIcon icon="eye" className={""} />
                         </button>
-                        <button name="FiveYeares" id="FiveYeares" onClick={(e) => onEdit(vaccination, e, index)}>
+                        <button name="FiveYeares" id="FiveYeares" onClick={(e) => onEdit(vaccination, e, index)} disabled={location.pathname.includes("parentDashboard")}>
                           <FeatherIcon icon="edit-3" className={``} />
                         </button>
                       </div>
@@ -616,7 +617,7 @@ function Vaccination() {
               </div>
               <div className="space-x-5">
                 {toggleVisibility.TenYeares && (
-                  <button name="TenYeares" id="TenYeares" onClick={addNewVaccine}>
+                  <button name="TenYeares" id="TenYeares" onClick={addNewVaccine} disabled={location.pathname.includes("parentDashboard")}>
                     <FeatherIcon icon="plus" className={""} />
                   </button>
                 )}
@@ -651,7 +652,7 @@ function Vaccination() {
                         <button name="TenYeares" id="TenYeares" onClick={() => onView(vaccination)}>
                           <FeatherIcon icon="eye" className={""} />
                         </button>
-                        <button name="TenYeares" id="TenYeares" onClick={(e) => onEdit(vaccination, e, index)}>
+                        <button name="TenYeares" id="TenYeares" onClick={(e) => onEdit(vaccination, e, index)} disabled={location.pathname.includes("parentDashboard")}>
                           <FeatherIcon icon="edit-3" className={``} />
                         </button>
                       </div>
@@ -672,7 +673,7 @@ function Vaccination() {
                   <button
                     name="JapaneseEncephalitis"
                     id="JapaneseEncephalitis"
-                    onClick={addNewVaccine}
+                    onClick={addNewVaccine} disabled={location.pathname.includes("parentDashboard")}
                   >
                     <FeatherIcon icon="plus" />
                   </button>
@@ -718,7 +719,7 @@ function Vaccination() {
                           <button
                             name="JapaneseEncephalitis"
                             id="JapaneseEncephalitis"
-                            onClick={(e) => onEdit(vaccination, e, index)}
+                            onClick={(e) => onEdit(vaccination, e, index)} disabled={location.pathname.includes("parentDashboard")}
                           >
                             <FeatherIcon icon="edit-3" className={''} />
                           </button>
@@ -738,7 +739,7 @@ function Vaccination() {
               </div>
               <div className="space-x-5">
                 {toggleVisibility.Other && (
-                  <button name="Other" id="Other" onClick={addNewVaccine}>
+                  <button name="Other" id="Other" onClick={addNewVaccine} disabled={location.pathname.includes("parentDashboard")}>
                     <FeatherIcon icon="plus" className={""} />
                   </button>
                 )}
@@ -773,7 +774,7 @@ function Vaccination() {
                         <button name="Other" id="Other" onClick={() => onView(vaccination)}>
                           <FeatherIcon icon="eye" className={""} />
                         </button>
-                        <button name="Other" id="Other" onClick={(e) => onEdit(vaccination, e, index)}>
+                        <button name="Other" id="Other" onClick={(e) => onEdit(vaccination, e, index)} disabled={location.pathname.includes("parentDashboard")}>
                           <FeatherIcon icon="edit-3" className={``} />
                         </button>
                       </div>

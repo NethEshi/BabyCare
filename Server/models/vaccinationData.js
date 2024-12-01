@@ -6,6 +6,7 @@ const vaccinationFormatSchema = new mongoose.Schema({
         required: true
     },
     date: {
+        default: "noDate",
         type: String,
         required: false
     },

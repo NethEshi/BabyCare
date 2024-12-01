@@ -11,6 +11,7 @@ import Logout from "../overlays/Logout";
 function DashboardSideBar() {
   const[currentPath, setCurrentPath] = useState("");
   const RoleId = JSON.parse(localStorage.getItem("RoleId"));
+  const MOHType = JSON.parse(localStorage.getItem("Type"));
   const location = useLocation();
   const navigate = useNavigate()
   const {showSpinner, hideSpinner, showLogout, hideLogout} = useOverlay();
@@ -51,24 +52,32 @@ function DashboardSideBar() {
             </div>
           </Link>
 
-          <Link to={"midWifes"} className={`px-5 w-[100%] hover:scale-110 ${RoleId == 1 ? "" : "hidden"}`}>
+          <Link to={"midWifes"} className={`px-5 w-[100%] hover:scale-110 ${RoleId == 1 && MOHType == "GOV"  ? "" : "hidden"}`}>
             <div className= {`flex justify-start space-x-2 rounded-lg py-1 w-[100%] px-5 ${currentPath.includes("midWifes") ? "bg-LBlue" : ""}`}>
               <FeatherIcon icon="users" className="w-[25px] h-[25px] text-white" />
               <span className="text-white font-semibold">MidWifes</span>
             </div>
           </Link>
 
-          <Link to={"doctors"} className={`px-5 w-[100%] hover:scale-110 ${RoleId == 1 ? "" : "hidden"}`}>
+          <Link to={"doctors"} className={`px-5 w-[100%] hover:scale-110 ${RoleId == 1 && MOHType == "PVT" ? "" : "hidden"}`}>
             <div className= {`flex justify-start space-x-2 rounded-lg py-1 w-[100%] px-5 ${currentPath.includes("doctors") ? "bg-LBlue" : ""}`}>
               <FeatherIcon icon="users" className="w-[25px] h-[25px] text-white" />
               <span className="text-white font-semibold">Doctors</span>
             </div>
           </Link>
 
-          <Link to={"locations"} className={`px-5 w-[100%] hover:scale-110 ${RoleId == 1 ? "" : "hidden"}`}>
+          <Link to={"locations"} className={`px-5 w-[100%] hover:scale-110 ${RoleId == 1 && MOHType == "GOV" ? "" : "hidden"}`}>
             <div className= {`flex justify-start space-x-2 rounded-lg py-1 w-[100%] px-5 ${currentPath.includes("locations") ? "bg-LBlue" : ""}`}>
               <FeatherIcon icon="map-pin" className="w-[25px] h-[25px] text-white" />
               <span className="text-white font-semibold">Locations</span>
+            </div>
+          </Link>
+
+          
+          <Link to={"appointment"} className={`px-5 w-[100%] hover:scale-110 ${RoleId == 1 && MOHType == "PVT" ? "" : "hidden"}`}>
+            <div className= {`flex justify-start space-x-2 rounded-lg py-1 w-[100%] px-5 ${currentPath.includes("appointment") ? "bg-LBlue" : ""}`}>
+              <FeatherIcon icon="users" className="w-[25px] h-[25px] text-white" />
+              <span className="text-white font-semibold">Appointment</span>
             </div>
           </Link>
         </div>

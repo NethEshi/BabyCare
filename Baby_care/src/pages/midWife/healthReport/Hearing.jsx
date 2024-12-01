@@ -34,7 +34,11 @@ function Hearing() {
     });
   };
   useEffect(() => {
-    showEditSave();
+    if (location.pathname.includes("parentDashboard")) {
+      hideEditSave()
+    } else {
+      showEditSave();
+    }
     showSpinner();
     axios.get(`http://localhost:5000/healthReport/getHearingData/${babyID}`)
     .then((response) => {
