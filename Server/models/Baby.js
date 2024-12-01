@@ -15,7 +15,7 @@ const babySchema = new mongoose.Schema({
     },
     Gender: {
         type: String,
-        enum: ['Male', 'Female', "Other"],
+        enum: ['Male', 'Female'],
         required: true
     },
     ParentName: {

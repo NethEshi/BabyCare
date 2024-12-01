@@ -35,6 +35,7 @@ function SignUp() {
       document.cookie = `token=${response.data.token}; ${expires};`;
       localStorage.setItem("MOHId", JSON.stringify(response.data.MOHId));
       localStorage.setItem("RoleId", JSON.stringify(response.data.RoleId));
+      localStorage.setItem("Type", JSON.stringify(response.data.Type));
       Navigate("/Dashboard");
     })
     .catch((error) => {

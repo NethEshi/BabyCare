@@ -39,6 +39,14 @@ const midWifeSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    Address: {
+        type: String,
+        required: false
+    },
+    District: {
+        type: String,
+        required: false
+    },
 
 });
 

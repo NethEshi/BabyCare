@@ -58,7 +58,7 @@ MOHlogin : async (req, res) => {
             expiresIn: "7d",
         });
 
-        res.status(200).json({ message: 'Login successful', token: token, MOHId: MOHexist._id, RoleId: MOHexist.RoleId });
+        res.status(200).json({ message: 'Login successful', token: token, MOHId: MOHexist._id, RoleId: MOHexist.RoleId, Type: MOHexist.Type });
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' ,error});
     }

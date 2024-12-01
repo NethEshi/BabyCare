@@ -36,6 +36,7 @@ import DashboardHome from "./components/DashboardHome";
 import MidWifes from "./components/midWifes";
 import Locations from "./components/locations";
 import MidwifeProfile from "./components/MidwifeProfile";
+import Doctors from "./components/Doctors";
 
 function App() {
   return (
@@ -59,6 +60,7 @@ function App() {
           <Route path="midWifes" element={<MidWifes />}/>
           <Route path="midwifeProfile" element={<MidwifeProfile />} />
           <Route path="locations" element={<Locations />}/>
+          <Route path="doctors" element={<Doctors />} />
           <Route path="midWifeHome" element={<MidWifeHome />}>
             <Route path="BabyProfile" element={<BabyProfile />}>
               <Route index element={<Navigate to="Profile" />} />
