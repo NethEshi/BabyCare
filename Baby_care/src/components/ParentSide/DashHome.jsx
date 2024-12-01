@@ -7,7 +7,7 @@ import axios from "axios";
 import { useOverlay } from "../../components/context/OverlayContext";
 import { useSelector } from "react-redux";
 import Chart from "chart.js/auto";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { getSelectedBaby } from "../../actions/baby";
 
@@ -16,6 +16,7 @@ function DashHome() {
     const BabyId = JSON.parse(localStorage.getItem("BabyId"));
     console.log(BabyId)
     const { showSpinner, hideSpinner } = useOverlay();
+    const [DOB, setDOB] = useState("");
     const dispatch = useDispatch();
     const [ID, setID] = useState("");
     const [chartLabels, setChartLabels] = useState([
@@ -95,6 +96,7 @@ function DashHome() {
           console.log(response.data);
           dispatch(getSelectedBaby(response.data));
           setID(response.data.ID);
+          setDOB(response.data.DOB);
         })
         .catch((error) => {
           console.log(error);
@@ -127,9 +129,56 @@ function DashHome() {
             hideSpinner();
         })
     }, [ID])
+
+    const calculateAgeInMonths = (dob) => {
+      const birthDate = new Date(dob);
+      const currentDate = new Date();
+      const yearsDifference = currentDate.getFullYear() - birthDate.getFullYear();
+      const monthsDifference = currentDate.getMonth() - birthDate.getMonth();
+      return yearsDifference * 12 + monthsDifference;
+    };
+
+    useEffect(() => {
+      if (!DOB || !birthWeightData) {
+        return;
+      }
+      showSpinner();
+      let data = {
+        weights : birthWeightData,
+        age : calculateAgeInMonths(DOB)
+      }
+      axios.post("http://localhost:4600/predict", data)
+      .then((response) => {
+        console.log(response.data);
+        const condition = response.data.condition;
+        let toastType = toast.warning;
+
+        if (condition === "Normal Weight") {
+          toastType = toast.success;
+        } else if (condition === "Underweight" || condition === "Severely Underweight") {
+          toastType = toast.error;
+        } else if (condition === "Overweight" || condition === "Obese") {
+          toastType = toast.info;
+        }
+        toastType("Predicted Weight: " + response.data.next_month_weight + "g/ condition : " + condition, {
+          position: "bottom-right",
+        });
+
+        
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(error.response.data.message, {
+          position: "bottom-right",
+        })
+      })
+      .finally(() => {
+        hideSpinner();
+      })
+    }, [birthHeightData]);
   return (
     <div className="bg-white p-8 space-y-20">
-
+      <ToastContainer/>
     <div className="grid grid-cols-2 gap-8 mb-8">
       <div className="bg-light-pink border border-margin-blue rounded-lg w-[100%] h-[300px] p-2 shadow-md col-span-1">
         <p className="text-blue-900 font-bold">Weight  Overview</p>
