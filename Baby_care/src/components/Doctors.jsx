@@ -22,7 +22,7 @@ function Doctors() {
 
   const viewProfile = (doctor) => {
     dispatch(getSelectedDoctor(doctor));
-    navigate("doctorProfile");
+    navigate("/Dashboard/doctorProfile");
   };
 
   useEffect(() => {

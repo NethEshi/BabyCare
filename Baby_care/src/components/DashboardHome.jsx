@@ -1,4 +1,4 @@
-import Baby from "../assets/baby.png";
+import Baby from "../assets/Baby.png";
 import Midwife from "../assets/Midwife.png";
 import Location from "../assets/Location.png";
 import HosDashImg from "../assets/HosDashImg.png";
@@ -10,6 +10,7 @@ import Chart from "chart.js/auto";
 
 function DashboardHome() {
   const MOHId = JSON.parse(localStorage.getItem("MOHId"));
+  const MOHType = JSON.parse(localStorage.getItem("Type"));
   const { showSpinner, hideSpinner } = useOverlay();
   const [chartLabels, setChartLabels] = useState([
     "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"
@@ -170,13 +171,13 @@ function DashboardHome() {
   return (
     <div className="bg-white p-8">
       <div className="grid grid-cols-3 gap-6 mb-8">
-        <div className="flex items-center bg-light-pink border border-margin-blue rounded-lg p-4 w-full shadow-md">
+       {MOHType == "GOV" && <div className="flex items-center bg-light-pink border border-margin-blue rounded-lg p-4 w-full shadow-md">
           <img src={Midwife} alt="Midwife" className="w-[50px] h-[50px]" />
           <div className="ml-4 text-base font-semibold text-blueF">
             Total Midwives
           </div>
           <div className="ml-12 text-5xl font-bold text-blue-900">{DashHeadData.midwifeCount}</div>
-        </div>
+        </div> }
 
         <div className="flex items-center bg-light-pink border border-margin-blue rounded-lg p-4 w-full shadow-md">
           <img src={Baby} alt="Baby" className="w-[50px] h-[50px]" />
@@ -186,13 +187,13 @@ function DashboardHome() {
           <div className="ml-12 text-5xl font-bold text-blue-900">{DashHeadData.babyCount}</div>
         </div>
 
-        <div className="flex items-center bg-light-pink border border-margin-blue rounded-lg p-4 w-full shadow-md">
+        {MOHType == "GOV" && <div className="flex items-center bg-light-pink border border-margin-blue rounded-lg p-4 w-full shadow-md">
           <img src={Location} alt="Location" className="w-[50px] h-[50px]" />
           <div className="ml-4 text-base font-semibold text-blueF">
             Total Locations
           </div>
           <div className="ml-12 text-5xl font-bold text-blue-900">{DashHeadData.locationCount}</div>
-        </div>
+        </div>}
       </div>
 
       <div className="grid grid-cols-2 gap-8 mb-8">

@@ -1,4 +1,4 @@
-import Baby from "../../assets/baby.png";
+import Baby from "../../assets/Baby.png";
 import Midwife from "../../assets/Midwife.png";
 import Location from "../../assets/Location.png";
 import HosDashImg from "../../assets/prentDash.svg";

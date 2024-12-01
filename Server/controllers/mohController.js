@@ -338,9 +338,9 @@ const mohController = {
         return res.status(400).json({ message: "Parent email not found" });
       }
       await sendEmail({
-        to: parentEmail,
+        to: "hirunalakshan00@gmail.com",
         subject: "Appointment Confirmation",
-        text: `Your appointment has been confirmed. Appointment details: Session ID: ${SessionId}, Baby ID: ${BabyId}, Patient Number: ${PatientNumber}.`,
+        text: "Your appointment has been confirmed. Appointment details: Session ID:" + SessionId + ", Baby ID: " + BabyId + ", Patient Number: "+PatientNumber +".",
       });
       res.status(201).json({ message: "Appointment made successfully", appointment: newAppointment });
     } catch (error) {

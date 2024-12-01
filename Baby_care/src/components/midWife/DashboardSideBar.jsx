@@ -85,18 +85,6 @@ function DashboardSideBar() {
         <div className="flex-row pb-10 space-y-5">
           <div>
             <button className="w-[100%]">
-              <div className="flex justify-start space-x-2 px-5">
-                <img
-                  src={Setting}
-                  alt="Setting"
-                  className="w-[25px] h-[25px]"
-                />
-                <span className="text-white font-semibold">Settings</span>
-              </div>
-            </button>
-          </div>
-          <div>
-            <button className="w-[100%]">
               <div className="flex justify-start space-x-2 px-5" onClick={showLogout}>
                 <img src={LogOut} alt="LogOut" className="w-[25px] h-[25px]" />
                 <span className="text-white font-semibold">Log Out</span>

@@ -77,6 +77,8 @@ MidwifeRegister : async (req, res) => {
         const RoleId = req.body.RoleId;
         const MOHId = req.body.MOHId;
 
+        console.log(req.body);
+
         const existingUser = await MidWife.findOne({ reg_ID });
         if (existingUser) {
             return res.status(400).json({ message: 'Email already exists' });

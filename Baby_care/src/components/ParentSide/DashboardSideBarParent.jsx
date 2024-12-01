@@ -64,28 +64,9 @@ function DashboardSideBarParent() {
               <span className="text-white font-semibold">Doctors</span>
             </div>
           </Link>
-
-          <Link to={"appinments"} className={`px-5 w-[100%] hover:scale-110 ${MOHType === "PVT" ? "" : "hidden"}`}>
-            <div className= {`flex justify-start space-x-2 rounded-lg py-1 w-[100%] px-5 ${currentPath.includes("locations") ? "bg-LBlue" : ""}`}>
-              <FeatherIcon icon="map-pin" className="w-[25px] h-[25px] text-white" />
-              <span className="text-white font-semibold">Appointments</span>
-            </div>
-          </Link>
         </div>
 
         <div className="flex-row pb-10 space-y-5">
-          <div>
-            <button className="w-[100%]">
-              <div className="flex justify-start space-x-2 px-5">
-                <img
-                  src={Setting}
-                  alt="Setting"
-                  className="w-[25px] h-[25px]"
-                />
-                <span className="text-white font-semibold">Settings</span>
-              </div>
-            </button>
-          </div>
           <div>
             <button className="w-[100%]">
               <div className="flex justify-start space-x-2 px-5" onClick={showLogout}>
