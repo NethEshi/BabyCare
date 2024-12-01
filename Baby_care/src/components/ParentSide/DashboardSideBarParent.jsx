@@ -10,7 +10,7 @@ import Logout from "../overlays/Logout";
 
 function DashboardSideBarParent() {
   const[currentPath, setCurrentPath] = useState("");
-  const RoleId = JSON.parse(localStorage.getItem("RoleId"));
+  const MOHType = JSON.parse(localStorage.getItem("MOHType"));
   const location = useLocation();
   const navigate = useNavigate()
   const {showSpinner, hideSpinner, showLogout, hideLogout} = useOverlay();
@@ -18,7 +18,7 @@ function DashboardSideBarParent() {
   const confirmLogout = () => {
     hideLogout();
     localStorage.clear();
-    navigate("/");
+    navigate("/ParentLogin");
   };
 
   const cancelLogout = () => {
@@ -58,14 +58,14 @@ function DashboardSideBarParent() {
             </div>
           </Link>
 
-          <Link to={"doctors"} className={`px-5 w-[100%] hover:scale-110 ${RoleId == 2 ? "" : "hidden"}`}>
+          <Link to={"doctors"} className={`px-5 w-[100%] hover:scale-110 ${MOHType == "PVT" ? "" : "hidden"}`}>
             <div className= {`flex justify-start space-x-2 rounded-lg py-1 w-[100%] px-5 ${currentPath.includes("doctors") ? "bg-LBlue" : ""}`}>
               <FeatherIcon icon="users" className="w-[25px] h-[25px] text-white" />
               <span className="text-white font-semibold">Doctors</span>
             </div>
           </Link>
 
-          <Link to={"appinments"} className={`px-5 w-[100%] hover:scale-110 ${RoleId == 2 ? "" : "hidden"}`}>
+          <Link to={"appinments"} className={`px-5 w-[100%] hover:scale-110 ${MOHType === "PVT" ? "" : "hidden"}`}>
             <div className= {`flex justify-start space-x-2 rounded-lg py-1 w-[100%] px-5 ${currentPath.includes("locations") ? "bg-LBlue" : ""}`}>
               <FeatherIcon icon="map-pin" className="w-[25px] h-[25px] text-white" />
               <span className="text-white font-semibold">Appointments</span>

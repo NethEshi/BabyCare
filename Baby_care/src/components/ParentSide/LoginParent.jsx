@@ -46,7 +46,7 @@ function ParentLogin() {
     showSpinner();
     let data = { Email: Email.Email, otp: otp.OTP };
     axios
-      .post("http://localhost:5000/otp/validateOtp", data)  
+      .post("http://localhost:5000/otp/parentOTPValidate", data)  
       .then((response) => {
         console.log(response.data);
         toast.success("Success Notification !", {
@@ -87,13 +87,14 @@ function ParentLogin() {
     e.preventDefault();
     showSpinner();
     axios
-      .post("http://localhost:5000/moh/getMidWifeByEmail", Email)
+      .post("http://localhost:5000/auth/getparentemail", Email)
       .then((response) => {
-        if (response.data.Password === "passwordNotSet") {
+        if (response.data.parentAcc.Password === "PassNotSet") {
           toggleVisibility();
+          console.log(response.data);
           showSpinner();
           axios
-            .post("http://localhost:5000/otp/sendOtp", Email)
+            .post("http://localhost:5000/otp/parentOTPsend", Email)
             .then((response) => {
               console.log(response.data);
               toast.success("OTP Sent ! Check your Email", {
@@ -129,7 +130,7 @@ function ParentLogin() {
   const submitPassword = (e) => {
     e.preventDefault();
     showSpinner();
-    axios.post("http://localhost:5000/auth/midwifepasswordset", passSet)
+    axios.post("http://localhost:5000/auth/parentpasswordset", passSet)
     .then((response) => {
       console.log(response.data);
       toast.success(response.data.message, {
@@ -151,7 +152,7 @@ function ParentLogin() {
   const submitLoginData = (e) => {
     e.preventDefault();
     showSpinner();
-    axios.post("http://localhost:5000/auth/midwifelogin", loginData)
+    axios.post("http://localhost:5000/auth/parentlogin", loginData)
     .then((response) => {
       console.log(response.data);
       toast.success(response.data.message, {
@@ -161,10 +162,9 @@ function ParentLogin() {
       d.setTime(d.getTime() + (7 * 24 * 60 * 60 * 1000));
       let expires = "expires="+d.toUTCString();
       document.cookie = `token=${response.data.token}; ${expires};`;
-      localStorage.setItem("midwifeId", JSON.stringify(response.data.midwifeId));
-      localStorage.setItem("RoleId", JSON.stringify(response.data.RoleId));
-      localStorage.setItem("MOHId", JSON.stringify(response.data.MOHId));
-      Navigate("/Dashboard/midWifeHome");
+      localStorage.setItem("BabyId", JSON.stringify(response.data.BabyId));
+      localStorage.setItem("MOHType", JSON.stringify(response.data.MOHType));
+      Navigate("/parentDashboard");
     })
     .catch((error) => {
       console.log(error);
