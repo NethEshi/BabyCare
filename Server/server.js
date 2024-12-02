@@ -40,7 +40,7 @@ app.use('/vaccination', vaccinationRouter);
 
 mongoose.connect(url)
 .then(() => {console.log("MongoDB is connected...")
-    //vaccineNotification();
+    vaccineNotification();
 })
 .catch((err) => console.log(err));
 
