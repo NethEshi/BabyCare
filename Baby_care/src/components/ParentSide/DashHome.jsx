@@ -160,11 +160,10 @@ function DashHome() {
         } else if (condition === "Overweight" || condition === "Obese") {
           toastType = toast.info;
         }
-        toastType("Predicted Weight: " + response.data.next_month_weight + "g/ condition : " + condition, {
+        const roundedWeight = response.data.next_month_weight.toFixed(2);
+        toastType("Next month predicted Weight: " + roundedWeight + "g/ condition : " + condition, {
           position: "bottom-right",
         });
-
-        
       })
       .catch((error) => {
         console.log(error);

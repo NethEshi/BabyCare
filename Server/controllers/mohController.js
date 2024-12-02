@@ -351,8 +351,11 @@ const mohController = {
 
   getAppointmentBySessionId : async (req, res) => {
     try {
-      const appointments = await Appointment.find({SessionId: req.params.SessionId});
-      res.status(200).json(appointments);
+    const appointments = await Appointment.find({SessionId: req.params.SessionId});
+    console.log(appointments);
+    if (appointments.length == 0) {
+      return res.status(400).json({ message: "Appointments not found" });
+    }
     const detailedAppointments = await Promise.all(
       appointments.map(async (appointment) => {
         const baby = await Baby.findById(appointment.BabyId);
@@ -360,7 +363,7 @@ const mohController = {
       })
     );
     const sessionDetails = await Session.findById(req.params.SessionId);
-    res.status(200).json({ appointments: detailedAppointments, sessionDetails });
+    return res.status(200).json({ appointments: detailedAppointments, sessionDetails });
     } catch (error) {
       res.status(500).json({ message: "Internal server error", error });
       console.log(error);
