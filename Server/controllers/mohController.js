@@ -337,11 +337,12 @@ const mohController = {
       if (!parentEmail) {
         return res.status(400).json({ message: "Parent email not found" });
       }
-      await sendEmail({
-        to: "hirunalakshan00@gmail.com",
-        subject: "Appointment Confirmation",
-        text: "Your appointment has been confirmed. Appointment details: Session ID:" + SessionId + ", Baby ID: " + BabyId + ", Patient Number: "+PatientNumber +".",
-      });
+      const options ={
+      to: parentEmail,
+      subject: "Appointment Confirmation",
+      message: "Your appointment has been confirmed. Appointment details: Session ID:" + SessionId + ", Baby ID: " + BabyId + ", Patient Number: "+PatientNumber +".",
+    }
+      await sendEmail(options);
       res.status(201).json({ message: "Appointment made successfully", appointment: newAppointment });
     } catch (error) {
       res.status(500).json({ message: "Internal server error", error });
