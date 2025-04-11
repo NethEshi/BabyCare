@@ -23,7 +23,7 @@ const mohSchema = new mongoose.Schema({
         required: true
     },
     RoleId: {
-        type: Number,
+        type: String,
         required: true
     }
 });

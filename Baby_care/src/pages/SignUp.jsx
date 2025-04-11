@@ -14,7 +14,8 @@ function SignUp() {
     District: "",
     Email: "",
     password: "",
-    cfpassword: ""
+    cfpassword: "",
+    RoleId : 1
   });
   const {showSpinner, hideSpinner} = useOverlay();
   const Navigate = useNavigate();
@@ -74,7 +75,7 @@ function SignUp() {
             </div>
             <div className="py-3 space-y-3">
             <label className="text-neutral-700 text-lg font-medium font-poppins" htmlFor="Type">Type</label><br/>
-            <select name="Type" id="Type" className="w-[275px] h-[50px] px-3 bg-neutral-100 border border-zinc-300">
+            <select name="Type" id="Type" className="w-[275px] h-[50px] px-3 bg-neutral-100 border border-zinc-300" onChange={handleChange}>
               <option disabled>Select</option>
               <option value="GOV">GOV</option>
               <option value="PVT">PVT</option>

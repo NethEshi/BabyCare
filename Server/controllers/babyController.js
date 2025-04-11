@@ -1,6 +1,7 @@
 const { get } = require("mongoose");
 const Baby = require("../models/Baby");
 const Clinic = require("../models/Clinic");
+const Weight_Height = require("../models/weight_height");
 
 const babyController = {
   addBaby: async (req, res) => {
@@ -11,6 +12,7 @@ const babyController = {
       const DOB = req.body.DOB;
       const ParentName = req.body.ParentName;
       const ParentEmail = req.body.ParentEmail;
+      const MOHId = req.body.MOHId;
 
       const newBaby = new Baby({
         ID,
@@ -19,6 +21,7 @@ const babyController = {
         DOB,
         ParentName,
         ParentEmail,
+        MOHId
       });
       await newBaby.save();
       res.status(201).json({ message: "Baby added successfully" });
@@ -90,10 +93,21 @@ const babyController = {
     }
   },
 
+  getBabyByMOH: async (req, res) => {
+    try {
+      const MOHId = req.params.MOHId;
+      const baby = await Baby.find({MOHId});
+      res.status(200).json(baby);
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error", error });
+      console.log(error);
+    }
+  },
+
     getBabyByID: async (req, res) => {
         try {
-        const ID = req.body.ID;
-        const baby = await Baby.findById(ID);
+        const _id = req.params.ID;
+        const baby = await Baby.findOne({_id});
         res.status(200).json(baby);
         } catch (error) {
         res.status(500).json({ message: "Internal server error", error });
@@ -157,7 +171,39 @@ const babyController = {
         }
     },
 
+    getBabyData : async (req, res) => {
+        try {
+        const ID = req.params.ID;
+        const baby = await Baby.findOne({ID});
+        if(!baby) {
+            return res.status(404).json({ message: "No baby found" });
+        }
+        const weightHeightData = await Weight_Height.findOne({ ID });
+        if (!weightHeightData) {
+            return res.status(404).json({ message: "No weight and height data found" });
+        }
 
+        const weightsByMonth = Array(12).fill(0);
+        const heightsByMonth = Array(12).fill(0);
+        const currentYear = new Date().getFullYear();
+
+        weightHeightData.Dates.forEach((date, index) => {
+            const dateObj = new Date(date);
+            const month = dateObj.getMonth();
+            const year = dateObj.getFullYear();
+
+            if (year === currentYear) {
+          weightsByMonth[month] = weightHeightData.Weights[index] || 0;
+          heightsByMonth[month] = weightHeightData.Heights[index] || 0;
+            }
+        });
+
+        res.status(200).json({ weightsByMonth, heightsByMonth });
+        } catch (error) {
+        res.status(500).json({ message: "Internal server error", error });
+        console.log(error);
+        }
+    },
 };
 
 module.exports = babyController;

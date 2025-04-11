@@ -190,7 +190,7 @@ function BMI() {
   return (
     <>
       <div className="px-[2%] w-[100%] text-Ash">
-        <form>
+        <form className={`${location.pathname.includes("parentDashboard") ? "hidden" : ""}`}>
           <div className="flex space-x-5 w-[100%]">
             <div className="bg-light-pink p-5 border-2 rounded-xl w-full">
               <div className="bg-white border-2 rounded-xl p-2">

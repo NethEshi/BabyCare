@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+const vaccineNotification = require('./schedulers/vaccineNotification');
+
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -37,7 +39,9 @@ const vaccinationRouter = require('./routes/vaccinationRoute');
 app.use('/vaccination', vaccinationRouter);
 
 mongoose.connect(url)
-.then(() => console.log("MongoDB is connected..."))
+.then(() => {console.log("MongoDB is connected...")
+    vaccineNotification();
+})
 .catch((err) => console.log(err));
 
 app.listen(PORT, () => {

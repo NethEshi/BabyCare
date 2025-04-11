@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useLocation, Outlet } from "react-router-dom";
 import FeatherIcon from "feather-icons-react";
 function HealthReport() {

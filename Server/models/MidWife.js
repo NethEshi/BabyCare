@@ -18,29 +18,34 @@ const midWifeSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    Area: {
-        type: String,
-        required: true
-    },
     Email: {
         type: String,
         required: true
     },
     Contact: {
-        type: Number,
+        type: String,
         required: true
     },
     RoleId: {
-        type: Number,
+        type: String,
         required: true
     },
     Password: {
+        default: "passwordNotSet",
+        type: String,
+        required: false
+    },
+    MOHId: {
         type: String,
         required: true
     },
-    MOHId : {
+    Address: {
         type: String,
-        required: true
+        required: false
+    },
+    District: {
+        type: String,
+        required: false
     },
 
 });

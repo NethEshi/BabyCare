@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import AddBaby from "../AddBaby";
+import AddBaby from "../../components/overlays/AddBaby";
 import axios from "axios";
 import PageNumber from "../../components/PageNumber";
 import { useDispatch } from "react-redux";
@@ -12,6 +12,7 @@ import { useOverlay } from "../../components/context/OverlayContext";
 const MidWifeHome = () => {
   const [babyList, setBabyList] = useState([]);
   const [overlay, setOverlay] = useState(false);
+  const MOHId = JSON.parse(localStorage.getItem("MOHId"));
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { showSpinner, hideSpinner } = useOverlay();
@@ -19,7 +20,7 @@ const MidWifeHome = () => {
   useEffect(() => {
     showSpinner();
     axios
-      .get("http://localhost:5000/baby/getBaby")
+      .get(`http://localhost:5000/baby/getBabyByMOH/${MOHId}`)
       .then((response) => {
         console.log(response);
         setBabyList(response.data);
@@ -38,10 +39,9 @@ const MidWifeHome = () => {
 
   const calculateAge = (DOB) => {
     const dob = new Date(DOB);
-    const diff_ms = Date.now() - dob.getTime();
-    const age_dt = new Date(diff_ms);
-    const months = age_dt.getUTCMonth() + 1;
-    return months;
+    const now = new Date();
+    const months = (now.getFullYear() - dob.getFullYear()) * 12 + (now.getMonth() - dob.getMonth());
+    return months >= 0 ? months : 0;
   };
 
   const viewBaby = (baby) => {
@@ -57,7 +57,15 @@ const MidWifeHome = () => {
       {!location.pathname.includes("BabyProfile") && (
         <>
           <hr />
-          <div className=" flex justify-center pt-20 px-20">
+          <div className="pt-20 px-20">
+          <div className="flex justify-end font-semibold pb-5">
+            <button
+              className=" rounded-full bg-NavyBlue text-white font-bold font-poppins p-3 hover:scale-105 "
+              onClick={handleOverlay}
+            >
+              Register a New Baby
+            </button>
+          </div>
             <table className="w-full">
               <thead>
                 <tr className="bg-gray-100">
@@ -90,14 +98,6 @@ const MidWifeHome = () => {
                 })}
               </tbody>
             </table>
-          </div>
-          <div className=" absolute top-[10%] right-[5%]">
-            <button
-              className=" rounded-full bg-NavyBlue text-white font-bold font-poppins p-3 hover:scale-105 "
-              onClick={handleOverlay}
-            >
-              Register a New Baby
-            </button>
           </div>
           <div className=" absolute bottom-[5%] right-[5%]">
             <PageNumber />

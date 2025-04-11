@@ -1,6 +1,4 @@
 import React from "react";
-import DashboardSideBar from "../../components/midWife/DashboardSideBar";
-import DashNav from "../../components/DashNav";
 import { useSelector } from "react-redux";
 import BabyNavBar from "../../components/midWife/BabyNavBar";
 import { Outlet } from "react-router-dom";

@@ -116,7 +116,7 @@ function Clinics() {
         <div>
           <div className="pb-5">
             <button
-              className="bg-NavyBlue text-white p-2 rounded-xl"
+              className={`bg-NavyBlue text-white p-2 rounded-xl ${location.pathname.includes("parentDashboard") ? "hidden" : ""}`}
               onClick={onNewData}
             >
               Schedule a new date
@@ -146,7 +146,7 @@ function Clinics() {
                       </button>
                       <button
                         className=""
-                        onClick={() => onEdit(clinic, index)}
+                        onClick={() => onEdit(clinic, index)} disabled={location.pathname.includes("parentDashboard")}
                       >
                         <FeatherIcon icon="edit-3" />
                       </button>

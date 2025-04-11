@@ -26,7 +26,10 @@ export default {
         'light-pink' : "#F4F7FE",
         'normal-pink' : "#C9D9FC",
         'disable-gray' : "D1D1D1",
-        'blueF' : '#0D2B71'
+        'blueF' : '#0D2B71',
+        'margin-blue' : '#DDE3F0',
+        'white' : '#FFFFFF',
+        'margin' : '#CCCCCC'
       },
       fontFamily: {
         Inter: ["Inter", "sans-serif"],
